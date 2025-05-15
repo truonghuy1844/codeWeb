@@ -309,7 +309,8 @@ CREATE  PROCEDURE upsert_product
 AS
 BEGIN
     SET NOCOUNT ON;
-
+	IF EXISTS (SELECT 1 FROM user_tb WHERE user_id = @user_id AND (seller = 1 OR admin = 1 ))
+	BEGIN
     -- Kiểm tra sản phẩm đã tồn tại
     IF EXISTS (SELECT 1 FROM product WHERE product_id = @product_id)
     BEGIN
@@ -382,7 +383,10 @@ BEGIN
         );
     END
 END
-
+BEGIN
+        RAISERROR(N'Bạn không phải người bán hoặc không đúng người bán của sản phẩm.', 16, 1);
+    END
+END
  GO
 
 
@@ -409,7 +413,7 @@ CREATE PROCEDURE upsert_promotion_and_assign
     @group_tb_cond VARCHAR(25) = NULL,
     @rank_cond INT = NULL,
     @status BIT = 1,
-    
+    @user_id int,
     @list_product_ids NVARCHAR(MAX) = '',
     @list_category_ids NVARCHAR(MAX) = '',
     @list_brand_ids NVARCHAR(MAX) = '',
@@ -417,7 +421,8 @@ CREATE PROCEDURE upsert_promotion_and_assign
 AS
 BEGIN
     SET NOCOUNT ON;
-
+	IF EXISTS (SELECT 1 FROM user_tb WHERE user_id = @user_id AND (seller = 1 OR admin = 1 ))
+	BEGIN
     -- Kiểm tra tồn tại
     IF EXISTS (SELECT 1 FROM promotion WHERE promotion_id = @promotion_id)
     BEGIN
@@ -508,6 +513,10 @@ BEGIN
         ON TRIM(s.value) IN (p.group_tb_1, p.group_tb_2, p.group_tb_3, p.group_tb_4)
     WHERE TRIM(s.value) <> '';
 END
+BEGIN
+        RAISERROR(N'Bạn không phải admin, không có quyền thêm promotion.', 16, 1);
+    END
+END
 
 
 
@@ -530,11 +539,13 @@ CREATE  PROCEDURE upsert_product_in
     @name NVARCHAR(75),
     @name2 NVARCHAR(75) = NULL,
     @quantity INT,
-    @cost MONEY
+    @cost MONEY,
+	@user_id int
 AS
 BEGIN
     SET NOCOUNT ON;
-
+	IF EXISTS (SELECT 1 FROM user_tb WHERE user_id = @user_id AND (seller = 1 OR admin = 1 ))
+	BEGIN
     -- Kiểm tra số lượng nhập > 0
     IF @quantity <= 0
     BEGIN
@@ -602,6 +613,10 @@ BEGIN
     ELSE
     BEGIN
         RAISERROR(N'Sản phẩm không còn hoạt động hoặc không tồn tại.', 16, 1);
+    END
+END
+BEGIN
+        RAISERROR(N'Bạn không phải người bán hoặc không đúng người bán sản phẩm.', 16, 1);
     END
 END
 Go
@@ -1630,11 +1645,13 @@ GO
 ------- Khi cập nhật brand.status = 0 thì cập nhật luôn product.status = 0
 CREATE  PROCEDURE sp_UpdateBrandStatus
     @brand_id VARCHAR(25),
-    @new_status BIT
+    @new_status BIT,
+	@user_id int
 AS
 BEGIN
     SET NOCOUNT ON;
-
+	IF EXISTS (SELECT 1 FROM user_tb WHERE user_id = @user_id AND ( admin = 1 ))
+	BEGIN
     BEGIN TRY
         BEGIN TRAN;
 
@@ -1660,6 +1677,7 @@ BEGIN
         DECLARE @Err NVARCHAR(4000) = ERROR_MESSAGE();
         RAISERROR(@Err, 16, 1);
     END CATCH
+END
 END
 GO
 go

@@ -190,7 +190,8 @@ CREATE OR ALTER PROCEDURE sp_get_orders_by_buyer
     @from_date DATE = NULL,
     @to_date DATE = NULL,
     @order_id VARCHAR(25) = '',
-	@status int = -1
+	@status int = -1,
+	@admin bit = 0
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -223,7 +224,7 @@ BEGIN
         o.pro_discount,
         o.description
     FROM order_tb o
-    WHERE (o.buyer = @buyer_id OR @buyer_id = -1)
+    WHERE ((o.buyer = @buyer_id OR @buyer_id = -1) OR @admin = 1)
       AND (@from_date IS NULL OR o.date_created >= @from_date)
       AND (@to_date IS NULL OR o.date_created <= @to_date)
       AND (@order_id = '' OR @order_id = o.order_id)

@@ -143,6 +143,8 @@ CREATE PROCEDURE sp_DeleteRating
 AS
 BEGIN
 SET NOCOUNT ON;
+	IF EXISTS (SELECT 1 FROM user_tb WHERE user_id = @user_id AND ( admin = 1 ))
+	BEGIN
 	BEGIN TRY  
     IF @product_id IS NULL AND @user_id IS NULL  
     BEGIN  
@@ -160,7 +162,10 @@ BEGIN CATCH
     DECLARE @ErrMsg NVARCHAR(4000) = ERROR_MESSAGE();  
     RAISERROR(@ErrMsg, 16, 1);  
 END CATCH  
-
+END
+	 BEGIN
+        RAISERROR(N'Bạn không phải admin hoặc không phải người rate, không thể xóa', 16, 1);
+    END
 END;
 GO
 
