@@ -87,10 +87,7 @@ GO
 CREATE OR ALTER PROCEDURE sp_filter_product_inventory
     @product_id VARCHAR(25) = '',
     @category_id VARCHAR(25) = '',
-    @group1 VARCHAR(25) = '',
-    @group2 VARCHAR(25) = '',
-    @group3 VARCHAR(25) = '',
-    @group4 VARCHAR(25) = '',
+    @group VARCHAR(25) = '',
     @product_name NVARCHAR(75) = '',
     @price_from MONEY = NULL,
     @price_to MONEY = NULL,
@@ -115,10 +112,7 @@ BEGIN
     WHERE 
         (@product_id = '' OR v.product_id LIKE '%' + @product_id + '%') AND
         (@category_id = '' OR v.category_id = @category_id) AND
-        (@group1 = '' OR v.group_tb_1 = @group1) AND
-        (@group2 = '' OR v.group_tb_2 = @group2) AND
-        (@group3 = '' OR v.group_tb_3 = @group3) AND
-        (@group4 = '' OR v.group_tb_4 = @group4) AND
+        (@group = '' OR v.group_tb_1 = @group OR v.group_tb_2 = @group OR v.group_tb_3 = @group OR v.group_tb_4 = @group) AND
         v.pro_status = 1 AND v.brand_status = 1 AND
         (
             @product_name = '' 
@@ -195,6 +189,18 @@ CREATE OR ALTER PROCEDURE sp_get_orders_by_buyer
 AS
 BEGIN
     SET NOCOUNT ON;
+	IF @admin = 1
+BEGIN
+	-----out1: Kiểm tra quyền admin để truy vấn
+	IF NOT EXISTS (
+        SELECT 1 FROM user_tb WHERE usert_id = @buyer_id AND admin = 1)
+	BEGIN
+ 		SET @admin = 0
+		SELECT (N'Người dùng không có quyền admin, tải đơn hàng theo người mua') as message, 0 As status_query;
+	END
+	ELSE SELECT (N'Truy vấn quyền admin, tải tất cả đơn hàng') as message, 1 As status_query;
+
+END
 
     -- Tạo bảng tạm để lưu trữ danh sách đơn hàng
     CREATE TABLE #OrderList (
@@ -224,16 +230,16 @@ BEGIN
         o.pro_discount,
         o.description
     FROM order_tb o
-    WHERE ((o.buyer = @buyer_id OR @buyer_id = -1) OR @admin = 1)
+    WHERE (o.buyer = @buyer_id OR @buyer_id = -1 OR @admin = 1)
       AND (@from_date IS NULL OR o.date_created >= @from_date)
       AND (@to_date IS NULL OR o.date_created <= @to_date)
       AND (@order_id = '' OR @order_id = o.order_id)
 	  AND (o.status = @status OR @status = -1)
     ORDER BY date_created DESC;
----- Output 1: Danh sách đơn hàng
+---- Output 2: Danh sách đơn hàng
     SELECT * FROM #OrderList;
 
-    -- Output 2: Chi tiết sản phẩm trong đơn hàng
+    -- Output 3: Chi tiết sản phẩm trong đơn hàng
     SELECT
         od.order_id,
         od.product_id,
@@ -340,6 +346,8 @@ Go
 
 CREATE OR ALTER PROCEDURE sp_get_invoice_details
     @invoice_id VARCHAR(25) = '',
+	@buyer_id int = -1,
+	@seller_id int = -1,
 	@order_id VARCHAR(25) = '',
     @date_invoice_from DATE = NULL,
     @date_invoice_to DATE = NULL,
@@ -375,6 +383,8 @@ BEGIN
     LEFT JOIN payment_method pm ON i.method = pm.method_id
     WHERE 
         (@invoice_id = '' OR i.invoice_id = @invoice_id) AND
+	(@seller_id = -1 OR o.seller = @seller_id) AND
+	(@buyer_id = -1 OR o.buyer = @buyer_id) AND
 		(@order_id = '' OR o.order_id = @invoice_id) AND
         (@method = '' OR i.method = @method) AND
         (@status = -1 OR i.status = @status) AND
