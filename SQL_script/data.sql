@@ -157,3 +157,115 @@ INSERT INTO promotion_product (
     ('promo001', 'prd03'),
     ('promo002', 'prd04'),
     ('promo003', 'prd02');
+
+Go
+-- Insert data into user_tb (user_id sẽ tự động tăng từ 1)
+INSERT INTO user_tb (user_name, password, admin, buyer, seller, rank, ban, freeze, notify, date_created, status)
+VALUES 
+('user401', 'password123', 0, 1, 0, 1, 0, 0, 1, '2024-01-15', 1),
+('admin402', 'adminpass456', 1, 1, 1, 5, 0, 0, 1, '2024-01-16', 1),
+('seller403', 'sellerpwd789', 0, 1, 1, 3, 0, 0, 1, '2024-01-17', 1),
+('buyer404', 'buyerpwd321', 0, 1, 0, 2, 0, 0, 0, '2024-01-18', 1);
+
+-- Insert data into user_tb2 (sử dụng user_id từ bảng user_tb)
+INSERT INTO user_tb2 (user_id, name, name2, birthday, phone_number, address, email, social_url1, social_url2, social_url3, logo_url)
+VALUES 
+(1, N'Nguyễn Văn A', N'Nguyen Van A', '1990-05-15', '0901234567', N'123 Đường ABC, Quận 1, TP.HCM', 'nguyenvana@email.com', 'https://facebook.com/nguyenvana', 'https://instagram.com/nguyenvana', NULL, 'https://example.com/logo1.jpg'),
+(2, N'Trần Thị B', N'Tran Thi B', '1985-08-22', '0902345678', N'456 Đường DEF, Quận 2, TP.HCM', 'tranthib@email.com', 'https://facebook.com/tranthib', NULL, 'https://twitter.com/tranthib', 'https://example.com/logo2.jpg'),
+(3, N'Lê Văn C', N'Le Van C', '1992-03-10', '0903456789', N'789 Đường GHI, Quận 3, TP.HCM', 'levanc@email.com', 'https://facebook.com/levanc', 'https://instagram.com/levanc', 'https://linkedin.com/levanc', 'https://example.com/logo3.jpg'),
+(4, N'Phạm Thị D', N'Pham Thi D', '1988-12-05', '0904567890', N'321 Đường JKL, Quận 4, TP.HCM', 'phamthid@email.com', 'https://facebook.com/phamthid', NULL, NULL, 'https://example.com/logo4.jpg');
+
+-- Insert data into category
+INSERT INTO category (category_id, category_name, category_name2, description, status)
+VALUES 
+('4001', N'Đồ chơi giáo dục', 'Educational Toys', N'Đồ chơi phát triển trí tuệ và kỹ năng học tập', 1),
+('4002', N'Đồ chơi vận động', 'Active Play Toys', N'Đồ chơi khuyến khích hoạt động thể chất', 1),
+('4003', N'Đồ chơi sáng tạo', 'Creative Toys', N'Đồ chơi phát triển khả năng sáng tạo và nghệ thuật', 1),
+('4004', N'Đồ chơi mô hình', 'Model Toys', N'Mô hình xe, máy bay, robot và các nhân vật', 1);
+
+-- Insert data into group_tb
+INSERT INTO group_tb (group_tb_id, group_tb_name, group_tb_name2, type, description, status)
+VALUES 
+('4101', N'Xếp hình - Lắp ráp', 'Building & Construction', 1, N'Lego, xếp hình, đồ chơi lắp ráp', 1),
+('4102', N'Xe đạp - Xe trượt', 'Bikes & Scooters', 2, N'Xe đạp trẻ em, xe trượt, xe cân bằng', 1),
+('4103', N'Đất nặn - Vẽ vời', 'Arts & Crafts', 3, N'Đất nặn, bút màu, dụng cụ vẽ', 1),
+('4104', N'Robot - Transformer', 'Robots & Transformers', 4, N'Robot điều khiển, transformer, mô hình biến hình', 1);
+
+-- Insert data into brand
+INSERT INTO brand (brand_id, brand_name, brand_name2, description, status)
+VALUES 
+('4201', N'LEGO', 'LEGO', N'Thương hiệu đồ chơi xếp hình nổi tiếng', 1),
+('4202', N'Fisher-Price', 'Fisher-Price', N'Thương hiệu đồ chơi trẻ em hàng đầu', 1),
+('4203', N'Hasbro', 'Hasbro', N'Thương hiệu đồ chơi và trò chơi quốc tế', 1),
+('4204', N'VTech', 'VTech', N'Thương hiệu đồ chơi công nghệ giáo dục', 1);
+
+-- Insert data into product
+INSERT INTO product (product_id, name, name2, description, brand_id, category_id, group_tb_1, group_tb_2, uom, price1, date_apply1, price2, date_apply2, url_image1, url_image2, url_image3, user_id, status)
+VALUES 
+('4301', N'LEGO City Sở Cứu hỏa', 'LEGO City Fire Station', N'Bộ xếp hình sở cứu hỏa với 509 mảnh ghép', '4201', '4001', '4101', NULL, N'Bộ', 2890000, '2024-01-01', 2590000, '2024-02-01', 'https://example.com/lego-fire-station-1.jpg', 'https://example.com/lego-fire-station-2.jpg', NULL, '3', 1),
+('4302', N'Xe đạp trẻ em Fisher-Price 16 inch', 'Fisher-Price Kids Bike 16"', N'Xe đạp cho trẻ từ 4-7 tuổi có bánh phụ', '4202', '4002', '4102', NULL, N'Chiếc', 3200000, '2024-01-01', 2850000, '2024-02-15', 'https://example.com/fisher-bike-1.jpg', 'https://example.com/fisher-bike-2.jpg', 'https://example.com/fisher-bike-3.jpg', '3', 1),
+('4303', N'Bộ đất nặn Play-Doh 12 màu', 'Play-Doh 12 Color Pack', N'Bộ đất nặn an toàn với 12 màu cơ bản', '4203', '4003', '4103', NULL, N'Bộ', 450000, '2024-01-01', 390000, '2024-03-01', 'https://example.com/playdoh-12-1.jpg', 'https://example.com/playdoh-12-2.jpg', NULL, '3', 1),
+('4304', N'Robot Transformer Optimus Prime', 'Transformers Optimus Prime', N'Robot biến hình thành xe tải', '4203', '4004', '4104', NULL, N'Cái', 1890000, '2024-01-01', NULL, NULL, 'https://example.com/optimus-prime-1.jpg', NULL, NULL, '3', 1);
+
+-- Insert data into product_in
+INSERT INTO product_in (pi_id, product_id, date_created, date_start, date_end, name, name2, quantity, cost)
+VALUES 
+('4401', '4301', '2024-01-01 08:00:00', '2024-01-01 08:00:00', '2024-12-31 23:59:59', N'Nhập kho LEGO Fire Station - Lô 1', 'LEGO Fire Station Import Batch 1', 30, 2200000),
+('4402', '4302', '2024-01-01 09:00:00', '2024-01-01 09:00:00', '2024-12-31 23:59:59', N'Nhập kho Xe đạp Fisher-Price - Lô 1', 'Fisher-Price Bike Import Batch 1', 15, 2400000),
+('4403', '4303', '2024-01-01 10:00:00', '2024-01-01 10:00:00', '2024-12-31 23:59:59', N'Nhập kho Play-Doh 12 màu - Lô 1', 'Play-Doh 12 Colors Import Batch 1', 80, 320000),
+('4404', '4304', '2024-01-01 11:00:00', '2024-01-01 11:00:00', '2024-12-31 23:59:59', N'Nhập kho Optimus Prime - Lô 1', 'Optimus Prime Import Batch 1', 25, 1400000);
+
+-- Insert data into promotion
+INSERT INTO promotion (promotion_id, promotion_name, promotion_name2, type, calculate, date_created, date_start, date_end, value, quantity, description, quan_cond, val_cond, oder_tb_cond, group_tb_cond, rank_cond, status)
+VALUES 
+('4501', N'Khuyến mãi Tháng Thiếu nhi', 'Children Month Sale', 1, 1, '2024-05-01', '2024-05-15', '2024-06-15', 15, 500, N'Giảm giá 15% nhân dịp Tháng Thiếu nhi', 1, 500000, 1, '4101', 1, 1),
+('4502', N'Flash Sale Đồ chơi vận động', 'Active Toys Flash Sale', 2, 2, '2024-02-01', '2024-02-10', '2024-02-12', 300000, 100, N'Giảm 300k cho đồ chơi vận động', 1, 2000000, 1, '4102', 2, 1),
+('4503', N'Mua 2 tặng 1 - Đồ chơi sáng tạo', 'Buy 2 Get 1 Creative Toys', 3, 3, '2024-03-01', '2024-03-10', '2024-03-20', 1, 200, N'Mua 2 đồ chơi sáng tạo tặng 1', 2, 800000, 1, '4103', 1, 1),
+('4504', N'Ưu đãi Robot - Transformer', 'Robot Transformer Sale', 1, 1, '2024-04-01', '2024-04-01', '2024-04-30', 20, 50, N'Giảm 20% cho robot và transformer', 1, 1500000, 2, '4104', 3, 1);
+
+-- Insert data into promotion_product
+INSERT INTO promotion_product (promotion_id, product_id, status)
+VALUES 
+('4501', '4301', 1),
+('4501', '4302', 1),
+('4502', '4301', 1),
+('4502', '4302', 1),
+('4503', '4303', 1),
+('4504', '4301', 1),
+('4504', '4302', 1),
+('4504', '4304', 1);
+
+GO
+
+INSERT INTO payment_method (method_id, name, type, description, date_created, fee_rate, url, logo_url, bank, num_account, name_account, refund, sort, status)
+VALUES 
+('4601', N'Chuyển khoản ngân hàng', 1, N'Thanh toán qua chuyển khoản ngân hàng', '2024-01-01 08:00:00', 0, 'https://vietcombank.com.vn', 'https://example.com/vcb-logo.png', N'Vietcombank', 1234567890, N'Cửa hàng đồ chơi ABC', 1, 1, 1),
+('4602', N'Ví điện tử MoMo', 2, N'Thanh toán qua ví MoMo', '2024-01-01 08:30:00', 1, 'https://momo.vn', 'https://example.com/momo-logo.png', NULL, NULL, NULL, 1, 2, 1),
+('4603', N'Thẻ tín dụng/ghi nợ', 3, N'Thanh toán bằng thẻ Visa/Mastercard', '2024-01-01 09:00:00', 2, 'https://payment.gateway.com', 'https://example.com/visa-logo.png', NULL, NULL, NULL, 1, 3, 1),
+('4604', N'Thanh toán khi nhận hàng (COD)', 4, N'Thanh toán tiền mặt khi nhận hàng', '2024-01-01 09:30:00', 0, NULL, 'https://example.com/cod-logo.png', NULL, NULL, NULL, 0, 4, 1);
+
+-- Insert data into address
+INSERT INTO address (address_id, name, phone, description, country, city, district, ward, street, detail, user_id, status)
+VALUES 
+('4701', N'Nguyễn Văn A', '0901234567', N'Địa chỉ giao hàng chính', N'Việt Nam', N'TP. Hồ Chí Minh', N'Quận 1', N'Phường Bến Nghé', N'Đường Lê Lợi', N'Số 123, Tầng 2', '4', 1),
+('4702', N'Trần Thị B - Văn phòng', '0902345678', N'Địa chỉ văn phòng làm việc', N'Việt Nam', N'TP. Hồ Chí Minh', N'Quận 2', N'Phường Thảo Điền', N'Đường Xa lộ Hà Nội', N'Tòa nhà ABC, Tầng 15', '5', 1),
+('4703', N'Lê Văn C - Nhà riêng', '0903456789', N'Địa chỉ nhà riêng cuối tuần', N'Việt Nam', N'TP. Hồ Chí Minh', N'Quận 3', N'Phường Võ Thị Sáu', N'Đường Cách Mạng Tháng 8', N'Số 789, Hẻm 25', '6', 1),
+('4704', N'Phạm Thị D', '0904567890', N'Địa chỉ giao hàng cho con', N'Việt Nam', N'TP. Hồ Chí Minh', N'Quận 4', N'Phường 18', N'Đường Nguyễn Tất Thành', N'Chung cư XYZ, Căn 1205', '7', 1);
+
+-- Insert data into rating
+INSERT INTO rating (product_id, user_id, date_created, rate, description)
+VALUES 
+('4301', 1, '2024-02-15', 5, N'Bộ LEGO rất chất lượng, con tôi rất thích. Hướng dẫn lắp ráp dễ hiểu, sản phẩm đúng như mô tả.'),
+('4301', 2, '2024-02-20', 4, N'Đồ chơi tốt, chỉ có điều giá hơi cao. Nhưng chất lượng xứng đáng với giá tiền.'),
+('4302', 3, '2024-03-01', 5, N'Xe đạp rất chắc chắn, con tôi 5 tuổi đi rất vừa. Bánh phụ tháo lắp dễ dàng.'),
+('4303', 4, '2024-03-10', 4, N'Đất nặn mềm, không độc hại. Màu sắc đẹp, con thích làm nhiều hình dạng khác nhau.');
+
+-- Insert data into support (lưu ý: bảng order_tb chưa được định nghĩa nên để order_id = NULL)
+INSERT INTO support (support_id, user_ask, ask, date_ask, product_id, order_id, user_answer, answer, date_answer, support_in)
+VALUES 
+('4801', 1, N'Xin hỏi bộ LEGO này có phù hợp với trẻ 6 tuổi không ạ?', '2024-01-20 10:30:00', '4301', NULL, 2, N'Chào bạn! Bộ LEGO City này phù hợp cho trẻ từ 5-12 tuổi. Trẻ 6 tuổi có thể chơi được với sự hỗ trợ của người lớn.', '2024-01-20 11:15:00', NULL),
+('4802', 3, N'Xe đạp này có bảo hành bao lâu vậy ạ?', '2024-02-05 14:20:00', '4302', NULL, 2, N'Xe đạp Fisher-Price được bảo hành 12 tháng về lỗi kỹ thuật và 6 tháng về phụ kiện.', '2024-02-05 15:00:00', NULL),
+('4803', 4, N'Đất nặn này có an toàn cho trẻ nhỏ không?', '2024-02-25 09:45:00', '4303', NULL, 2, N'Đất nặn Play-Doh hoàn toàn an toàn, không chứa chất độc hại. Tuy nhiên cần giám sát trẻ dưới 3 tuổi khi chơi.', '2024-02-25 10:20:00', NULL),
+('4804', 1, N'Robot Optimus Prime này có pin kèm theo không ạ?', '2024-03-15 16:00:00', '4304', NULL, 2, N'Robot không kèm theo pin. Bạn cần mua thêm 3 pin AA để robot có thể phát âm thanh và ánh sáng.', '2024-03-15 16:30:00', NULL);
+
+GO
