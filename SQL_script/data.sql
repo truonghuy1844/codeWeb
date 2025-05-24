@@ -183,13 +183,17 @@ VALUES
 ('4003', N'Đồ chơi sáng tạo', 'Creative Toys', N'Đồ chơi phát triển khả năng sáng tạo và nghệ thuật', 1),
 ('4004', N'Đồ chơi mô hình', 'Model Toys', N'Mô hình xe, máy bay, robot và các nhân vật', 1);
 
--- Insert data into group_tb
 INSERT INTO group_tb (group_tb_id, group_tb_name, group_tb_name2, type, description, status)
 VALUES 
 ('4101', N'Xếp hình - Lắp ráp', 'Building & Construction', 1, N'Lego, xếp hình, đồ chơi lắp ráp', 1),
 ('4102', N'Xe đạp - Xe trượt', 'Bikes & Scooters', 2, N'Xe đạp trẻ em, xe trượt, xe cân bằng', 1),
 ('4103', N'Đất nặn - Vẽ vời', 'Arts & Crafts', 3, N'Đất nặn, bút màu, dụng cụ vẽ', 1),
-('4104', N'Robot - Transformer', 'Robots & Transformers', 4, N'Robot điều khiển, transformer, mô hình biến hình', 1);
+('4104', N'Robot - Transformer', 'Robots & Transformers', 4, N'Robot điều khiển, transformer, mô hình biến hình', 1),
+('4105', N'Búp bê - Thú nhồi bông', 'Dolls & Plush Toys', 1, N'Búp bê, gấu bông, thú nhồi bông các loại', 1),
+('4106', N'Đồ chơi âm nhạc', 'Musical Toys', 3, N'Piano, guitar, trống cho trẻ em', 1),
+('4107', N'Đồ chơi bể bơi', 'Water & Pool Toys', 2, N'Phao bơi, đồ chơi nước, bể bơi mini', 1),
+('4108', N'Đồ chơi khoa học', 'Science Toys', 1, N'Bộ thí nghiệm, kính hiển vi, đồ chơi STEM', 1),
+('4109', N'Xe mô hình', 'Model Cars', 4, N'Xe ô tô mô hình, xe điều khiển từ xa', 1);
 
 -- Insert data into brand
 INSERT INTO brand (brand_id, brand_name, brand_name2, description, status)
@@ -199,21 +203,29 @@ VALUES
 ('4203', N'Hasbro', 'Hasbro', N'Thương hiệu đồ chơi và trò chơi quốc tế', 1),
 ('4204', N'VTech', 'VTech', N'Thương hiệu đồ chơi công nghệ giáo dục', 1);
 
--- Insert data into product
 INSERT INTO product (product_id, name, name2, description, brand_id, category_id, group_tb_1, group_tb_2, uom, price1, date_apply1, price2, date_apply2, url_image1, url_image2, url_image3, user_id, status)
 VALUES 
 ('4301', N'LEGO City Sở Cứu hỏa', 'LEGO City Fire Station', N'Bộ xếp hình sở cứu hỏa với 509 mảnh ghép', '4201', '4001', '4101', NULL, N'Bộ', 2890000, '2024-01-01', 2590000, '2024-02-01', 'https://example.com/lego-fire-station-1.jpg', 'https://example.com/lego-fire-station-2.jpg', NULL, '3', 1),
 ('4302', N'Xe đạp trẻ em Fisher-Price 16 inch', 'Fisher-Price Kids Bike 16"', N'Xe đạp cho trẻ từ 4-7 tuổi có bánh phụ', '4202', '4002', '4102', NULL, N'Chiếc', 3200000, '2024-01-01', 2850000, '2024-02-15', 'https://example.com/fisher-bike-1.jpg', 'https://example.com/fisher-bike-2.jpg', 'https://example.com/fisher-bike-3.jpg', '3', 1),
 ('4303', N'Bộ đất nặn Play-Doh 12 màu', 'Play-Doh 12 Color Pack', N'Bộ đất nặn an toàn với 12 màu cơ bản', '4203', '4003', '4103', NULL, N'Bộ', 450000, '2024-01-01', 390000, '2024-03-01', 'https://example.com/playdoh-12-1.jpg', 'https://example.com/playdoh-12-2.jpg', NULL, '3', 1),
-('4304', N'Robot Transformer Optimus Prime', 'Transformers Optimus Prime', N'Robot biến hình thành xe tải', '4203', '4004', '4104', NULL, N'Cái', 1890000, '2024-01-01', NULL, NULL, 'https://example.com/optimus-prime-1.jpg', NULL, NULL, '3', 1);
+('4304', N'Robot Transformer Optimus Prime', 'Transformers Optimus Prime', N'Robot biến hình thành xe tải', '4203', '4004', '4104', NULL, N'Cái', 1890000, '2024-01-01', NULL, NULL, 'https://example.com/optimus-prime-1.jpg', NULL, NULL, '3', 1),
+('4305', N'Búp bê Barbie Công chúa', 'Barbie Princess Doll', N'Búp bê Barbie với váy công chúa lộng lẫy', '4203', '4003', '4105', NULL, N'Cái', 890000, '2024-01-01', 790000, '2024-03-15', 'https://example.com/barbie-princess-1.jpg', 'https://example.com/barbie-princess-2.jpg', NULL, '3', 1),
+('4306', N'Piano điện tử VTech 32 phím', 'VTech Electronic Piano 32 Keys', N'Piano điện tử cho trẻ với 32 phím và nhiều âm thanh', '4204', '4001', '4106', NULL, N'Cái', 1250000, '2024-01-01', 1100000, '2024-02-20', 'https://example.com/vtech-piano-1.jpg', 'https://example.com/vtech-piano-2.jpg', 'https://example.com/vtech-piano-3.jpg', '3', 1),
+('4307', N'Phao bơi hình Unicorn', 'Unicorn Pool Float', N'Phao bơi hình kỳ lân cho trẻ em', '4202', '4002', '4107', NULL, N'Cái', 650000, '2024-01-01', 550000, '2024-04-01', 'https://example.com/unicorn-float-1.jpg', 'https://example.com/unicorn-float-2.jpg', NULL, '3', 1),
+('4308', N'Bộ thí nghiệm khoa học mini', 'Mini Science Experiment Kit', N'Bộ dụng cụ thí nghiệm khoa học cho trẻ', '4204', '4001', '4108', NULL, N'Bộ', 980000, '2024-01-01', 850000, '2024-03-10', 'https://example.com/science-kit-1.jpg', 'https://example.com/science-kit-2.jpg', 'https://example.com/science-kit-3.jpg', '3', 1),
+('4309', N'Xe ô tô điều khiển từ xa', 'Remote Control Car', N'Xe ô tô mô hình điều khiển từ xa tỷ lệ 1:18', '4201', '4004', '4109', NULL, N'Cái', 1450000, '2024-01-01', 1250000, '2024-02-28', 'https://example.com/rc-car-1.jpg', 'https://example.com/rc-car-2.jpg', NULL, '3', 1);
 
--- Insert data into product_in
 INSERT INTO product_in (pi_id, product_id, date_created, date_start, date_end, name, name2, quantity, cost)
 VALUES 
 ('4401', '4301', '2024-01-01 08:00:00', '2024-01-01 08:00:00', '2024-12-31 23:59:59', N'Nhập kho LEGO Fire Station - Lô 1', 'LEGO Fire Station Import Batch 1', 30, 2200000),
 ('4402', '4302', '2024-01-01 09:00:00', '2024-01-01 09:00:00', '2024-12-31 23:59:59', N'Nhập kho Xe đạp Fisher-Price - Lô 1', 'Fisher-Price Bike Import Batch 1', 15, 2400000),
 ('4403', '4303', '2024-01-01 10:00:00', '2024-01-01 10:00:00', '2024-12-31 23:59:59', N'Nhập kho Play-Doh 12 màu - Lô 1', 'Play-Doh 12 Colors Import Batch 1', 80, 320000),
-('4404', '4304', '2024-01-01 11:00:00', '2024-01-01 11:00:00', '2024-12-31 23:59:59', N'Nhập kho Optimus Prime - Lô 1', 'Optimus Prime Import Batch 1', 25, 1400000);
+('4404', '4304', '2024-01-01 11:00:00', '2024-01-01 11:00:00', '2024-12-31 23:59:59', N'Nhập kho Optimus Prime - Lô 1', 'Optimus Prime Import Batch 1', 25, 1400000),
+('4405', '4305', '2024-01-02 08:30:00', '2024-01-02 08:30:00', '2024-12-31 23:59:59', N'Nhập kho Búp bê Barbie - Lô 1', 'Barbie Princess Doll Import Batch 1', 40, 650000),
+('4406', '4306', '2024-01-02 09:15:00', '2024-01-02 09:15:00', '2024-12-31 23:59:59', N'Nhập kho Piano VTech - Lô 1', 'VTech Piano Import Batch 1', 20, 900000),
+('4407', '4307', '2024-01-02 10:00:00', '2024-01-02 10:00:00', '2024-08-31 23:59:59', N'Nhập kho Phao bơi Unicorn - Lô mùa hè', 'Unicorn Float Summer Batch', 60, 450000),
+('4408', '4308', '2024-01-02 11:30:00', '2024-01-02 11:30:00', '2024-12-31 23:59:59', N'Nhập kho Bộ thí nghiệm - Lô 1', 'Science Kit Import Batch 1', 35, 720000),
+('4409', '4309', '2024-01-02 14:00:00', '2024-01-02 14:00:00', '2024-12-31 23:59:59', N'Nhập kho Xe điều khiển - Lô 1', 'RC Car Import Batch 1', 25, 1100000);
 
 -- Insert data into promotion
 INSERT INTO promotion (promotion_id, promotion_name, promotion_name2, type, calculate, date_created, date_start, date_end, value, quantity, description, quan_cond, val_cond, oder_tb_cond, group_tb_cond, rank_cond, status)

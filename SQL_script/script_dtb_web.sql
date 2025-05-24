@@ -139,7 +139,7 @@ CREATE TABLE promotion_product (
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
--- Brand table
+
 
 
 -- Tax table
