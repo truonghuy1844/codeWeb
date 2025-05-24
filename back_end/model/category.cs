@@ -26,7 +26,7 @@ namespace back_end.Models
         [Column("description")]
         public string Description { get; set; }
 
-        [Column("status")]
+        [Column("status")]  
         public bool Status { get; set; } = true;
 
         // Navigation property

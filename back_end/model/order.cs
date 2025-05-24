@@ -70,6 +70,7 @@ namespace back_end.Models
         public ICollection<ShipmentDetail> ShipmentDetails { get; set; }
         public ICollection<Support> Supports { get; set; }
     }
+    
     [Table("order_d")]
     public class OrderDetail
     {
