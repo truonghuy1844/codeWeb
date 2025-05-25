@@ -1,6 +1,6 @@
-﻿
-Use web_code
-go
+﻿USE web_code
+GO
+
 
 -- Thêm người dùng
 INSERT INTO user_tb (user_name, password, admin, buyer, seller, date_created)
@@ -58,7 +58,7 @@ VALUES
     ('ord02', '2025-05-01', 3,1),
     ('ord03', '2025-04-30', 1,2),
     ('ord04', '2025-04-29', 3,1);
-SELECT * from product_in
+
 -- Thêm chi tiết đơn hàng
 INSERT INTO order_d (order_id, product_id,pi_id, quantity, cost, price, tax)
 VALUES 
@@ -89,14 +89,13 @@ VALUES ('prd02', 2, '2025-05-02', 5, N'Hài lòng');
 INSERT INTO log_hisory (user_id, date_log, IP, status)
 VALUES (2, '2025-05-02 10:00:00', '192.168.1.1', 1);
 
--- Thêm lịch sử thay đổi
-INSERT INTO change_history (user_id, date_act, type, table_change, old_val, new_val, status)
-VALUES (2, '2025-05-02 12:00:00', 'UPDATE', 'user_tb', 'pass2', 'pass2new', 1);
 
 -- Thêm địa chỉ
-INSERT INTO address (address_id, name, phone, user_id)
-VALUES ('addr01', N'Nhà riêng', '090000002', 2);
 
+
+INSERT INTO address (address_id, name, phone, description, country, city, district, ward, street, detail, user_id, status)
+VALUES 
+('addr01', N'user2', '0901238888', N'Nhà riêng', N'Việt Nam', N'TP. Hồ Chí Minh', N'Quận 3', N'Phường Võ Thị Sáu', N'Đường Võ Thị Sáu', N'Số 123, Tầng 2', '1', 1)
 -- Thêm đơn giao hàng
 INSERT INTO shipment (shipment_id, date_created, order_id, address_id, name_receive, phone_receive)
 VALUES ('ship01', '2025-05-02', 'ord02', 'addr01', N'Người nhận 1', '090000002');
@@ -157,8 +156,8 @@ INSERT INTO promotion_product (
     ('promo001', 'prd03'),
     ('promo002', 'prd04'),
     ('promo003', 'prd02');
+GO
 
-Go
 -- Insert data into user_tb (user_id sẽ tự động tăng từ 1)
 INSERT INTO user_tb (user_name, password, admin, buyer, seller, rank, ban, freeze, notify, date_created, status)
 VALUES 
@@ -170,10 +169,10 @@ VALUES
 -- Insert data into user_tb2 (sử dụng user_id từ bảng user_tb)
 INSERT INTO user_tb2 (user_id, name, name2, birthday, phone_number, address, email, social_url1, social_url2, social_url3, logo_url)
 VALUES 
-(1, N'Nguyễn Văn A', N'Nguyen Van A', '1990-05-15', '0901234567', N'123 Đường ABC, Quận 1, TP.HCM', 'nguyenvana@email.com', 'https://facebook.com/nguyenvana', 'https://instagram.com/nguyenvana', NULL, 'https://example.com/logo1.jpg'),
-(2, N'Trần Thị B', N'Tran Thi B', '1985-08-22', '0902345678', N'456 Đường DEF, Quận 2, TP.HCM', 'tranthib@email.com', 'https://facebook.com/tranthib', NULL, 'https://twitter.com/tranthib', 'https://example.com/logo2.jpg'),
-(3, N'Lê Văn C', N'Le Van C', '1992-03-10', '0903456789', N'789 Đường GHI, Quận 3, TP.HCM', 'levanc@email.com', 'https://facebook.com/levanc', 'https://instagram.com/levanc', 'https://linkedin.com/levanc', 'https://example.com/logo3.jpg'),
-(4, N'Phạm Thị D', N'Pham Thi D', '1988-12-05', '0904567890', N'321 Đường JKL, Quận 4, TP.HCM', 'phamthid@email.com', 'https://facebook.com/phamthid', NULL, NULL, 'https://example.com/logo4.jpg');
+(4, N'Nguyễn Văn A', N'Nguyen Van A', '1990-05-15', '0901234567', N'123 Đường ABC, Quận 1, TP.HCM', 'nguyenvana@email.com', 'https://facebook.com/nguyenvana', 'https://instagram.com/nguyenvana', NULL, 'https://example.com/logo1.jpg'),
+(5, N'Trần Thị B', N'Tran Thi B', '1985-08-22', '0902345678', N'456 Đường DEF, Quận 2, TP.HCM', 'tranthib@email.com', 'https://facebook.com/tranthib', NULL, 'https://twitter.com/tranthib', 'https://example.com/logo2.jpg'),
+(6, N'Lê Văn C', N'Le Van C', '1992-03-10', '0903456789', N'789 Đường GHI, Quận 3, TP.HCM', 'levanc@email.com', 'https://facebook.com/levanc', 'https://instagram.com/levanc', 'https://linkedin.com/levanc', 'https://example.com/logo3.jpg'),
+(7, N'Phạm Thị D', N'Pham Thi D', '1988-12-05', '0904567890', N'321 Đường JKL, Quận 4, TP.HCM', 'phamthid@email.com', 'https://facebook.com/phamthid', NULL, NULL, 'https://example.com/logo4.jpg');
 
 -- Insert data into category
 INSERT INTO category (category_id, category_name, category_name2, description, status)
@@ -205,15 +204,15 @@ VALUES
 
 INSERT INTO product (product_id, name, name2, description, brand_id, category_id, group_tb_1, group_tb_2, uom, price1, date_apply1, price2, date_apply2, url_image1, url_image2, url_image3, user_id, status)
 VALUES 
-('4301', N'LEGO City Sở Cứu hỏa', 'LEGO City Fire Station', N'Bộ xếp hình sở cứu hỏa với 509 mảnh ghép', '4201', '4001', '4101', NULL, N'Bộ', 2890000, '2024-01-01', 2590000, '2024-02-01', 'https://example.com/lego-fire-station-1.jpg', 'https://example.com/lego-fire-station-2.jpg', NULL, '3', 1),
-('4302', N'Xe đạp trẻ em Fisher-Price 16 inch', 'Fisher-Price Kids Bike 16"', N'Xe đạp cho trẻ từ 4-7 tuổi có bánh phụ', '4202', '4002', '4102', NULL, N'Chiếc', 3200000, '2024-01-01', 2850000, '2024-02-15', 'https://example.com/fisher-bike-1.jpg', 'https://example.com/fisher-bike-2.jpg', 'https://example.com/fisher-bike-3.jpg', '3', 1),
-('4303', N'Bộ đất nặn Play-Doh 12 màu', 'Play-Doh 12 Color Pack', N'Bộ đất nặn an toàn với 12 màu cơ bản', '4203', '4003', '4103', NULL, N'Bộ', 450000, '2024-01-01', 390000, '2024-03-01', 'https://example.com/playdoh-12-1.jpg', 'https://example.com/playdoh-12-2.jpg', NULL, '3', 1),
-('4304', N'Robot Transformer Optimus Prime', 'Transformers Optimus Prime', N'Robot biến hình thành xe tải', '4203', '4004', '4104', NULL, N'Cái', 1890000, '2024-01-01', NULL, NULL, 'https://example.com/optimus-prime-1.jpg', NULL, NULL, '3', 1),
-('4305', N'Búp bê Barbie Công chúa', 'Barbie Princess Doll', N'Búp bê Barbie với váy công chúa lộng lẫy', '4203', '4003', '4105', NULL, N'Cái', 890000, '2024-01-01', 790000, '2024-03-15', 'https://example.com/barbie-princess-1.jpg', 'https://example.com/barbie-princess-2.jpg', NULL, '3', 1),
-('4306', N'Piano điện tử VTech 32 phím', 'VTech Electronic Piano 32 Keys', N'Piano điện tử cho trẻ với 32 phím và nhiều âm thanh', '4204', '4001', '4106', NULL, N'Cái', 1250000, '2024-01-01', 1100000, '2024-02-20', 'https://example.com/vtech-piano-1.jpg', 'https://example.com/vtech-piano-2.jpg', 'https://example.com/vtech-piano-3.jpg', '3', 1),
-('4307', N'Phao bơi hình Unicorn', 'Unicorn Pool Float', N'Phao bơi hình kỳ lân cho trẻ em', '4202', '4002', '4107', NULL, N'Cái', 650000, '2024-01-01', 550000, '2024-04-01', 'https://example.com/unicorn-float-1.jpg', 'https://example.com/unicorn-float-2.jpg', NULL, '3', 1),
-('4308', N'Bộ thí nghiệm khoa học mini', 'Mini Science Experiment Kit', N'Bộ dụng cụ thí nghiệm khoa học cho trẻ', '4204', '4001', '4108', NULL, N'Bộ', 980000, '2024-01-01', 850000, '2024-03-10', 'https://example.com/science-kit-1.jpg', 'https://example.com/science-kit-2.jpg', 'https://example.com/science-kit-3.jpg', '3', 1),
-('4309', N'Xe ô tô điều khiển từ xa', 'Remote Control Car', N'Xe ô tô mô hình điều khiển từ xa tỷ lệ 1:18', '4201', '4004', '4109', NULL, N'Cái', 1450000, '2024-01-01', 1250000, '2024-02-28', 'https://example.com/rc-car-1.jpg', 'https://example.com/rc-car-2.jpg', NULL, '3', 1);
+('4301', N'LEGO City Sở Cứu hỏa', 'LEGO City Fire Station', N'Bộ xếp hình sở cứu hỏa với 509 mảnh ghép', '4201', '4001', '4101', NULL, N'Bộ', 2890000, '2024-01-01', 2590000, '2024-02-01', 'https://www.mykingdom.com.vn/cdn/shop/files/60414_763af6ee-d9d7-401d-8959-bf8fd9720504.jpg?v=1725510450&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/products/60414_1-1.jpg?v=1725510463&width=1646', NULL, '3', 1),
+('4302', N'Xe đạp trẻ em Fisher-Price 16 inch', 'Fisher-Price Kids Bike 16"', N'Xe đạp cho trẻ từ 4-7 tuổi có bánh phụ', '4202', '4002', '4102', NULL, N'Chiếc', 3200000, '2024-01-01', 2850000, '2024-02-15', 'https://www.mykingdom.com.vn/cdn/shop/files/5f1878c564cec3fd645e72380694fc6e.jpg?v=1706801340&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/files/eb0b23eb0c8ecc90bcd298dc030df4ad.jpg?v=1706801362&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/files/72b36012edefb68cf7c8bd6219ff8a66.jpg?v=1706801352&width=1646', '3', 1),
+('4303', N'Bộ đất nặn Play-Doh 12 màu', 'Play-Doh 12 Color Pack', N'Bộ đất nặn an toàn với 12 màu cơ bản', '4203', '4003', '4103', NULL, N'Bộ', 450000, '2024-01-01', 390000, '2024-03-01', 'https://www.mykingdom.com.vn/cdn/shop/files/bot-nan-12-mau-mua-xuan-nam-2024-playdoh-e4831-2024_3.png?v=1727145674&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/files/bot-nan-12-mau-mua-xuan-nam-2024-playdoh-e4831-2024_1.png?v=1727145674&width=1646', NULL, '3', 1),
+('4304', N'Robot Transformer Optimus Prime', 'Transformers Optimus Prime', N'Robot biến hình thành xe tải', '4203', '4004', '4104', NULL, N'Cái', 1890000, '2024-01-01', NULL, NULL, 'https://www.mykingdom.com.vn/cdn/shop/products/f7242_1.jpg?v=1718957708&width=1646','https://www.mykingdom.com.vn/cdn/shop/files/0cf9882d0afa6e4ebf01aae31c15bae9.jpg?v=1718956946&width=1646', NULL, '3', 1),
+('4305', N'Búp bê Barbie Công chúa', 'Barbie Princess Doll', N'Búp bê Barbie với váy công chúa lộng lẫy', '4203', '4003', '4105', NULL, N'Cái', 890000, '2024-01-01', 790000, '2024-03-15', 'https://www.mykingdom.com.vn/cdn/shop/products/hpb18-hgp62_1.jpg?v=1718679070&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/products/hpb18-hgp62_3.jpg?v=1718679070&width=1646', NULL, '3', 1),
+('4306', N'Piano điện tử VTech 32 phím', 'VTech Electronic Piano 32 Keys', N'Piano điện tử cho trẻ với 32 phím và nhiều âm thanh', '4204', '4001', '4106', NULL, N'Cái', 1250000, '2024-01-01', 1100000, '2024-02-20','https://www.mykingdom.com.vn/cdn/shop/files/dan-phim-dien-tu-cua-peppa-pig-1684242inf19.jpg?v=1721381974&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/products/618oag2nenl._ac_sl1500__1.jpg?v=1721382484&width=1646',null ,'3', 1),
+('4307', N'Phao bơi hình Cá sấu', 'Crocodile Pool Float', N'Phao bơi hình kỳ lân cho trẻ em', '4202', '4002', '4107', NULL, N'Cái', 650000, '2024-01-01', 550000, '2024-04-01', 'https://www.mykingdom.com.vn/cdn/shop/files/DD08005.jpg?v=1727837483&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/products/dd08005_2_b86bd240-cc12-4af7-8d13-5404d84bddd2.jpg?v=1718679684&width=1646', NULL, '3', 1),
+('4308', N'Bộ thí nghiệm khoa học mini', 'Mini Science Experiment Kit', N'Bộ dụng cụ thí nghiệm khoa học cho trẻ', '4204', '4001', '4108', NULL, N'Bộ', 980000, '2024-01-01', 850000, '2024-03-10', 'https://www.mykingdom.com.vn/cdn/shop/files/do-choi-ong-thi-nghiem-2-sinh-vat-mrbeast-lab-24772.jpg?v=1744949641&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/files/do-choi-ong-thi-nghiem-2-sinh-vat-mrbeast-lab-24772_7.jpg?v=1744949641&width=1646', null, '3', 1),
+('4309', N'Xe ô tô điều khiển từ xa', 'Remote Control Car', N'Xe ô tô mô hình điều khiển từ xa tỷ lệ 1:18', '4201', '4004', '4109', NULL, N'Cái', 1450000, '2024-01-01', 1250000, '2024-02-28', 'https://www.mykingdom.com.vn/cdn/shop/files/xe-r-c-1-24-pagani-zonda-r-mau-trang-r38010.jpg?v=1718266219&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/products/1_24_38010_05_2.jpg?v=1718266241&width=1646', 'https://www.mykingdom.com.vn/cdn/shop/products/img_0026.jpg?v=1718266241&width=1646', '3', 1);
 
 INSERT INTO product_in (pi_id, product_id, date_created, date_start, date_end, name, name2, quantity, cost)
 VALUES 
@@ -251,10 +250,10 @@ GO
 
 INSERT INTO payment_method (method_id, name, type, description, date_created, fee_rate, url, logo_url, bank, num_account, name_account, refund, sort, status)
 VALUES 
-('4601', N'Chuyển khoản ngân hàng', 1, N'Thanh toán qua chuyển khoản ngân hàng', '2024-01-01 08:00:00', 0, 'https://vietcombank.com.vn', 'https://example.com/vcb-logo.png', N'Vietcombank', 1234567890, N'Cửa hàng đồ chơi ABC', 1, 1, 1),
-('4602', N'Ví điện tử MoMo', 2, N'Thanh toán qua ví MoMo', '2024-01-01 08:30:00', 1, 'https://momo.vn', 'https://example.com/momo-logo.png', NULL, NULL, NULL, 1, 2, 1),
-('4603', N'Thẻ tín dụng/ghi nợ', 3, N'Thanh toán bằng thẻ Visa/Mastercard', '2024-01-01 09:00:00', 2, 'https://payment.gateway.com', 'https://example.com/visa-logo.png', NULL, NULL, NULL, 1, 3, 1),
-('4604', N'Thanh toán khi nhận hàng (COD)', 4, N'Thanh toán tiền mặt khi nhận hàng', '2024-01-01 09:30:00', 0, NULL, 'https://example.com/cod-logo.png', NULL, NULL, NULL, 0, 4, 1);
+('4601', N'Chuyển khoản ngân hàng', 1, N'Thanh toán qua chuyển khoản ngân hàng', '2024-01-01 08:00:00', 0, 'https://vietcombank.com.vn', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Vietcombank_logo_fixed.svg/1200px-Vietcombank_logo_fixed.svg.png', N'Vietcombank', 1234567890, N'Cửa hàng đồ chơi ABC', 1, 1, 1),
+('4602', N'Ví điện tử MoMo', 2, N'Thanh toán qua ví MoMo', '2024-01-01 08:30:00', 1, 'https://momo.vn', 'https://play.google.com/store/apps/details?id=com.mservice.momotransfer', NULL, NULL, NULL, 1, 2, 1),
+('4603', N'Thẻ tín dụng/ghi nợ', 3, N'Thanh toán bằng thẻ Visa/Mastercard', '2024-01-01 09:00:00', 2, null, null, NULL, NULL, NULL, 1, 3, 1),
+('4604', N'Thanh toán khi nhận hàng (COD)', 4, N'Thanh toán tiền mặt khi nhận hàng', '2024-01-01 09:30:00', 0, NULL, null, NULL, NULL, NULL, 0, 4, 1);
 
 -- Insert data into address
 INSERT INTO address (address_id, name, phone, description, country, city, district, ward, street, detail, user_id, status)
