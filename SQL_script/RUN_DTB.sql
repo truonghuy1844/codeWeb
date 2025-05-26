@@ -2,28 +2,6 @@
 GO
 USE web_code
 
-
-
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'user_tb2') AND type in (N'P', N'PC'))
-    DROP table user_tb2
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'category') AND type in (N'P', N'PC'))
-    DROP table category
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'group_tb') AND type in (N'P', N'PC'))
-    DROP table group_tb
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'brand') AND type in (N'P', N'PC'))
-    DROP table brand
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'product') AND type in (N'P', N'PC'))
-    DROP table product
-GO
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'user_tb') AND type in (N'P', N'PC'))
-    DROP table user_tb
-go
 -- User table
 CREATE TABLE user_tb(
     user_id INT IDENTITY(1,1) PRIMARY KEY,
