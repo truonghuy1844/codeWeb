@@ -33,16 +33,13 @@ namespace back_end.Controllers
                 IsAdmin = user.IsAdmin,
                 IsBuyer = user.IsBuyer,
                 IsSeller = user.IsSeller,
-                Rank = user.Rank,
-                IsBanned = user.IsBanned,
-                IsFrozen = user.IsFrozen,
-                IsNotify = user.IsNotify,
 
                 // Thông tin từ bảng user_details
                 Name = userDetails?.Name ?? string.Empty,
                 Birthday = userDetails?.Birthday?.ToDateTime(TimeOnly.MinValue),
                 Email = userDetails?.Email ?? string.Empty,
                 PhoneNumber = userDetails?.PhoneNumber ?? string.Empty,
+                Address = userDetails?.Address ?? string.Empty,
             };
             return Ok(userDto);
         }
@@ -57,17 +54,20 @@ namespace back_end.Controllers
                     return BadRequest("Invalid user data.");
                 }
 
-                var user = new User
+                var user = _context.Users.FirstOrDefault(u => u.UserName == dto.UserName);
+                if (user != null)
+                {
+                    return BadRequest($"User {dto.UserName} đã tồn tại");
+                }
+
+                user = new User
                 {
                     UserName = dto.UserName,
                     Password = dto.Password,
                     IsAdmin = dto.IsAdmin,
                     IsBuyer = dto.IsBuyer,
                     IsSeller = dto.IsSeller,
-                    Rank = dto.Rank,
-                    IsBanned = dto.IsBanned,
-                    IsFrozen = dto.IsFrozen,
-                    IsNotify = dto.IsNotify,
+                    Department = dto.Department,
                     DateCreated = DateOnly.FromDateTime(DateTime.Now)
                 };
                 // Lưu thay đổi
@@ -87,7 +87,7 @@ namespace back_end.Controllers
                 _context.UserDetails.Add(userDetails);
                 _context.SaveChanges();
 
-                return Ok(user.UserId);
+                return Ok("Tạo user thành công");
             }
             catch (Exception ex)
             {
@@ -117,10 +117,7 @@ namespace back_end.Controllers
                 user.IsAdmin = dto.IsAdmin;
                 user.IsBuyer = dto.IsBuyer;
                 user.IsSeller = dto.IsSeller;
-                user.Rank = dto.Rank;
-                user.IsBanned = dto.IsBanned;
-                user.IsFrozen = dto.IsFrozen;
-                user.IsNotify = dto.IsNotify;
+                user.Department = dto.Department;
 
                 // Cập nhật thông tin chi tiết người dùng
                 user.UserDetails.Address = dto.Address;
@@ -128,7 +125,6 @@ namespace back_end.Controllers
                 user.UserDetails.Email = dto.Email;
                 user.UserDetails.Name = dto.Name;
                 user.UserDetails.PhoneNumber = dto.PhoneNumber;
-
 
                 // Lưu thay đổi
                 _context.Users.Update(user);
@@ -139,6 +135,33 @@ namespace back_end.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Lỗi khi cập nhật user: {ex.Message}");
+            }
+        }
+        
+        [HttpDelete("delete/{userId}")]
+        public IActionResult DeleteUser(int userId)
+        {
+            try
+            {
+                var user = _context.Users.Find(userId);
+                if (user == null)
+                {
+                    return NotFound($"User with ID {userId} not found.");
+                }
+                // Xóa thông tin chi tiết người dùng nếu có
+                var userDetails = _context.UserDetails.FirstOrDefault(u => u.UserId == userId);
+                if (userDetails != null)
+                {
+                    _context.UserDetails.Remove(userDetails);
+                }
+                // Xóa người dùng
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+                return Ok($"User with ID {userId} deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting user: {ex.Message}");
             }
         }
     }

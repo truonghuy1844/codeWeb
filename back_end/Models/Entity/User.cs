@@ -33,11 +33,11 @@ public partial class User
     public bool IsFrozen { get; set; }
 
     [Column("notify")]
-    public bool IsNotify { get; set; }
+    public bool IsNotify { get; set; } = true;
 
     public DateOnly? DateCreated { get; set; }
 
-    public bool? Status { get; set; }
+    public bool? Status { get; set; } = true;
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
