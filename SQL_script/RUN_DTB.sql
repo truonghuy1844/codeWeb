@@ -906,7 +906,7 @@ BEGIN
     )
     BEGIN
         EXEC sp_InsertLogHistory NULL, @ip_address, 0;
-        SELECT N'Sai tên đăng nhập hoặc mật khẩu' AS message, 0 AS success;
+        SELECT N'Tài khoản không tồn tại' AS message, 0 AS success;
         RETURN;
     END
 
@@ -932,8 +932,8 @@ BEGIN
 
         SELECT 
             CASE 
-                WHEN @ban = 1 THEN N'Tài khoản đã bị chặn'
-                WHEN @freeze = 1 THEN N'Tài khoản đang bị đóng băng'
+                WHEN @ban = 1 THEN N'Tài khoản đã bị khóa'
+                WHEN @freeze = 1 THEN N'Tài khoản đang bị tạm khóa'
             END AS message,
             0 AS success;
         RETURN;
@@ -1649,14 +1649,15 @@ GO
 
 -----Store load danh sách người dùng
 CREATE OR ALTER PROCEDURE sp_get_list_user_tb
-    @user_id int
+    @user_id int,
+	@admin bit = 0
 AS
 BEGIN
     SET NOCOUNT ON;
 	DECLARE @admin bit;
 	Select @admin = admin from user_tb where @user_id = user_id
 	SELECT  *  INTO #user FROM vw_user
-	WHERE user_id = @user_id OR admin = 1
+	WHERE user_id = @user_id OR @admin = 1
 	----- ouput 1: Danh sách người dùng
 	SELECT * FROM #user
             
