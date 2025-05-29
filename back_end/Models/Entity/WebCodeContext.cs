@@ -1024,6 +1024,10 @@ public partial class WebCodeContext : DbContext
             entity.Property(e => e.IsNotify)
                 .HasDefaultValue(false)
                 .HasColumnName("notify");
+            entity.Property(e => e.Department)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("phong_ban");
             entity.Property(e => e.Password)
                 .HasMaxLength(100)
                 .IsUnicode(false)
