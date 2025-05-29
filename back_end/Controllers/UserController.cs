@@ -1,6 +1,5 @@
-﻿using back_end.Data;
-using back_end.DataTransferObject;
-using back_end.Models;
+﻿using back_end.DataTransferObject;
+using back_end.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_end.Controllers
@@ -37,11 +36,11 @@ namespace back_end.Controllers
                 Rank = user.Rank,
                 IsBanned = user.IsBanned,
                 IsFrozen = user.IsFrozen,
-                Notify = user.Notify,
+                IsNotify = user.IsNotify,
 
                 // Thông tin từ bảng user_details
                 Name = userDetails?.Name ?? string.Empty,
-                Birthday = userDetails?.Birthday,
+                Birthday = userDetails?.Birthday?.ToDateTime(TimeOnly.MinValue),
                 Email = userDetails?.Email ?? string.Empty,
                 PhoneNumber = userDetails?.PhoneNumber ?? string.Empty,
             };
@@ -68,8 +67,8 @@ namespace back_end.Controllers
                     Rank = dto.Rank,
                     IsBanned = dto.IsBanned,
                     IsFrozen = dto.IsFrozen,
-                    Notify = dto.Notify,
-                    DateCreated = DateTime.UtcNow
+                    IsNotify = dto.IsNotify,
+                    DateCreated = DateOnly.FromDateTime(DateTime.Now)
                 };
                 // Lưu thay đổi
                 _context.Users.Add(user);
@@ -79,7 +78,7 @@ namespace back_end.Controllers
                 {
                     UserId = user.UserId,
                     Name = dto.Name,
-                    Birthday = dto.Birthday,
+                    Birthday = DateOnly.FromDateTime(dto.Birthday.GetValueOrDefault()),
                     PhoneNumber = dto.PhoneNumber,
                     Address = dto.Address,
                     Email = dto.Email
@@ -97,7 +96,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost("update/{userId}")]
-        public IActionResult UpdateUser(int userId, [FromBody]UserDto dto)
+        public IActionResult UpdateUser(int userId, [FromBody] UserDto dto)
         {
             try
             {
@@ -121,11 +120,11 @@ namespace back_end.Controllers
                 user.Rank = dto.Rank;
                 user.IsBanned = dto.IsBanned;
                 user.IsFrozen = dto.IsFrozen;
-                user.Notify = dto.Notify;
+                user.IsNotify = dto.IsNotify;
 
                 // Cập nhật thông tin chi tiết người dùng
                 user.UserDetails.Address = dto.Address;
-                user.UserDetails.Birthday = dto.Birthday;
+                user.UserDetails.Birthday = DateOnly.FromDateTime(dto.Birthday.GetValueOrDefault());
                 user.UserDetails.Email = dto.Email;
                 user.UserDetails.Name = dto.Name;
                 user.UserDetails.PhoneNumber = dto.PhoneNumber;

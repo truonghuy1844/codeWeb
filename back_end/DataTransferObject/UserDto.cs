@@ -14,7 +14,7 @@ namespace back_end.DataTransferObject
         public int Rank { get; set; }
         public bool IsBanned { get; set; }
         public bool IsFrozen { get; set; }
-        public bool Notify { get; set; }
+        public bool IsNotify { get; set; }
         public bool Status { get; set; } = true;
 
         // Thông tin lưu vào bảng user_details
