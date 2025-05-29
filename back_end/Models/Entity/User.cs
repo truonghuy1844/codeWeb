@@ -26,15 +26,18 @@ public partial class User
     [Column("ban")]
     public bool IsBanned { get; set; }
 
+    [Column("phong_ban")]
+    public string? Department { get; set; }
+
     [Column("freeze")]
     public bool IsFrozen { get; set; }
 
     [Column("notify")]
-    public bool IsNotify { get; set; }
+    public bool IsNotify { get; set; } = true;
 
     public DateOnly? DateCreated { get; set; }
 
-    public bool? Status { get; set; }
+    public bool? Status { get; set; } = true;
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 

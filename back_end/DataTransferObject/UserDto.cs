@@ -11,11 +11,8 @@ namespace back_end.DataTransferObject
         public bool IsAdmin { get; set; }
         public bool IsBuyer { get; set; }
         public bool IsSeller { get; set; }
-        public int Rank { get; set; }
-        public bool IsBanned { get; set; }
-        public bool IsFrozen { get; set; }
-        public bool IsNotify { get; set; }
         public bool Status { get; set; } = true;
+        public string Department { set; get; }
 
         // Thông tin lưu vào bảng user_details
         public string Name { get; set; }
