@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using back_end.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddControllers();
 // CORS policy để cho phép FE truy cập API
 builder.Services.AddCors(options =>
 {
