@@ -77,12 +77,12 @@ namespace back_end.Models
     [Table("promotion_product")]
     public class PromotionProduct
     {
-        [Key]
+     
         [Column("promotion_id", Order = 0)]
         [StringLength(25)]
         public string PromotionId { get; set; }
 
-        [Key]
+ 
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }

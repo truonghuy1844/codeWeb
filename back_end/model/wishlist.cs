@@ -8,11 +8,11 @@ namespace back_end.Models
     [Table("wishlist")]
     public class Wishlist
     {
-        [Key]
+      
         [Column("user_id", Order = 0)]
         public int UserId { get; set; }
 
-        [Key]
+       
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }

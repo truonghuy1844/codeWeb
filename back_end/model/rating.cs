@@ -8,12 +8,12 @@ namespace back_end.Models
      [Table("rating")]
     public class Rating
     {
-        [Key]
+     
         [Column("product_id", Order = 0)]
         [StringLength(25)]
         public string ProductId { get; set; }
 
-        [Key]
+       
         [Column("user_id", Order = 1)]
         public int UserId { get; set; }
 

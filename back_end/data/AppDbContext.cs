@@ -41,6 +41,18 @@ namespace back_end.Data{
     {
         modelBuilder.Entity<Cart>()
             .HasKey(c => new { c.UserId, c.ProductId }); // khóa chính tổng hợp
+        modelBuilder.Entity<PromotionProduct>()
+            .HasKey(pp => new { pp.PromotionId, pp.ProductId });
+        modelBuilder.Entity<Wishlist>()
+            .HasKey(w => new { w.UserId, w.ProductId });
+         modelBuilder.Entity<Rating>()
+            .HasKey(r => new { r.ProductId, r.UserId });
+        modelBuilder.Entity<OrderDetail>()
+            .HasKey(od => new { od.OrderId, od.ProductId, od.ProductInventoryId });
+         modelBuilder.Entity<ShipmentDetail>()
+            .HasKey(sd => new { sd.ShipmentId, sd.ProductId, sd.OrderId });
+
+        
         base.OnModelCreating(modelBuilder);
     }
 }
