@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace back_end.Models
 {
@@ -83,14 +84,15 @@ namespace back_end.Models
     }
 
     [Table("shipment_d")]
+    [PrimaryKey(nameof(ShipmentId), nameof(ProductId))]
     public class ShipmentDetail
     {
-        [Key]
+        [Required]
         [Column("shipment_id", Order = 0)]
         [StringLength(25)]
         public string ShipmentId { get; set; }
 
-        [Key]
+        [Required]
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }

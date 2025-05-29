@@ -45,9 +45,6 @@ namespace back_end.Models
         [Column("support_in")]
         public string SupportIn { get; set; }
 
-        // Navigation properties
-        [ForeignKey("UserAskId")]
-        public User UserAsk { get; set; }
 
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
@@ -55,7 +52,5 @@ namespace back_end.Models
         [ForeignKey("OrderId")]
         public Order Order { get; set; }
 
-        [ForeignKey("UserAnswerId")]
-        public User UserAnswer { get; set; }
     }
 }

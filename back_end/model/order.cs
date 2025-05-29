@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace back_end.Models
 {
@@ -52,17 +53,6 @@ namespace back_end.Models
         [ForeignKey("SellerId")]
         public User Seller { get; set; }
 
-        [ForeignKey("ShipPromotionId")]
-        public Promotion ShipPromotion { get; set; }
-
-        [ForeignKey("NewPromotionId")]
-        public Promotion NewPromotion { get; set; }
-
-        [ForeignKey("SaleOffPromotionId")]
-        public Promotion SaleOffPromotion { get; set; }
-
-        [ForeignKey("DiscountPromotionId")]
-        public Promotion DiscountPromotion { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
@@ -70,16 +60,17 @@ namespace back_end.Models
         public ICollection<ShipmentDetail> ShipmentDetails { get; set; }
         public ICollection<Support> Supports { get; set; }
     }
-    
+
     [Table("order_d")]
+    [PrimaryKey(nameof(OrderId), nameof(ProductId))]
     public class OrderDetail
     {
-        [Key]
+        [Required] 
         [Column("order_id", Order = 0)]
         [StringLength(25)]
         public string OrderId { get; set; }
-
-        [Key]
+        
+        [Required] 
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }
@@ -111,7 +102,7 @@ namespace back_end.Models
 
         [ForeignKey("TaxId")]
         public Tax Tax { get; set; }
-        
+
         [ForeignKey("ProductInventoryId")]
         public ProductInventory ProductInventory { get; set; }
     }

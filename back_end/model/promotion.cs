@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace back_end.Models
 { 
@@ -75,14 +76,15 @@ namespace back_end.Models
     }
 
     [Table("promotion_product")]
+    [PrimaryKey(nameof(PromotionId), nameof(ProductId))]
     public class PromotionProduct
     {
-        [Key]
+        [Required]
         [Column("promotion_id", Order = 0)]
         [StringLength(25)]
         public string PromotionId { get; set; }
 
-        [Key]
+        [Required]
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }
