@@ -1,0 +1,129 @@
+.header {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Thanh đỏ trên cùng */
+.top-bar {
+  background-color: #c41c1c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 16px;
+  font-size: 14px;
+}
+
+.top-links a {
+  color: white;
+  margin-left: 15px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Thanh menu chính */
+.nav-bar {
+  background-color: #fff8dc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 24px;
+}
+
+.logo h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: black;
+}
+
+.search-cart {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.cart-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background-color: #c41c1c;
+  color: white;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: #c41c1c;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.search-cart input {
+  font-size: 15px; /* Cỡ chữ khi người dùng nhập */
+  padding: 10px 16px;
+  border-radius: 20px;
+}
+.cart-icon:hover {
+  background-color: #e91e63;
+}
+.menu-wave {
+  height: 20px;
+  background: radial-gradient(circle at 10px 10px, #d62828 10px, transparent 11px) repeat-x;
+  background-size: 20px 20px;
+  margin-top: -1px;
+}
+
+/* Banner hình ảnh vui chơi và học hỏi */
+.menu-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.menu-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  color: #c62828;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.btn-banner {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #d62828;
+  color: #fff;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}

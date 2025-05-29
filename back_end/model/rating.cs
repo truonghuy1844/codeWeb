@@ -10,12 +10,12 @@ namespace back_end.Models
     [PrimaryKey(nameof(UserId), nameof(ProductId))]
     public class Rating
     {
-        [Required]
+     
         [Column("product_id", Order = 0)]
         [StringLength(25)]
         public string ProductId { get; set; }
 
-        [Required]
+       
         [Column("user_id", Order = 1)]
         public int UserId { get; set; }
 

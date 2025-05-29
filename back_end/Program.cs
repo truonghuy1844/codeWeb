@@ -16,8 +16,6 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 builder.Services.AddOpenApi();
-builder.Services.AddControllers(); // Thêm dòng này để support Controllers
-
 builder.Services.AddDbContext<WebCodeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

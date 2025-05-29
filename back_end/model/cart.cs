@@ -10,11 +10,11 @@ namespace back_end.Models
     [PrimaryKey(nameof(UserId), nameof(ProductId))]
     public class Cart
     {
-        [Required]
+        
         [Column("user_id", Order = 0)]
         public int UserId { get; set; }
 
-        [Required]
+        
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }

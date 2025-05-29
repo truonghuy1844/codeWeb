@@ -79,12 +79,12 @@ namespace back_end.Models
     [PrimaryKey(nameof(PromotionId), nameof(ProductId))]
     public class PromotionProduct
     {
-        [Required]
+     
         [Column("promotion_id", Order = 0)]
         [StringLength(25)]
         public string PromotionId { get; set; }
 
-        [Required]
+ 
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }

@@ -87,17 +87,15 @@ namespace back_end.Models
     [PrimaryKey(nameof(ShipmentId), nameof(ProductId))]
     public class ShipmentDetail
     {
-        [Required]
         [Column("shipment_id", Order = 0)]
         [StringLength(25)]
         public string ShipmentId { get; set; }
 
-        [Required]
         [Column("product_id", Order = 1)]
         [StringLength(25)]
         public string ProductId { get; set; }
 
-        [Key]
+
         [Column("order_id", Order = 2)]
         [StringLength(25)]
         public string OrderId { get; set; }

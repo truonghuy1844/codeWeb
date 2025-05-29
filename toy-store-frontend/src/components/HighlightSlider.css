@@ -1,0 +1,41 @@
+.highlight-slider {
+  padding: 30px;
+  background-color: #fff;
+}
+
+.highlight-card {
+  padding: 10px;
+  text-align: center;
+}
+
+.highlight-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.highlight-card h4 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.highlight-card p {
+  color: #ff4081;
+  font-weight: bold;
+}
+.highlight-card button {
+  background-color: #c41c1c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+  width: 40%;
+}
+
+.highlight-card button:hover {
+  background-color: #e91e63;
+}
+
