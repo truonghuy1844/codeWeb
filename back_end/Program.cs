@@ -1,6 +1,7 @@
 ﻿using back_end.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using back_end.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -15,34 +16,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add services to the container
-builder.Services.AddControllers();
-
-// Add services to the container.
-builder.Services.AddOpenApi();
-builder.Services.AddDbContext<WebCodeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Swagger cấu hình chuẩn
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "My API",
-        Version = "v1"
-    });
-});
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowLocalhost3000",
-        policy => policy.WithOrigins("http://localhost:3000")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-});
-
-var app = builder.Build();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -52,7 +25,34 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;
     });
 }
+/////////***Phần Quân
+// Add services to the container
+builder.Services.AddControllers();
 
+// 1. Đăng ký DbContext
+builder.Services.AddDbContext<WebCodeContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 2. Đăng ký Controllers để MapControllers hoạt động
+builder.Services.AddControllers();
+
+// 3. Bật CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
+
+var app = builder.Build();
+
+// 4. Dùng CORS
+app.UseCors("AllowAll");
+////////***** 
+/// 
+/// 
+// 5. Chuyển hướng HTTPS
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseCors("AllowLocalhost3000");
@@ -66,6 +66,11 @@ if (app.Environment.IsProduction())
 // Sử dụng CORS trước khi map controllers
 app.UseCors("AllowFrontend");
 
+// 6. Bật routing cho API Controllers
+app.UseAuthorization();
+app.MapControllers();
+
+// 7. (Giữ code mẫu nếu cần)
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
