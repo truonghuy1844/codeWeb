@@ -1,0 +1,22 @@
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cột bằng nhau */
+    gap: 16px;
+}
+
+.dashboard-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+    padding: 20px;
+    color: #222; /* Màu chữ đen */
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.dashboard-card div {
+    margin-top: 10px;
+    font-size: 24px;
+    color: black; /* Đảm bảo chữ bên trong cũng màu đen */
+}

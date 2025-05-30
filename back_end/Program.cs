@@ -1,23 +1,37 @@
 using Microsoft.EntityFrameworkCore;
-using back_end.Data; 
+using back_end.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// 1. Đăng ký DbContext
 builder.Services.AddDbContext<WebCodeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// 2. Đăng ký Controllers để MapControllers hoạt động
+builder.Services.AddControllers();
+
+// 3. Bật CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+// 4. Dùng CORS
+app.UseCors("AllowAll");
 
+// 5. Chuyển hướng HTTPS
 app.UseHttpsRedirection();
 
+// 6. Bật routing cho API Controllers
+app.UseAuthorization();
+app.MapControllers();
+
+// 7. (Giữ code mẫu nếu cần)
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -25,7 +39,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

@@ -1,0 +1,74 @@
+.confirm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.confirm-modal-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px 32px;
+    width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.confirm-modal-box h3 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #333;
+}
+
+.confirm-modal-buttons {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.confirm-modal-buttons button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.confirm-modal-buttons .btn-confirm {
+    background-color: #007bff;
+    color: white;
+}
+
+.confirm-modal-buttons .btn-confirm:hover {
+    background-color: #0056b3;
+}
+
+.confirm-modal-buttons .btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.confirm-modal-buttons .btn-cancel:hover {
+    background-color: #5a6268;
+}

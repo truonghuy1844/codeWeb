@@ -1,0 +1,154 @@
+/* File: src/orders/OrderForm.css */
+.order-form-container {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Tiêu đề chính */
+.order-form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Hai khối khách hàng & đơn hàng */
+.form-sections {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Mỗi khối */
+.section {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Tiêu đề khối */
+.section h3 {
+    margin-top: 0;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.section label {
+    display: flex;
+    flex-direction: column; /* quan trọng: input nằm dưới label */
+    align-items: flex-start; /* căn trái */
+    font-weight: normal;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.section label input,
+.section label select {
+    width: 100%; /* full chiều ngang */
+    margin: 6px 0 0 0; /* bỏ margin-left và margin-top cũ */
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+
+/* Input ngày sinh */
+input[type="date"] {
+    width: 180px;
+}
+
+/* Địa chỉ chiếm full width */
+.section input[name="address"] {
+    width: 100%;
+}
+
+
+/* Bảng chi tiết đơn hàng */
+.items-section {
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+.items-section h3 {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.items-section table {
+    min-width: 900px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.items-section th,
+.items-section td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+    font-weight: normal;
+    color: #444;
+}
+
+.items-section input {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+/* Nút thêm / xóa dòng */
+.btn-remove {
+    background: #f44336;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-add-item {
+    margin-top: 10px;
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Nút hành động cuối form */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+    background: #1976d2;
+    color: #fff;
+}
+
+.form-actions button[type="button"] {
+    background: #e0e0e0;
+    color: #333;
+}
