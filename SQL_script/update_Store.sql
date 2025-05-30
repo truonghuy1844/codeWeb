@@ -288,5 +288,52 @@ END;
 
 GO
 
+------- Thêm, sản phẩm vào giỏ hàng
+-- add_to_cart
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'add_to_cart') AND type in (N'P', N'PC'))
+    DROP PROCEDURE add_to_cart
+GO
+CREATE  PROCEDURE add_to_cart
+    @user_id INT,
+    @product_id VARCHAR(25),
+    @quantity INT
+AS
+BEGIN
 
+    SET NOCOUNT ON;
+	
+    -- Kiểm tra quantity hợp lệ
+    IF @quantity <= 0
+    BEGIN
+        RAISERROR('Số lượng phải lớn hơn 0.', 16, 1);
+        RETURN;
+    END
+	DECLARE @product_name NVARCHAR(75), @price MONEY
+	SELECT @product_name = name,  @price = price1 FROM product where product_id = @product_id
+    -- Nếu sản phẩm đã có trong giỏ → cộng số lượng và cập nhật giá
+    IF EXISTS (
+        SELECT 1 FROM cart 
+        WHERE user_id = @user_id AND product_id = @product_id
+    )
+    BEGIN
+	
+        UPDATE cart
+        SET 
+            quantity = quantity + @quantity,
+            price = @price,
+            product_name = @product_name
+        WHERE user_id = @user_id AND product_id = @product_id;
+    END
+    ELSE
+    BEGIN
+        -- Thêm mới vào giỏ
+        INSERT INTO cart (
+            user_id, product_id, product_name, quantity, price
+        ) VALUES (
+            @user_id, @product_id, @product_name, @quantity, @price
+        );
+    END
+END
+
+GO
 
