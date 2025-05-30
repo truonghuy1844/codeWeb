@@ -6,11 +6,13 @@ namespace back_end.DataTransferObject
     public class UserDto
     {
         // Thông tin lưu vào bảng user
+        public int UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsBuyer { get; set; }
         public bool IsSeller { get; set; }
+        
         public bool Status { get; set; } = true;
         public string Department { set; get; }
 
