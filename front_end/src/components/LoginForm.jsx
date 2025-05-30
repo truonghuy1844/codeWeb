@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
 const LoginForm = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -79,15 +79,9 @@ const LoginForm = () => {
 
         <button type="submit" className="login-button">Đăng nhập</button>
       </form>
-  
+
       <div className="register-link-wrapper">
-   <p>Chưa có tài khoản? <Link to="/register">Đăng ký</Link></p>
-        
-        {/* Khai báo routes */}
-        <Routes>
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
+        Chưa có tài khoản? <a href="./RegisterForm.jsx" className="register-link">Đăng ký</a>
       </div>
     </div>
   );

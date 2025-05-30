@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminLayout from './AdminLayout/AdminLayout';
 import HomeDashboard from './Home/HomeDashboard';
-import OrderList from './Order/OrderList';
+import LoginForm from './LoginForm';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <AdminLayout>
         <Routes>
           <Route path="/" element={<HomeDashboard />} />
-          <Route path="/don-hang" element={<OrderList />} />
+          <Route path="/don-hang" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </AdminLayout>
     </Router>
