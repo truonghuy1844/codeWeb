@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css'
 import reportWebVitals from './reportWebVitals';
 import ProductManagement from './Admin/ProductManagement';
+import UserManagerment from './UserComponent/UserManagerment';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ProductManagement />
+    <UserManagerment />
   </React.StrictMode>
 );
 

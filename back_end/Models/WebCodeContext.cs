@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using back_end.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace back_end.Models.Entity;
+namespace back_end.Models;
 
 public partial class WebCodeContext : DbContext
 {
