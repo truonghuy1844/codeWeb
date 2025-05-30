@@ -1,22 +1,52 @@
 ﻿using back_end.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using back_end.Models.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 1. Đăng ký các dịch vụ (Service Configuration)
 builder.Services.AddControllers();
-var app = builder.Build();
-// CORS policy để cho phép FE truy cập API
+
+// 2. Đăng ký DbContext
+builder.Services.AddDbContext<WebCodeContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 3. Đăng ký Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
+
+// 4. Đăng ký CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.AllowAnyOrigin() // kết nối FE ở bất kỳ domain nào
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+
+    options.AddPolicy("AllowLocalhost3000", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
+// 5. Build app sau khi cấu hình xong dịch vụ
+var app = builder.Build();
+
+// 6. Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -26,52 +56,15 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;
     });
 }
-/////////***Phần Quân
-// Add services to the container
-builder.Services.AddControllers();
 
-// 1. Đăng ký DbContext
-builder.Services.AddDbContext<WebCodeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// 7. Dùng CORS (chỉ chọn 1 cái tùy môi trường)
+app.UseCors("AllowFrontend"); // hoặc "AllowLocalhost3000" hoặc "AllowAll"
 
-// 2. Đăng ký Controllers để MapControllers hoạt động
-builder.Services.AddControllers();
-
-// 3. Bật CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader());
-});
-
-
-
-// 4. Dùng CORS
-app.UseCors("AllowAll");
-////////***** 
-/// 
-/// 
-// 5. Chuyển hướng HTTPS
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.UseCors("AllowLocalhost3000");
-app.MapControllers();
-// Chỉ dùng HTTPS redirection khi có HTTPS port
-if (app.Environment.IsProduction())
-{
-    app.UseHttpsRedirection();
-}
-
-// Sử dụng CORS trước khi map controllers
-app.UseCors("AllowFrontend");
-
-// 6. Bật routing cho API Controllers
-app.UseAuthorization();
 app.MapControllers();
 
-// 7. (Giữ code mẫu nếu cần)
+// 8. (Tuỳ chọn) Sample endpoint
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -90,9 +83,6 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
-
-// Thêm dòng này để map Controllers
-app.MapControllers();
 
 app.Run();
 
