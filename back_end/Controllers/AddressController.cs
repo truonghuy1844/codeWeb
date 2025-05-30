@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Net;
 using back_end.Models.Entity;
+using back_end.Models;
 
 namespace back_end.Controllers
 {

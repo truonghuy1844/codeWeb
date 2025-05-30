@@ -4,6 +4,7 @@ using System.Data;
 using System.Collections.Generic;
 using back_end.Models.Entity;
 using Microsoft.EntityFrameworkCore;
+using back_end.Models;
 
 namespace back_end.Controllers
 {

@@ -47,7 +47,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost("search")]
-        public IActionResult SearchUsers([FromBody]UserQuery query)
+        public IActionResult SearchUsers([FromBody] UserQuery query)
         {
             var queryResult = _context.Users.Include(u => u.UserDetails).OrderByDescending(u => u.UserId).AsQueryable();
             if (query.Status != null)
@@ -131,11 +131,11 @@ namespace back_end.Controllers
                 user.IsBuyer = dto.IsBuyer;
                 user.IsSeller = dto.IsSeller;
                 user.Department = dto.Department;
-                
+
                 // Lưu thay đổi
                 _context.Users.Update(user);
                 _context.SaveChanges();
-                
+
                 // Cập nhật thông tin chi tiết người dùng
                 var userDetail = _context.UserDetails.FirstOrDefault(u => u.UserId == dto.UserId);
                 if (userDetail != null)
@@ -151,7 +151,7 @@ namespace back_end.Controllers
                 }
 
                 return Ok($"Update user thành công {user.UserId}");
-#endregion
+                #endregion
             }
             catch (Exception ex)
             {
@@ -187,26 +187,6 @@ namespace back_end.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting user: {ex.Message}");
             }
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
-        {
-            var user = await _context.Users
-                .Include(u => u.UserDetails)
-                .FirstOrDefaultAsync(u => u.UserId == id);
-
-            if (user == null || user.UserDetails == null)
-                return NotFound();
-
-            return Ok(new
-            {
-                name = user.UserDetails.Name,
-                email = user.UserDetails.Email,
-                phone = user.UserDetails.PhoneNumber,
-                birthday = user.UserDetails.Birthday?.ToString("yyyy-MM-dd"),
-                address = user.UserDetails.Address,
-                gender = "Nam" // bạn có thể thay đổi nếu có dữ liệu giới tính
-            });
         }
     }
 }

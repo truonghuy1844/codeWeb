@@ -30,17 +30,8 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod());
-
-    // options.AddPolicy("AllowFrontend", policy =>
-    //     policy.AllowAnyOrigin()
-    //           .AllowAnyHeader()
-    //           .AllowAnyMethod());
-    //
-    // options.AddPolicy("AllowLocalhost3000", policy =>
-    //     policy.WithOrigins("http://localhost:3000")
-    //           .AllowAnyHeader()
-    //           .AllowAnyMethod());
 });
+var app = builder.Build();
 
 // 7. Dùng CORS (chỉ chọn 1 cái tùy môi trường)
 app.UseCors("AllowFrontend"); // hoặc "AllowLocalhost3000" hoặc "AllowAll"
