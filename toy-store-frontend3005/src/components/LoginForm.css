@@ -1,0 +1,100 @@
+.login-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1rem 2rem 2rem 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+.login-title {
+    text-align: center;
+    color: #e4002b;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-form label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;       
+        color: #333333;         
+        font-size: 0.95rem; 
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.login-button {
+    background-color: #D01E26;
+    color: white;
+    padding: 10px 24px;
+    width: 150px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #b00810;
+}
+
+.register-link-wrapper {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+}
+
+.register-link {
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.register-link:hover {
+    color: #D01E26;
+    text-decoration: underline;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px; 
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 1.2rem;
+}
+
+input::-ms-reveal,
+input::-ms-clear,
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-clear-button {
+  display: none !important;
+}

@@ -1,0 +1,186 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;  /* Giảm khoảng cách giữa header và container */
+  padding: 1.5rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  max-width: 1000px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  gap: 1.5rem;
+}
+.order-title-large {
+  font-size: 2.5rem;  
+  font-weight: bold;
+  color: #d01e26;     
+  margin-top: 3rem;
+  text-align: center;
+  width: 100%;  
+}
+
+.sidebar {
+  flex-shrink: 0;
+  width: 200px; /* vừa với nội dung */
+  height: 200px;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.order-history {
+  flex: 1;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  max-width: 600px;
+  width: 90%;
+}
+
+.profile-sidebar h2,
+.order-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-top: 0.25rem;
+  font-size: 1.25rem;
+  color: #d01e26;
+  font-weight: bold;
+}
+
+
+.order-card {
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-card:hover {
+ /* background-color: #e5edf3;*/
+  transform: translateY(-5px);
+}
+
+.order-header {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #eaf3ff;
+  color: #007bff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+.order-id {
+  color: #d01e26;
+}
+
+.order-status {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 300;
+  display: inline-block
+}
+
+.order-status.waiting {
+  background-color: #fff8e1;
+  color: #f57c00; /* Cam nhạt */
+}
+
+.order-status.ready {
+  background-color: #e3f2fd;
+  color: #2196f3; /* Xanh dương nhạt */
+}
+
+.order-status.in-progress {
+  background-color: #fff3e0;
+  color: #ff9800; /* Cam */
+}
+
+.order-status.completed {
+  background-color: #d4f8df;
+  color: #388e3c; /* Xanh lá */
+}
+
+.product-item {
+   display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+}
+.product-item + .product-item {
+  border-top: 1px dashed #ddd;
+}
+
+.product-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-info h4 {
+  font-size: 1rem;
+  margin: 0;
+}
+.product-details {
+  display: flex;
+  justify-content:flex;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+   gap: 25px
+}
+
+.product-info p.description {
+  color: #6794c3; /* Màu xanh giống active */
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  white-space: pre-line; /* Đảm bảo mô tả xuống dòng nếu quá dài */
+}
+
+product-info {
+  display: flex;
+  justify-content: space-between;align-items: flex-start;  /* Giữ cho các mục nằm dọc, không bị chen lấn */
+  gap: 1rem; /* Thêm khoảng cách giữa các mục */
+}
+
+.order-total {
+  margin-top: 1rem;
+  text-align: right;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #333;
+  padding-top: 0.75rem;
+}
+
+.empty-order {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.empty-order .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}

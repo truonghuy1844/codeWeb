@@ -1,0 +1,170 @@
+.product-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.product-detail .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 400px;
+}
+
+.product-detail .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 300px;
+  padding-top: 10px;
+}
+
+.main-image {
+  width: 400px;
+  height: 400px;
+  max-width: 450px;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.main-image:hover {
+  transform: scale(1.1);
+}
+
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.thumb-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border 0.2s;
+  cursor: pointer;
+}
+
+.thumb-image:hover {
+  border-color: #e91e63;
+  transform: scale(1.05);
+}
+
+.thumb-image.active {
+  border-color: #1976d2;
+}
+
+.product-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+}
+
+.brand {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1976d2;
+  text-transform: uppercase;
+}
+
+/* Phần hiển thị giá hỗ trợ giảm giá */
+.price {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #e53935;
+  font-size: 28px;
+}
+
+.product-original {
+  font-size: 20px;
+  color: #888;
+  text-decoration: line-through;
+}
+
+/* Optional: hiệu ứng nhỏ */
+.product-price::after {
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 6px;
+}
+
+.description {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+}
+
+.quantity button {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.actions button {
+  padding: 12px 26px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.add-cart {
+  background-color: #e53935;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.add-cart:hover {
+  background-color: #c62828;
+}
+
+.buy-now {
+  background-color: #1976d2;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.buy-now:hover {
+  background-color: #125ea7;
+}

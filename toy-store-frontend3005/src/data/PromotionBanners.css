@@ -1,0 +1,161 @@
+body {
+  background-color: #fff1b7;
+}
+
+.promotion-page {
+  padding: 40px 20px;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.promotion-page .title {
+  font-size: 28px;
+  color: #c41c1c;
+  margin-bottom: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.promotion-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  justify-content: center;
+}
+
+.promotion-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  max-height: 520px;  /* Chiều cao cố định */
+}
+
+.promotion-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.promotion-img {
+  width: 100%;
+  height: 180px;              /* Chiều cao ảnh cố định */
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  background-color: #f5f5f5;
+}
+
+.promotion-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+
+.promotion-info .date {
+  font-size: 13px;
+  color: #888;
+}
+
+.promotion-info h3 {
+  margin: 0;
+  color: #c41c1c;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.promotion-info p {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.page-btn,
+.nav-btn {
+  border: 2px solid #c41c1c;
+  background: white;
+  color: #c41c1c;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.page-btn.active {
+  background: #c41c1c;
+  color: white;
+}
+
+.page-btn:hover:not(.active),
+.nav-btn:hover:not(:disabled) {
+  background: #ffe6e6;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .promotion-page {
+    padding: 24px 12px;
+  }
+
+  .promotion-page .title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .promotion-list {
+    gap: 20px;
+  }
+
+  .promotion-img {
+    height: 160px;
+  }
+
+  .promotion-info h3 {
+    font-size: 16px;
+  }
+
+  .promotion-info p {
+    font-size: 14px;
+  }
+}

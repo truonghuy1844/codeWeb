@@ -1,0 +1,155 @@
+.filter-container {
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filter-section label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #d32f2f;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.category-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 15px;
+  line-height: 2;
+  color: #333;
+}
+
+.category-list li {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-list li:hover {
+  color: #d32f2f;
+}
+
+.category-list li.active {
+  color: #e65a5a;
+  font-weight: normal;
+  text-decoration: underline;
+  text-decoration-color: #e65a5a;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 4px;
+  outline: none;
+  padding: 0;
+  margin: 6px 0 12px;
+  box-sizing: border-box;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background: #ddd;
+  border-radius: 4px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  background: #ddd;
+  border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #d32f2f;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  margin-top: -5px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #d32f2f;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.slider-fixed-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.price-tooltip-fixed {
+  position: absolute;
+  top: -28px;
+  right: 0;
+  background-color: #d32f2f;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.apply-btn {
+  margin-top: 12px;
+  width: 100%;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.apply-btn:hover {
+  background-color: #b71c1c;
+}
+
+/* Nhóm nút "Áp dụng" + "Đặt lại" */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reset-btn {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reset-btn:hover {
+  background-color: #b0b0b0;
+}

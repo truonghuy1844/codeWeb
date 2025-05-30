@@ -1,0 +1,27 @@
+.address-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  color: #676565
+}
+
+.address-group div {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #676565;
+}
+
+.address-group select,
+.address-group input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
