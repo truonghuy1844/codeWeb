@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\back_end",
+    "\\back_end\\data"
   ],
   "SelectedNode": "\\codeWeb.sln",
   "PreviewInSolutionExplorer": false

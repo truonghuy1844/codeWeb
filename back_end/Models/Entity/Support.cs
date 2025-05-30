@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class Support
+namespace back_end.Models.Entity
+{
+    public partial class Support
 {
     public string SupportId { get; set; } = null!;
 
@@ -33,3 +33,6 @@ public partial class Support
 
     public virtual User? UserAskNavigation { get; set; }
 }
+
+}
+

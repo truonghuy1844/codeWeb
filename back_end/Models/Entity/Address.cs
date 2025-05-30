@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
+namespace back_end.Models.Entity
+{
 public partial class Address
 {
     public string AddressId { get; set; } = null!;
@@ -25,9 +25,12 @@ public partial class Address
 
     public string? Detail { get; set; }
 
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     public bool? Status { get; set; }
 
     public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
 }
+
+}
+

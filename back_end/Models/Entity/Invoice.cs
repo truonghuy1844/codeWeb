@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class Invoice
+namespace back_end.Models.Entity
+{
+    public partial class Invoice
 {
     public string InvoiceId { get; set; } = null!;
 
@@ -39,3 +39,6 @@ public partial class Invoice
 
     public virtual OrderTb? Order { get; set; }
 }
+
+}
+

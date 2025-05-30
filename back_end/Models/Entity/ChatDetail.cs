@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class ChatDetail
+namespace back_end.Models.Entity
+{
+    public partial class ChatDetail
 {
     public int ChatRec { get; set; }
 
@@ -23,3 +23,6 @@ public partial class ChatDetail
 
     public bool? Pin { get; set; }
 }
+
+}
+

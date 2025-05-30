@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class ChatTab
+namespace back_end.Models.Entity
 {
-    public string ChatId { get; set; } = null!;
+    public partial class ChatTab
+{
+    public string ChatId { get; set; }
 
     public DateTime? DateCreated { get; set; }
 
@@ -13,3 +13,6 @@ public partial class ChatTab
 
     public virtual ICollection<ChatMember> ChatMembers { get; set; } = new List<ChatMember>();
 }
+
+}
+

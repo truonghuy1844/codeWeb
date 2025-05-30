@@ -1,10 +1,11 @@
 ﻿using back_end.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using back_end.Data;
+using back_end.Models.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+var app = builder.Build();
 // CORS policy để cho phép FE truy cập API
 builder.Services.AddCors(options =>
 {
@@ -45,7 +46,7 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
-var app = builder.Build();
+
 
 // 4. Dùng CORS
 app.UseCors("AllowAll");

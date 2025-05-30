@@ -7,9 +7,9 @@ namespace ToyStore.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly WebCodeContext _context;
 
-        public ProductController(AppDbContext context)
+        public ProductController(WebCodeContext context)
         {
             _context = context;
         }

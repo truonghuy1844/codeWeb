@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
+namespace back_end.Models.Entity
+{
+    
 public partial class ChangeHistory
 {
     public int? UserId { get; set; }
@@ -20,4 +21,6 @@ public partial class ChangeHistory
     public int? Status { get; set; }
 
     public virtual User? User { get; set; }
+}
+
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class OrderTb
+namespace back_end.Models.Entity
+{
+    public partial class OrderTb
 {
     public string OrderId { get; set; } = null!;
 
@@ -43,3 +43,6 @@ public partial class OrderTb
 
     public virtual ICollection<Support> Supports { get; set; } = new List<Support>();
 }
+
+}
+

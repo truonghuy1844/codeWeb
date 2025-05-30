@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class ClickProduct
+namespace back_end.Models.Entity
+{
+    public partial class ClickProduct
 {
     public int ClickRec { get; set; }
 
@@ -17,3 +17,6 @@ public partial class ClickProduct
 
     public virtual User User { get; set; } = null!;
 }
+
+}
+

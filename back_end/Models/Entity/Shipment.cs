@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class Shipment
+namespace back_end.Models.Entity
+{
+    public partial class Shipment
 {
     public string ShipmentId { get; set; } = null!;
 
@@ -45,3 +45,6 @@ public partial class Shipment
 
     public virtual ICollection<ShipmentD> ShipmentDs { get; set; } = new List<ShipmentD>();
 }
+
+}
+

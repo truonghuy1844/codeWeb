@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace back_end.Models.Entity;
+namespace back_end.Models.Entity
+{
 
-public partial class WebCodeContext : DbContext
+    public partial class WebCodeContext : DbContext
 {
     public WebCodeContext()
     {
@@ -119,6 +120,8 @@ public partial class WebCodeContext : DbContext
                 .HasDefaultValue(true)
                 .HasColumnName("status");
         });
+
+        modelBuilder.Entity<OrderD>().HasKey(od => new { od.OrderId, od.ProductId, od.ProductInventoryId });
 
         modelBuilder.Entity<Cart>(entity =>
         {
@@ -760,7 +763,8 @@ public partial class WebCodeContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__promotion__promo__71D1E811");
         });
-
+        modelBuilder.Entity<ShipmentD>().HasKey(sd => new { sd.ShipmentId, sd.ProductId, sd.OrderId });
+        
         modelBuilder.Entity<Rating>(entity =>
         {
             entity.HasKey(e => new { e.ProductId, e.UserId }).HasName("PK__rating__AC999E85313AA859");
@@ -1125,3 +1129,6 @@ public partial class WebCodeContext : DbContext
     }
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
+
+}
+

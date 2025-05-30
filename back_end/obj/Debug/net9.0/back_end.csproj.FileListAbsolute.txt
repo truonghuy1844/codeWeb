@@ -323,3 +323,6 @@ D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\obj\Debug\net9.0\refint
 D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\obj\Debug\net9.0\back_end.pdb
 D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\obj\Debug\net9.0\back_end.genruntimeconfig.cache
 D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\obj\Debug\net9.0\ref\back_end.dll
+D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

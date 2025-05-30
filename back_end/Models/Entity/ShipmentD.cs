@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
+namespace back_end.Models.Entity
+{
 public partial class ShipmentD
 {
     public string ShipmentId { get; set; } = null!;
@@ -19,3 +19,6 @@ public partial class ShipmentD
 
     public virtual Shipment Shipment { get; set; } = null!;
 }
+
+}
+

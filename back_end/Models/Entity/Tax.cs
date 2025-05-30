@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class Tax
+namespace back_end.Models.Entity
+{
+    public partial class Tax
 {
     public string TaxId { get; set; } = null!;
 
@@ -35,3 +35,6 @@ public partial class Tax
 
     public virtual ICollection<OrderD> OrderDs { get; set; } = new List<OrderD>();
 }
+
+}
+

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class GroupTb
+namespace back_end.Models.Entity
+{
+    public partial class GroupTb
 {
     public string GroupTbId { get; set; } = null!;
 
@@ -25,3 +25,6 @@ public partial class GroupTb
 
     public virtual ICollection<Product> ProductGroupTb4Navigations { get; set; } = new List<Product>();
 }
+
+}
+

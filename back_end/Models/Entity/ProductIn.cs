@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
+namespace back_end.Models.Entity
+{
+    
 public partial class ProductIn
 {
     public string PiId { get; set; } = null!;
@@ -26,4 +27,6 @@ public partial class ProductIn
     public virtual ICollection<OrderD> OrderDs { get; set; } = new List<OrderD>();
 
     public virtual Product Product { get; set; } = null!;
+}
+
 }

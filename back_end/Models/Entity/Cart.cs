@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class Cart
+namespace back_end.Models.Entity
+{
+    public partial class Cart
 {
     public int UserId { get; set; }
 
@@ -19,3 +19,6 @@ public partial class Cart
 
     public virtual User User { get; set; } = null!;
 }
+
+}
+

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class LogHisory
+namespace back_end.Models.Entity
+{
+    public partial class LogHisory
 {
     public int? UserId { get; set; }
 
@@ -15,3 +15,6 @@ public partial class LogHisory
 
     public virtual User? User { get; set; }
 }
+
+}
+

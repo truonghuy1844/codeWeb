@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
-using back_end.Data;
+using back_end.Models.Entity;
 using back_end.Models;
 using System.Data;
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
+namespace back_end.Models.Entity
+{
 public partial class Wishlist
 {
     public int UserId { get; set; }
@@ -17,3 +17,6 @@ public partial class Wishlist
 
     public virtual User User { get; set; } = null!;
 }
+
+}
+

@@ -2,9 +2,9 @@
 
 namespace ToyStore.Models;
 
-public class AppDbContext : DbContext
+public class WebCodeContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+    public WebCodeContext(DbContextOptions<WebCodeContext> options) : base(options) { }
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Brand> Brands { get; set; }

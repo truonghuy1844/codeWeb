@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class Category
+namespace back_end.Models.Entity
+{
+    public partial class Category
 {
     public string CategoryId { get; set; } = null!;
 
@@ -17,3 +17,6 @@ public partial class Category
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }
+
+}
+

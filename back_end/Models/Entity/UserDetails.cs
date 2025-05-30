@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class UserDetails
+namespace back_end.Models.Entity
+{
+    
+    public partial class UserDetails
 {
     public int UserId { get; set; }
 
@@ -29,3 +30,6 @@ public partial class UserDetails
 
     public virtual User User { get; set; } = null!;
 }
+
+}
+

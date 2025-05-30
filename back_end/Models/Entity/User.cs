@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace back_end.Models.Entity;
-
+namespace back_end.Models.Entity
+{
 public partial class User
 {
     public int UserId { get; set; }
@@ -55,3 +55,6 @@ public partial class User
 
     public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
 }
+
+}
+

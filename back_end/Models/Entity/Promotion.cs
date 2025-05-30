@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
+namespace back_end.Models.Entity
+{
+    
 
 public partial class Promotion
 {
@@ -48,4 +50,6 @@ public partial class Promotion
     public virtual ICollection<OrderTb> OrderTbProShipNavigations { get; set; } = new List<OrderTb>();
 
     public virtual ICollection<PromotionProduct> PromotionProducts { get; set; } = new List<PromotionProduct>();
+}
+
 }

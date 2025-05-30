@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
-
-public partial class ChatMember
+namespace back_end.Models.Entity
+{
+    public partial class ChatMember
 {
     public int MemberId { get; set; }
 
@@ -19,3 +19,6 @@ public partial class ChatMember
 
     public virtual User? User { get; set; }
 }
+
+}
+

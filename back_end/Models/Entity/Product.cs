@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace back_end.Models.Entity;
+namespace back_end.Models.Entity
+{
+    
 
 public partial class Product
 {
@@ -41,7 +43,7 @@ public partial class Product
 
     public string? UrlImage3 { get; set; }
 
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     public bool? Status { get; set; }
 
@@ -74,4 +76,6 @@ public partial class Product
     public virtual ICollection<Support> Supports { get; set; } = new List<Support>();
 
     public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
+}
+
 }
