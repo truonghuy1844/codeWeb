@@ -1,14 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Personel\\DH48\\Web_Code\\Final_prj_web\\codeWeb\\",
+  "WorkspaceRootPath": "C:\\Users\\Lander\\source\\repos\\codeWeb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|d:\\personel\\dh48\\web_code\\final_prj_web\\codeweb\\back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|d:\\personel\\dh48\\web_code\\final_prj_web\\codeweb\\back_end\\data\\WebCodeContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\data\\WebCodeContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\models\\webcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\models\\webcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\controllers\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\lander\\source\\repos\\codeweb\\back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -29,29 +53,114 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Personel\\DH48\\Web_Code\\Final_prj_web\\codeWeb\\back_end\\appsettings.json",
-              "RelativeDocumentMoniker": "back_end\\appsettings.json",
-              "ToolTip": "D:\\Personel\\DH48\\Web_Code\\Final_prj_web\\codeWeb\\back_end\\appsettings.json",
-              "RelativeToolTip": "back_end\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-30T13:21:21.635Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "WebCodeContext.cs",
-              "DocumentMoniker": "D:\\Personel\\DH48\\Web_Code\\Final_prj_web\\codeWeb\\back_end\\data\\WebCodeContext.cs",
-              "RelativeDocumentMoniker": "back_end\\data\\WebCodeContext.cs",
-              "ToolTip": "D:\\Personel\\DH48\\Web_Code\\Final_prj_web\\codeWeb\\back_end\\data\\WebCodeContext.cs",
-              "RelativeToolTip": "back_end\\data\\WebCodeContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "back_end\\Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "back_end\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T10:01:28.22Z"
+              "WhenOpened": "2025-05-30T17:12:26.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "back_end\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\CartController.cs",
+              "RelativeToolTip": "back_end\\Controllers\\CartController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T17:12:22.364Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddressController.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\AddressController.cs",
+              "RelativeDocumentMoniker": "back_end\\Controllers\\AddressController.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\AddressController.cs",
+              "RelativeToolTip": "back_end\\Controllers\\AddressController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T17:12:20.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WebCodeContext.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Models\\WebCodeContext.cs",
+              "RelativeDocumentMoniker": "back_end\\Models\\WebCodeContext.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Models\\WebCodeContext.cs",
+              "RelativeToolTip": "back_end\\Models\\WebCodeContext.cs",
+              "ViewState": "AgIAAFoEAAAAAAAAAAAUwGoEAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T17:12:00.146Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Program.cs",
+              "RelativeDocumentMoniker": "back_end\\Program.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Program.cs",
+              "RelativeToolTip": "back_end\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T17:11:10.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "back_end\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\UserController.cs",
+              "RelativeToolTip": "back_end\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAUwL8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T17:07:08.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\Product.cs",
+              "RelativeDocumentMoniker": "back_end\\Controllers\\Product.cs",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\Controllers\\Product.cs",
+              "RelativeToolTip": "back_end\\Controllers\\Product.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAEAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T10:29:07.239Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\appsettings.json",
+              "RelativeDocumentMoniker": "back_end\\appsettings.json",
+              "ToolTip": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\appsettings.json",
+              "RelativeToolTip": "back_end\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-29T08:16:15.729Z"
             }
           ]
         }
