@@ -2507,6 +2507,116 @@ BEGIN
 END
  GO
 
+ALTER PROCEDURE upsert_product
+    @product_id VARCHAR(25),
+    @name NVARCHAR(75),
+    @name2 NVARCHAR(75) = NULL,
+    @description NVARCHAR(1000) = NULL,
+    @brand_id VARCHAR(25) = NULL,
+    @category_id VARCHAR(25),
+    @group_tb_1 VARCHAR(25) = NULL,
+    @group_tb_2 VARCHAR(25) = NULL,
+    @group_tb_3 VARCHAR(25) = NULL,
+    @group_tb_4 VARCHAR(25) = NULL,
+    @uom NVARCHAR(20) = NULL,
+    @price1 MONEY = NULL,
+    @date_apply1 DATETIME = NULL,
+    @price2 MONEY = NULL,
+    @date_apply2 DATETIME = NULL,
+    @url_image1 VARCHAR(300) = NULL,
+    @url_image2 VARCHAR(300) = NULL,
+    @url_image3 VARCHAR(300) = NULL,
+    @user_id VARCHAR(25),
+    @status BIT = 1
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Kiểm tra quyền user
+    IF EXISTS (SELECT 1 FROM user_tb WHERE user_id = @user_id AND (seller = 1 OR admin = 1))
+    BEGIN
+        -- Kiểm tra sản phẩm đã tồn tại
+        IF EXISTS (SELECT 1 FROM product WHERE product_id = @product_id)
+        BEGIN
+            -- Chỉ cập nhật nếu có thay đổi
+            IF EXISTS (
+                SELECT 1 FROM product
+                WHERE product_id = @product_id AND (
+                    name <> @name OR
+                    ISNULL(name2, '') <> ISNULL(@name2, '') OR
+                    ISNULL(description, '') <> ISNULL(@description, '') OR
+                    ISNULL(brand_id, '') <> ISNULL(@brand_id, '') OR
+                    category_id <> @category_id OR
+                    ISNULL(group_tb_1, '') <> ISNULL(@group_tb_1, '') OR
+                    ISNULL(group_tb_2, '') <> ISNULL(@group_tb_2, '') OR
+                    ISNULL(group_tb_3, '') <> ISNULL(@group_tb_3, '') OR
+                    ISNULL(group_tb_4, '') <> ISNULL(@group_tb_4, '') OR
+                    ISNULL(uom, '') <> ISNULL(@uom, '') OR
+                    ISNULL(price1, 0) <> ISNULL(@price1, 0) OR
+                    ISNULL(date_apply1, '1900-01-01') <> ISNULL(@date_apply1, '1900-01-01') OR
+                    ISNULL(price2, 0) <> ISNULL(@price2, 0) OR
+                    ISNULL(date_apply2, '1900-01-01') <> ISNULL(@date_apply2, '1900-01-01') OR
+                    ISNULL(url_image1, '') <> ISNULL(@url_image1, '') OR
+                    ISNULL(url_image2, '') <> ISNULL(@url_image2, '') OR
+                    ISNULL(url_image3, '') <> ISNULL(@url_image3, '') OR
+                    user_id <> @user_id OR
+                    status <> @status
+                )
+            )
+            BEGIN
+                UPDATE product
+                SET 
+                    name = @name,
+                    name2 = @name2,
+                    description = @description,
+                    brand_id = @brand_id,
+                    category_id = @category_id,
+                    group_tb_1 = @group_tb_1,
+                    group_tb_2 = @group_tb_2,
+                    group_tb_3 = @group_tb_3,
+                    group_tb_4 = @group_tb_4,
+                    uom = @uom,
+                    price1 = @price1,
+                    date_apply1 = @date_apply1,
+                    price2 = @price2,
+                    date_apply2 = @date_apply2,
+                    url_image1 = @url_image1,
+                    url_image2 = @url_image2,
+                    url_image3 = @url_image3,
+                    user_id = @user_id,
+                    status = @status
+                WHERE product_id = @product_id;
+            END
+        END
+        ELSE
+        BEGIN
+            -- Thêm mới sản phẩm
+            INSERT INTO product (
+                product_id, name, name2, description, brand_id, category_id,
+                group_tb_1, group_tb_2, group_tb_3, group_tb_4, uom,
+                price1, date_apply1, price2, date_apply2,
+                url_image1, url_image2, url_image3,
+                user_id, status
+            )
+            VALUES (
+                @product_id, @name, @name2, @description, @brand_id, @category_id,
+                @group_tb_1, @group_tb_2, @group_tb_3, @group_tb_4, @uom,
+                @price1, @date_apply1, @price2, @date_apply2,
+                @url_image1, @url_image2, @url_image3,
+                @user_id, @status
+            );
+        END
+    END
+    ELSE
+    BEGIN
+        -- User không có quyền
+        RAISERROR(N'Bạn không phải người bán hoặc không đúng người bán của sản phẩm.', 16, 1);
+        RETURN;
+    END
+END
+GO
+
+--Xóa sản phẩm
 
 
 
