@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Search, Plus, Edit, Trash2, X, AlertCircle, CheckCircle } from 'lucide-react';
-import MenuAdmin from "../Admin/Menu";
+import MenuAdmin from "./Menu";
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:5166/api';

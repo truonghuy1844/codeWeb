@@ -12,12 +12,12 @@ const PromotionDetail = () => {
 
   useEffect(() => {
     // Load product list for promotion
-    axios.get(`http://localhost:5228/api/promotion/${id}/products`)
+    axios.get(`http://localhost:5166/api/promotion/${id}/products`)
       .then(res => setProducts(res.data))
       .catch(err => console.error("Lỗi tải sản phẩm khuyến mãi:", err));
 
     // Load promotion info
-    axios.get(`http://localhost:5228/api/promotion/list`)
+    axios.get(`http://localhost:5166/api/promotion/list`)
       .then(res => {
         const promo = res.data.find(p => p.Id === id);
         if (promo) setPromotionInfo(promo);
@@ -48,7 +48,7 @@ const PromotionDetail = () => {
       price: item.price2 && item.price2 < item.price1 ? item.price2 : item.price1,
     };
 
-    axios.post('http://localhost:5228/api/cart/add', cartItem)
+    axios.post('http://localhost:5166/api/cart/add', cartItem)
       .then(() => toast.success('Đã thêm vào giỏ hàng'))
       .catch(() => toast.error('Lỗi khi thêm vào giỏ hàng'));
   };

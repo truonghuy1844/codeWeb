@@ -20,7 +20,7 @@ const Checkout = () => {
     if (!user?.userId) return;
 
     // 🔹 Lấy thông tin người dùng
-    axios.get(`http://localhost:5228/api/User/${user.userId}`)
+    axios.get(`http://localhost:5166/api/User/${user.userId}`)
       .then(res => {
         setName(res.data.name || '');
         setPhone(res.data.phoneNumber || '');
@@ -28,7 +28,7 @@ const Checkout = () => {
       .catch(err => console.error("Lỗi lấy thông tin cá nhân:", err));
 
     // 🔹 Lấy địa chỉ mặc định
-    axios.get(`http://localhost:5228/api/Address/default/${user.userId}`)
+    axios.get(`http://localhost:5166/api/Address/default/${user.userId}`)
   .then(res => {
     console.log("📦 Địa chỉ mặc định:", res.data);
     setAddress(res.data.address);     
@@ -42,7 +42,7 @@ const Checkout = () => {
         setItems([product]);
       }
     } else {
-      axios.get(`http://localhost:5228/api/Cart?userId=${user.userId}`)
+      axios.get(`http://localhost:5166/api/Cart?userId=${user.userId}`)
         .then(res => {
           setItems(res.data);
         });
@@ -102,11 +102,11 @@ const Checkout = () => {
     console.log("Payload gửi lên:", payload);
 
     try {
-      const res = await axios.post('http://localhost:5228/api/Orders/create', payload);
+      const res = await axios.post('http://localhost:5166/api/Orders/create', payload);
       alert('Đặt hàng thành công!');
 
       if (!isBuyNow) {
-        await axios.delete(`http://localhost:5228/api/Cart/clear?userId=${user.userId}`);
+        await axios.delete(`http://localhost:5166/api/Cart/clear?userId=${user.userId}`);
       }
 
       navigate('/');

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './ProductCatalog.css'; // Tái sử dụng giao diện
+import './ProductCatalog.css'; 
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -13,7 +13,7 @@ const ProductHomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('http://localhost:5228/api/product/filter');
+        const res = await axios.get('http://localhost:5166/api/product/filter');
         setProducts(res.data.data || []);
       } catch (err) {
         console.error('Lỗi khi lấy sản phẩm:', err);
@@ -47,7 +47,7 @@ const ProductHomePage = () => {
       urlImage: product.urlImage1
     };
 
-    axios.post('http://localhost:5228/api/cart/add', cartItem)
+    axios.post('http://localhost:5166/api/cart/add', cartItem)
       .then(() => toast.success('Đã thêm vào giỏ hàng'))
       .catch(() => toast.error('Thêm vào giỏ hàng thất bại'));
   };

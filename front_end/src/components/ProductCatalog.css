@@ -81,8 +81,7 @@
 .view-mode-toggle button {
   font-size: 18px;
   padding: 6px 10px;
-  background: transparent;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -292,7 +291,7 @@
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
+  .sidebar1 {
     width: 100%;
   }
 

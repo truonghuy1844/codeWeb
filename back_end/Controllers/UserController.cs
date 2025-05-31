@@ -1,4 +1,5 @@
-﻿using back_end.DataTransferObject;
+﻿using System.ComponentModel.DataAnnotations;
+using back_end.DataTransferObject;
 using back_end.Models;
 using back_end.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,26 +18,107 @@ namespace back_end.Controllers
             _context = context;
         }
 
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegisterDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                if (_context.Users.Any(u => u.UserName == dto.Name))
+                    return BadRequest(new { message = "Tên đăng nhập đã tồn tại." });
+
+                if (_context.UserDetails.Any(d => d.Email == dto.Email))
+                    return BadRequest(new { message = "Email đã tồn tại." });
+
+                var user = new User
+                {
+                    UserName = dto.Name,
+                    Password = dto.Password,
+                    DateCreated = DateOnly.FromDateTime(DateTime.Now)
+                };
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                var address = new Address
+                {
+                    AddressId = $"addr{user.UserId}_1",
+                    City = dto.City,
+                    District = dto.District,
+                    Ward = dto.Ward,
+                    Street = dto.Street,
+                    Detail = dto.Detail,
+                    UserId = user.UserId,
+                    Status = true
+                };
+                _context.Addresses.Add(address);
+
+                var details = new UserDetails
+                {
+                    UserId = user.UserId,
+                    Name = dto.Name,
+                    Birthday = dto.Birthday.HasValue ? DateOnly.FromDateTime(dto.Birthday.Value) : null,
+                    PhoneNumber = dto.PhoneNumber,
+                    Address = dto.Address,
+                    Email = dto.Email
+                };
+                _context.UserDetails.Add(details);
+                _context.SaveChanges();
+
+                return Ok(new { message = "Đăng ký thành công", userId = user.UserId });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                return StatusCode(500, new { message = "Lỗi database: " + dbEx.InnerException?.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Lỗi không xác định: " + ex.Message });
+            }
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginDto dto)
+        {
+            try
+            {
+                var user = _context.Users
+                    .Include(u => u.UserDetails)
+                    .FirstOrDefault(u => u.UserDetails.Email == dto.Email && u.Password == dto.Password);
+
+                if (user == null)
+                    return Unauthorized("Email hoặc mật khẩu không chính xác.");
+
+                return Ok(new
+                {
+                    message = "Đăng nhập thành công",
+                    user.UserId,
+                    user.UserDetails.Name,
+                    user.UserDetails.Email
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Lỗi server: " + ex.Message });
+            }
+        }
+
         [HttpGet("get/{userId}")]
         public IActionResult GetUser(int userId)
         {
             var user = _context.Users.Find(userId);
-            if (user == null)
-            {
-                return NotFound($"User with ID {userId} not found.");
-            }
+            if (user == null) return NotFound();
 
             var userDetails = _context.UserDetails.FirstOrDefault(u => u.UserId == userId);
             var userDto = new UserDto
             {
-                // Thông tin lưu vào bảng user
                 UserName = user.UserName,
                 Password = user.Password,
                 IsAdmin = user.IsAdmin,
                 IsBuyer = user.IsBuyer,
                 IsSeller = user.IsSeller,
-
-                // Thông tin từ bảng user_details
+                //Department = user.Department,
                 Name = userDetails?.Name ?? string.Empty,
                 Birthday = userDetails?.Birthday?.ToDateTime(TimeOnly.MinValue),
                 Email = userDetails?.Email ?? string.Empty,
@@ -54,13 +136,11 @@ namespace back_end.Controllers
             {
                 queryResult = queryResult.Where(u => u.Status == query.Status);
             }
-            if (query.SearchContent != null)
+            if (!string.IsNullOrWhiteSpace(query.SearchContent))
             {
-                queryResult = queryResult.Where(u => u.UserName.ToLower()
-                    .Contains(query.SearchContent.ToLower()));
+                queryResult = queryResult.Where(u => u.UserName.ToLower().Contains(query.SearchContent.ToLower()));
             }
-            var data = queryResult.ToList();
-            var result = data.Select(u => new UserDto
+            var result = queryResult.ToList().Select(u => new UserDto
             {
                 UserId = u.UserId,
                 UserName = u.UserName,
@@ -68,7 +148,7 @@ namespace back_end.Controllers
                 IsAdmin = u.IsAdmin,
                 IsBuyer = u.IsBuyer,
                 IsSeller = u.IsSeller,
-                Department = u.Department,
+                //Department = u.Department,
                 Name = u.UserDetails?.Name ?? string.Empty,
                 Birthday = u.UserDetails?.Birthday?.ToDateTime(TimeOnly.MinValue),
                 Email = u.UserDetails?.Email ?? string.Empty,
@@ -85,11 +165,8 @@ namespace back_end.Controllers
             try
             {
                 if (dto == null || string.IsNullOrEmpty(dto.UserName) || string.IsNullOrEmpty(dto.Password))
-                {
                     return BadRequest("Invalid user data.");
-                }
 
-                #region Tạo user nếu không tìm thấy user
                 if (dto.UserId == 0)
                 {
                     var newUser = new User
@@ -99,10 +176,9 @@ namespace back_end.Controllers
                         IsAdmin = dto.IsAdmin,
                         IsBuyer = dto.IsBuyer,
                         IsSeller = dto.IsSeller,
-                        Department = dto.Department,
+                        //Department = dto.Department,
                         DateCreated = DateOnly.FromDateTime(DateTime.Now)
                     };
-                    // Lưu thay đổi
                     _context.Users.Add(newUser);
                     _context.SaveChanges();
 
@@ -115,28 +191,21 @@ namespace back_end.Controllers
                         Address = dto.Address,
                         Email = dto.Email
                     };
-                    // Lưu thay đổi
                     _context.UserDetails.Add(userDetails);
                     _context.SaveChanges();
                     return Ok($"Tạo user thành công {newUser.UserId}");
                 }
-                #endregion
 
                 var user = _context.Users.Find(dto.UserId);
-                #region Update user
-                // Cập nhật thông tin người dùng
                 user.UserName = dto.UserName;
                 user.Password = dto.Password;
                 user.IsAdmin = dto.IsAdmin;
                 user.IsBuyer = dto.IsBuyer;
                 user.IsSeller = dto.IsSeller;
-                user.Department = dto.Department;
-
-                // Lưu thay đổi
+                //user.Department = dto.Department;
                 _context.Users.Update(user);
                 _context.SaveChanges();
 
-                // Cập nhật thông tin chi tiết người dùng
                 var userDetail = _context.UserDetails.FirstOrDefault(u => u.UserId == dto.UserId);
                 if (userDetail != null)
                 {
@@ -145,18 +214,31 @@ namespace back_end.Controllers
                     userDetail.Email = dto.Email;
                     userDetail.Name = dto.Name;
                     userDetail.PhoneNumber = dto.PhoneNumber;
-                    // Lưu thay đổi
                     _context.UserDetails.Update(userDetail);
                     _context.SaveChanges();
                 }
 
                 return Ok($"Update user thành công {user.UserId}");
-                #endregion
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Lỗi khi cập nhật user: {ex.Message}");
             }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] UpdateInfoDto dto)
+        {
+            var user = _context.Users.Include(u => u.UserDetails).FirstOrDefault(u => u.UserId == id);
+            if (user == null) return NotFound();
+
+            user.UserDetails.Name = dto.Name;
+            user.UserDetails.Birthday = dto.Birthday.HasValue ? DateOnly.FromDateTime(dto.Birthday.Value) : null;
+            user.UserDetails.PhoneNumber = dto.PhoneNumber;
+            user.UserDetails.Address = dto.Address;
+            _context.SaveChanges();
+
+            return Ok(new { message = "Cập nhật thành công" });
         }
 
         [HttpDelete("delete/{userId}")]
@@ -166,19 +248,11 @@ namespace back_end.Controllers
             {
                 int parseId = int.Parse(userId);
                 var user = _context.Users.Find(parseId);
-                if (user == null)
-                {
-                    return NotFound($"User with ID {userId} not found.");
-                }
+                if (user == null) return NotFound($"User with ID {userId} not found.");
 
-                // Xóa thông tin chi tiết người dùng nếu có
                 var userDetails = _context.UserDetails.FirstOrDefault(u => u.UserId == parseId);
-                if (userDetails != null)
-                {
-                    _context.UserDetails.Remove(userDetails);
-                }
+                if (userDetails != null) _context.UserDetails.Remove(userDetails);
 
-                // Xóa người dùng
                 _context.Users.Remove(user);
                 _context.SaveChanges();
                 return Ok($"User with ID {userId} deleted successfully.");
@@ -187,6 +261,23 @@ namespace back_end.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting user: {ex.Message}");
             }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _context.Users.Include(u => u.UserDetails).FirstOrDefaultAsync(u => u.UserId == id);
+            if (user == null || user.UserDetails == null) return NotFound();
+
+            return Ok(new
+            {
+                name = user.UserDetails.Name,
+                email = user.UserDetails.Email,
+                phone = user.UserDetails.PhoneNumber,
+                birthday = user.UserDetails.Birthday?.ToString("yyyy-MM-dd"),
+                address = user.UserDetails.Address,
+                gender = "Nam"
+            });
         }
     }
 }

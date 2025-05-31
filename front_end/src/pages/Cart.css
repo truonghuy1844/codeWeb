@@ -1,19 +1,221 @@
-table {
+.cart-page {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+}
+
+.cart-page h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.total-items {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.cart-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-td, th {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+.cart-table th,
+.cart-table td {
+  padding: 16px 12px;
   text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  vertical-align: middle;
 }
 
-button {
-  background-color: crimson;
-  color: white;
+.cart-table img {
+  width: 60px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.cart-table button {
+  padding: 8px 12px;
+  font-size: 16px;
   border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
+  background-color: #e53935;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
+  margin: 0 4px;
+}
+
+.cart-table button:hover {
+  background-color: #c62828;
+}
+
+.qty {
+  margin: 0 12px;
+  font-size: 16px;
+}
+
+.total-price {
+  font-size: 20px;
+  text-align: right;
+  margin-top: 12px;
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.cart-actions1 {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.continue-btn,
+.checkout-btn {
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.continue-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.continue-btn:hover {
+  background-color: #1565c0;
+}
+
+.checkout-btn {
+  background-color: #e53935;
+  color: white;
+}
+
+.checkout-btn:hover {
+  background-color: #c62828;
+}
+
+.empty-order1 {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.empty-order1 .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+/* 💰 Giá sản phẩm có giảm giá */
+.discounted-price {
+  font-weight: bold;
+  color: #e53935;
+  font-size: 16px;
+}
+
+.original-price {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 4px;
+}
+
+.savings {
+  color: #2e7d32;
+  font-size: 16px;
+  text-align: right;
+  font-weight: 500;
+  margin-top: 4px;
+}
+@media (max-width: 768px) {
+  .cart-page {
+    padding: 16px;
+    margin: 20px 12px;
+    border-radius: 10px;
+  }
+
+  .cart-page h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .total-items {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .cart-table thead {
+    display: none; /* Ẩn tiêu đề cột trên mobile */
+  }
+
+  .cart-table,
+  .cart-table tbody,
+  .cart-table tr,
+  .cart-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-table tr {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 16px;
+  }
+
+  .cart-table td {
+    text-align: left;
+    padding: 8px 0;
+    font-size: 15px;
+  }
+
+  .cart-table img {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+
+  .qty {
+    margin: 0 8px;
+    font-size: 15px;
+  }
+
+  .cart-table button {
+    font-size: 14px;
+    padding: 6px 10px;
+    margin: 0 2px;
+  }
+
+  .total-price,
+  .savings {
+    text-align: center;
+    font-size: 17px;
+    margin-top: 16px;
+  }
+
+  .cart-actions1 {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .continue-btn,
+  .checkout-btn {
+    width: 100%;
+    font-size: 15px;
+    height: 46px;
+  }
 }

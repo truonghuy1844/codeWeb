@@ -22,7 +22,7 @@ const Account = () => {
 
     useEffect(() => {
     if (userId) {
-        axios.get(`http://localhost:5228/api/User/${userId}`)
+        axios.get(`http://localhost:5166/api/User/${userId}`)
         .then(res => setUser(res.data))
         .catch(err => console.error(err));
     }
@@ -55,7 +55,7 @@ const Account = () => {
     return;
   }
 
-    axios.put(`http://localhost:5228/api/User/${userId}`, user)
+    axios.put(`http://localhost:5166/api/User/${userId}`, user)
 
       .then(() => {
         alert("Cập nhật thành công!");

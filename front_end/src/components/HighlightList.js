@@ -8,7 +8,7 @@ const HighlightList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5228/api/product/highlight')
+    axios.get('http://localhost:5166/api/product/highlight')
       .then((res) => setProducts(res.data))
       .catch((err) => console.error('Lỗi sản phẩm nổi bật:', err));
   }, []);

@@ -18,7 +18,7 @@ const MiniCartPopup = () => {
     if (!user) return;
 
     try {
-      const res = await axios.get(`http://localhost:5228/api/Cart?userId=${user.userId}`);
+      const res = await axios.get(`http://localhost:5166/api/Cart?userId=${user.userId}`);
       setItems(res.data);
       const sum = res.data.reduce((acc, item) => acc + item.price * item.quantity, 0);
       setTotal(sum);
@@ -36,7 +36,7 @@ const MiniCartPopup = () => {
 
     const newQuantity = Math.max(1, item.quantity + delta);
     try {
-      await axios.patch("http://localhost:5228/api/Cart/update", {
+      await axios.patch("http://localhost:5166/api/Cart/update", {
         userId: user.userId,
         productId,
         quantity: newQuantity
@@ -52,7 +52,7 @@ const MiniCartPopup = () => {
     if (!user) return;
 
     try {
-      await axios.delete("http://localhost:5228/api/Cart/remove", {
+      await axios.delete("http://localhost:5166/api/Cart/remove", {
         params: {
           userId: user.userId,
           productId

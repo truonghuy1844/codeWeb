@@ -14,7 +14,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-right">
-        <h2 className="footer-logo">🎁 TOY STORE</h2>
+        <h2 className="footer-logo">TOY STORE</h2>
 
         <p className="footer-follow">Theo dõi chúng tôi</p>
         <div className="footer-socials">

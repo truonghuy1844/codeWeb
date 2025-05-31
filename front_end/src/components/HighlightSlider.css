@@ -1,41 +1,172 @@
 .highlight-slider {
-  padding: 30px;
+
+  padding: 0 16px;
+}
+
+.highlight-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #c41c1c;
+}
+.highlight-wrapper {
   background-color: #fff;
+  padding: 48px 32px 72px;
+  border-radius: 20px;
+  max-width: 1400px;  /* Rộng hơn mặc định */
+  margin: 0 auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+/* 👇 Mỗi slide có padding để tạo khoảng cách */
+.slick-slide {
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .highlight-card {
-  padding: 10px;
+  position: relative;
+  width: 100%;
+  max-width: 290px; /*  Card nhỏ gọn lại */
+  margin: 0 auto;
+  padding: 12px;
   text-align: center;
+  border-radius: 16px;
+  background-color: #fff;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.highlight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .highlight-card img {
   width: 100%;
-  height: auto;
+  height: 160px;
+  object-fit: contain;
   border-radius: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .highlight-card h4 {
-  font-size: 16px;
+  font-size: 15px;
   margin: 0;
+  color: #333;
+  height: 42px;
+  overflow: hidden;
 }
 
-.highlight-card p {
-  color: #ff4081;
-  font-weight: bold;
+.price-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 0;
 }
+
+.product-price {
+  font-weight: bold;
+  color: #e53935;
+  font-size: 16px;
+}
+
+.product-original {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e53935;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 1;
+}
+
 .highlight-card button {
   background-color: #c41c1c;
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 10px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 8px;
-  width: 40%;
+  margin-top: 12px;
+  width: 80%;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .highlight-card button:hover {
   background-color: #e91e63;
 }
 
+/* Dot pagination */
+.slick-dots {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+   flex-wrap: wrap;
+  margin-top: 24px;
+  padding-left: 0;
+}
+
+.slick-dots li {
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.slick-dots li.slick-active {
+  background-color: #c41c1c;
+}
+
+.slick-dots li button {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .highlight-title {
+    font-size: 28px;
+  }
+
+  .highlight-card {
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .highlight-title {
+    font-size: 22px;
+  }
+
+  .highlight-slider {
+    padding: 12px;
+  }
+
+  .highlight-card {
+    max-width: 100%;
+  }
+
+  .highlight-card button {
+    width: 100%;
+  }
+}

@@ -12,8 +12,8 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       const url = keyword
-        ? `http://localhost:5228/api/product/search?keyword=${encodeURIComponent(keyword)}`
-        : `http://localhost:5228/api/product`;
+        ? `http://localhost:5166/api/product/search?keyword=${encodeURIComponent(keyword)}`
+        : `http://localhost:5166/api/product`;
 
       console.log("🔍 Đang gọi API:", url);
 

@@ -27,7 +27,7 @@ namespace back_end.Controllers
             var orders = new List<OrderDto>();
             var orderMap = new Dictionary<string, OrderDto>();
 
-            using (var conn = new SqlConnection(_config.GetConnectionString("WebCodeDb")))
+            using (var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 conn.Open();
 
@@ -114,7 +114,7 @@ namespace back_end.Controllers
         [HttpGet("{orderId}")]
         public IActionResult GetOrderDetails(string orderId)
         {
-            using var conn = new SqlConnection(_config.GetConnectionString("WebCodeDb"));
+            using var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             conn.Open();
 
             var order = new OrderDto { OrderId = orderId, Products = new List<ProductDto>() };
@@ -211,7 +211,7 @@ namespace back_end.Controllers
             var orderId = $"od_{Guid.NewGuid().ToString("N").Substring(0, 16)}";
             var shipmentId = $"sh_{Guid.NewGuid().ToString("N").Substring(0, 16)}";
 
-            using var conn = new SqlConnection(_config.GetConnectionString("WebCodeDb"));
+            using var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             conn.Open();
             using var tran = conn.BeginTransaction();
 
