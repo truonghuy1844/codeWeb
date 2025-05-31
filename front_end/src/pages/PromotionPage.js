@@ -9,7 +9,7 @@ const PromotionPage = () => {
   const itemsPerPage = 6;
 
   useEffect(() => {
-    axios.get('http://localhost:5228/api/promotion/list')
+    axios.get('http://localhost:5166/api/promotion/list')
       .then(res => setPromotions(res.data))
       .catch(err => console.error('Lỗi API:', err));
   }, []);

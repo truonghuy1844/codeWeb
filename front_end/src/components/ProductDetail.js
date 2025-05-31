@@ -12,7 +12,7 @@ const ProductDetail = ({ onAddToCartPopup }) => {
   const [mainImage, setMainImage] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:5228/api/product/${id}`)
+    axios.get(`http://localhost:5166/api/product/${id}`)
       .then(res => {
         setProduct(res.data);
         setMainImage(res.data.urlImage1);
@@ -54,7 +54,7 @@ const ProductDetail = ({ onAddToCartPopup }) => {
     localStorage.setItem('cartItems', JSON.stringify(stored));
 
     try {
-      await axios.post('http://localhost:5228/api/Cart/add', item);
+      await axios.post('http://localhost:5166/api/Cart/add', item);
     } catch (err) {
       console.error('API lưu giỏ hàng thất bại:', err);
     }

@@ -1,5 +1,4 @@
-﻿USE web_code
-GO
+﻿
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'sp_upsert_user') AND type in (N'P', N'PC'))
     DROP PROCEDURE sp_upsert_user
 GO

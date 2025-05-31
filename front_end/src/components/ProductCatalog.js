@@ -33,7 +33,7 @@ const ProductCatalog = ({ onAddToCartPopup }) => {
         let productList = [];
 
         if (keyword) {
-          const res = await axios.get('http://localhost:5228/api/product/search', {
+          const res = await axios.get('http://localhost:5166/api/product/search', {
             params: { keyword }
           });
           productList = res.data;
@@ -41,7 +41,7 @@ const ProductCatalog = ({ onAddToCartPopup }) => {
           const params = {
             categoryName: category || undefined,
           };
-          const res = await axios.get('http://localhost:5228/api/product/filter', { params });
+          const res = await axios.get('http://localhost:5166/api/product/filter', { params });
           productList = res.data.data;
         }
 
@@ -109,7 +109,7 @@ const ProductCatalog = ({ onAddToCartPopup }) => {
     };
 
     axios
-      .post('http://localhost:5228/api/cart/add', cartItem)
+      .post('http://localhost:5166/api/cart/add', cartItem)
       .then((res) => {
         toast.success(res.data.message || 'Đã thêm vào giỏ hàng');
         if (onAddToCartPopup) onAddToCartPopup();
@@ -127,7 +127,7 @@ const ProductCatalog = ({ onAddToCartPopup }) => {
 
   return (
     <div className="product-page">
-      <div className="sidebar">
+      <div className="sidebar1">
         <ProductFilter
           onCategoryChange={setCategory}
           onPriceChange={(type, value) =>

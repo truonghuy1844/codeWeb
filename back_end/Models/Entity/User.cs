@@ -26,8 +26,8 @@ public partial class User
     [Column("ban")]
     public bool IsBanned { get; set; }
 
-    [Column("phong_ban")]
-    public string? Department { get; set; }
+    //[Column("phong_ban")]
+    //public string? Department { get; set; }
 
     [Column("freeze")]
     public bool IsFrozen { get; set; }

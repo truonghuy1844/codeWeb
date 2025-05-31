@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AddressSelector from './AddressSelector';
+import AddressSelector from '../components/AddressSelector';
 import { getProvinces, getDistrictsByProvinceCode, getWardsByDistrictCode } from 'sub-vn';
 import './RegisterForm.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -76,7 +76,7 @@ const RegisterForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5228/api/User/register', payload);
+      const response = await axios.post('http://localhost:5166/api/User/register', payload);
       alert('Đăng ký thành công!');
       console.log(response.data);
       navigate('/login');

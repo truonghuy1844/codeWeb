@@ -24,14 +24,6 @@
   width: 100%;  
 }
 
-.sidebar {
-  flex-shrink: 0;
-  width: 200px; /* vừa với nội dung */
-  height: 200px;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
 
 .order-card-detail {
   border: 1px solid #eee;

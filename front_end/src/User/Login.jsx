@@ -1,6 +1,5 @@
 import React from 'react';
-import LoginForm from './LoginForm';
-
+import LoginForm from './User/LoginForm';
 const Login = () => {
   return (
     <div style={{ background: '#f8f8f8', minHeight: '100vh' }}>

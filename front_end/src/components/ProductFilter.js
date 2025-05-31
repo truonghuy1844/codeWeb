@@ -8,7 +8,7 @@ const ProductFilter = ({ onCategoryChange, onPriceChange, onResetAll }) => {
   const [range, setRange] = useState({ min: 0, max: 2000000 });
 
   useEffect(() => {
-    axios.get('http://localhost:5228/api/category')
+    axios.get('http://localhost:5166/api/category')
       .then(res => setCategories(res.data))
       .catch(err => console.error('Lỗi khi tải danh mục:', err));
   }, []);
