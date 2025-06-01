@@ -9,7 +9,7 @@ const MenuAdmin = () => {
 
   const menuItems = [
     { id: 'home', label: 'Trang chủ', icon: '🏠', path: '/admin/' },
-    { id: 'staff', label: 'Nhân viên', icon: '👥', path: '/admin/nhan-vien' },
+    { id: 'staff', label: 'Người dùng', icon: '👥', path: '/admin/nhan-vien' },
     { id: 'products', label: 'Sản phẩm', icon: '📦', path: '/admin/san-pham' },
     { id: 'orders', label: 'Đơn hàng', icon: '📋', path: '/admin/don-hang' }
   ];

@@ -5,7 +5,7 @@ import './OrderForm.css';              // Dùng CSS cũ của form
 import Modal from '../Modal/Modal';    // Modal chung
 import SuccessModal from '../Modal/SuccessModal';
 import ConfirmModal from '../Modal/ConfirmModal';
-import MenuAdmin from './Menu';  // Thanh menu bên trái
+import MenuAdmin from './MenuAdmin';  // Thanh menu bên trái
 import AdminHeader from '../AdminLayout/AdminHeader';
 
 /**

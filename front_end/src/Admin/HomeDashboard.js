@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import MenuAdmin from '../Admin/Menu';
+import MenuAdmin from '../Admin/MenuAdmin';
 import AdminHeader from '../AdminLayout/AdminHeader';
 
 const COLORS = ['#FFA500', '#00C49F', '#0088FE']; // Màu cho từng trạng thái
