@@ -21,7 +21,7 @@ namespace back_end.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts() //Admin nha
         {
             try
             {
@@ -65,8 +65,6 @@ namespace back_end.Controllers
             }
         }
 
-        // GET: api/Products/id
-        // GET: api/Products/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {
@@ -123,7 +121,7 @@ namespace back_end.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
-        [HttpPost("upsert")]
+        [HttpPost("upsert")] //Admin nha
         public async Task<IActionResult> UpsertProduct([FromBody] ProductUpsertDto productDto)
         {
             try
@@ -284,7 +282,7 @@ namespace back_end.Controllers
 
 
         // DELETE: api/Products/id
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //Admin nha
         public async Task<IActionResult> DeleteProduct(string id)
         {
             try
@@ -426,7 +424,7 @@ namespace back_end.Controllers
 }
 
 // DTO class để nhận dữ liệu từ frontend
-public class ProductUpsertDto
+public class ProductUpsertDto //Admin nha
 {
     public string ProductId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
