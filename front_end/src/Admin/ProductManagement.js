@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Search, Plus, Edit, Trash2, X, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
-import MenuAdmin from './Menu';
-
+import MenuAdmin from './MenuAdmin';
+import AdminHeader from '../AdminLayout/AdminHeader';
 const ProductManagement = () => {
   const [activeTab, setActiveTab] = useState('products');
   const [showModal, setShowModal] = useState(false);
@@ -173,11 +173,8 @@ const fetchProducts = async () => {
       setCategories(data);
     } catch (err) {
       console.error('Error fetching categories:', err);
-      setCategories([
-        { categoryId: 'C001', categoryName: 'Xe điều khiển' },
-        { categoryId: 'C002', categoryName: 'Robot' },
-        { categoryId: 'C003', categoryName: 'Máy bay' },
-        { categoryId: 'C004', categoryName: 'Tàu thủy' }
+      setBrands([
+        { brandId: '1', brandName: 'Lego' },
       ]);
     }
   };
@@ -319,17 +316,17 @@ const performDelete = async (productId) => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    try {
-      setLoading(true);
-      
-      const validation = validateProductData(formData);
-      if (!validation.isValid) {
-        setFormErrors(validation.errors);
-        showNotification('Vui lòng kiểm tra lại thông tin nhập vào', 'error');
-        return;
-      }
+  e.preventDefault();
+  
+  try {
+    setLoading(true);
+
+    const validation = validateProductData(formData);
+    if (!validation.isValid) {
+      setFormErrors(validation.errors);
+      showNotification('Vui lòng kiểm tra lại thông tin nhập vào', 'error');
+      return;
+    }
 
       const productData = {
         productId: formData.productId,
@@ -380,11 +377,11 @@ const performDelete = async (productId) => {
         errorMessage = error.message;
       }
       
-      showNotification(errorMessage, 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
+    showNotification(errorMessage, 'error');
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Handle input change
   const handleInputChange = (e) => {
@@ -400,6 +397,8 @@ const performDelete = async (productId) => {
   };
 
   return (
+  <>
+    <AdminHeader />
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
       {/* Notification */}
       {notification.show && (
@@ -988,6 +987,7 @@ const performDelete = async (productId) => {
         </div>
       )}
     </div>
+    </>
   )
 }
   export default ProductManagement;

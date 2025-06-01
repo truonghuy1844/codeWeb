@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Search, Plus, Edit, Trash2, X, AlertCircle, CheckCircle } from 'lucide-react';
-import MenuAdmin from "./Menu";
+import MenuAdmin from './MenuAdmin';
 import axios from 'axios';
-
+import AdminHeader from '../AdminLayout/AdminHeader';
 const API_BASE_URL = 'http://localhost:5166/api';
 
 const api = axios.create({
@@ -255,6 +255,8 @@ const UserManagerment = () => {
   };
 
   return (
+  <>
+    <AdminHeader />
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
       {/* Notification */}
       {notification.show && (
@@ -678,6 +680,7 @@ const UserManagerment = () => {
         </div>
       )}
     </div>
+</>
   );
 };
 
