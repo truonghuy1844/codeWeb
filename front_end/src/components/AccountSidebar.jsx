@@ -2,7 +2,7 @@
 import React from 'react';
 import { FaUser, FaMapMarkerAlt, FaClipboardList, FaSignOutAlt } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './Account.css';
+import './AccountSidebar.css';
 
 const AccountSidebar = () => {
   const navigate = useNavigate();

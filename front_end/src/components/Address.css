@@ -5,6 +5,7 @@
   align-items: center;
 }
 
+
 .profile-container {
   display: flex;
   justify-content: center;
@@ -19,39 +20,25 @@
   margin-right: auto;
   margin-bottom: 40px;
   gap: 2rem;
-  align-items: stretch; /* Đảm bảo sidebar và main content có chiều cao tương tự */
+  align-items: stretch;
 }
+
 
 .address-wrapper {
   display: flex;
-  justify-content: center;
-  gap: 3rem; 
+  justify-content: flex-start; /* align bên trái */
+  align-items: flex-start;     /* không stretch chiều cao */
+  gap: 3rem;
   padding: 2rem;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.order-title-large {
-  font-size: 2.5rem;  
-  font-weight: bold;
-  color: #d01e26;     
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  width: 100%;  
+  margin: 0 auto;
 }
 
-address.sidebar {
-  flex-shrink: 0;
-  width: 250px; /* vừa với nội dung */
-  height: autopx;
-  padding: 0rem 3rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
+
+
 
 .address-main {
   flex: 1;
@@ -63,6 +50,18 @@ address.sidebar {
   width: 100%;
 }
 
+
+.order-title-large {
+  font-size: 2.5rem;  
+  font-weight: bold;
+  color: #d01e26;    
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 100%;  
+}
+
+
 /* Danh sách địa chỉ */
 .saved-addresses {
   padding: 1.5rem;
@@ -72,6 +71,7 @@ address.sidebar {
   margin-bottom: 2rem;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
 }
+
 
 .saved-address {
   display: flex;
@@ -85,6 +85,7 @@ address.sidebar {
   transition: box-shadow 0.3s ease;
 }
 
+
 .address-form h2,
 .saved-addresses h2 {
   margin-top: 0;
@@ -92,17 +93,20 @@ address.sidebar {
   padding-top: 0.25rem;
   font-size: 1.25rem;
   color: #d01e26;
-  font-weight: bold;;
+  font-weight: bold;
 }
+
 
 .saved-address:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+
 .address-actions {
   display: flex;
   gap: 0.5rem;
 }
+
 
 .address-actions button {
   background: none;
@@ -114,9 +118,11 @@ address.sidebar {
   align-items: center;
 }
 
+
 .address-actions button:hover {
   color: #d01e26;
 }
+
 
 .star-button {
   background: none;
@@ -127,15 +133,18 @@ address.sidebar {
   transition: color 0.2s ease;
 }
 
+
 .star-button:hover {
   color: #d01e26;
 }
+
 
 .star-text.active {
   color: #d01e26;
   font-weight: bold;
   cursor: default;
 }
+
 
 .add-address-button {
   background-color: #d01e26;
@@ -149,9 +158,11 @@ address.sidebar {
   transition: background-color 0.3s ease;
 }
 
+
 .add-address-button:hover {
   background-color: #b00810;
 }
+
 
 /* Form */
 .address-form {
@@ -162,17 +173,20 @@ address.sidebar {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
 }
 
+
 .address-group {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
+
 .address-group label {
   margin-bottom: 0.3rem;
   font-weight: 500;
   color: #333;
 }
+
 
 .address-group input,
 .address-group select {
@@ -184,11 +198,13 @@ address.sidebar {
   box-sizing: border-box;
 }
 
+
 .address-group input:focus,
 .address-group select:focus {
   border-color: #d01e26;
   outline: none;
 }
+
 
 .address-form-buttons {
   display: flex;
@@ -196,6 +212,7 @@ address.sidebar {
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
 
 .address-form-buttons button {
   background-color: #d01e26;
@@ -209,17 +226,21 @@ address.sidebar {
   transition: background-color 0.3s ease;
 }
 
+
 .address-form-buttons .cancel-button {
   background-color: #999;
 }
+
 
 .address-form-buttons button:hover {
   background-color: #b00810;
 }
 
+
 .address-form-buttons .cancel-button:hover {
   background-color: #777;
 }
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -227,30 +248,33 @@ address.sidebar {
     flex-direction: column;
   }
 
-  .sidebar {
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
 
   .address-main {
     width: 100%;
   }
+
 
   .saved-address {
     flex-direction: column;
     align-items: flex-start;
   }
 
+
   .address-actions {
     margin-top: 0.75rem;
   }
+
 
   .address-form-buttons {
     flex-direction: column;
     align-items: stretch;
   }
 
+
   .address-form-buttons button {
     width: 100%;
   }
 }
+
+
+
