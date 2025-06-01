@@ -23,8 +23,9 @@ const LoginForm = () => {
     const response = await axios.post('http://localhost:5166/api/User/login', formData);
     localStorage.setItem("user", JSON.stringify(response.data));
     localStorage.setItem("userId", response.data.userId);
-    alert('Đăng nhập thành công!');
     navigate('/'); // ✅ Chuyển về trang chủ
+    window.location.reload();
+    window.scrollTo(0, 0);
   } catch (error) {
     const message = error?.response?.data?.message || 'Đăng nhập thất bại!';
     alert(message);
