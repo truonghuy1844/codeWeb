@@ -6,20 +6,17 @@ import LoginForm from './User/LoginForm';
 import RegisterForm from './User/RegisterForm';
 import UserManagerment from './Admin/UserManagerment';
 import ProductManagement from './Admin/ProductManagement';
+import OrderList from './Admin/OrderManagement';
 
 function AppAdmin() {
   return (
-    <Router>
-      <AdminLayout>
-        <Routes>
-          <Route path="/" element={<HomeDashboard />} />
-          <Route path="/don-hang" element={<LoginForm />} />
-          <Route path="/nhan-vien" element={<UserManagerment />} />
-          <Route path="/san-pham" element={<ProductManagement/>} />
-        <Route path="/register" element={<RegisterForm />} />
-        </Routes>
-      </AdminLayout>
-    </Router>
+    <Routes>
+      <Route path="/trang-chu" element={<HomeDashboard />} />
+      <Route path="/don-hang" element={<OrderList />} />
+      <Route path="/nhan-vien" element={<UserManagerment />} />
+      <Route path="/san-pham" element={<ProductManagement />} />
+      <Route path="/register" element={<RegisterForm />} />
+    </Routes>
   );
 }
 

@@ -43,6 +43,7 @@ namespace back_end.Models;
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserDetails> UserDetails { get; set; }
     public virtual DbSet<Wishlist> Wishlists { get; set; }
+    public DbSet<OrderTb> OrderTb { get; set; }       // Entity Order header
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -97,6 +98,41 @@ namespace back_end.Models;
                 .HasColumnName("ward");
         });
 
+        // Cho biết bảng order_tb có trigger tên trg_OrderTb_Audit (ví dụ)
+    modelBuilder.Entity<OrderTb>(entity =>
+    {
+        entity.ToTable("order_tb", tb => tb.HasTrigger("trg_OrderTb_Audit"));
+        
+        // Các cấu hình cột/khóa khác nếu có...
+        entity.HasKey(e => e.OrderId);
+        entity.Property(e => e.OrderId)
+              .HasMaxLength(25)
+              .IsUnicode(false)
+              .HasColumnName("order_id");
+        // … 
+    });
+
+    // Cho biết bảng order_d có trigger tên trg_OrderD_UpdateLog (ví dụ)
+    modelBuilder.Entity<OrderD>(entity =>
+    {
+        entity.ToTable("order_d", tb => tb.HasTrigger("trg_OrderD_UpdateLog"));
+
+        entity.HasKey(e => new { e.OrderId, e.ProductId, e.PiId });
+        entity.Property(e => e.OrderId)
+              .HasMaxLength(25)
+              .IsUnicode(false)
+              .HasColumnName("order_id");
+        entity.Property(e => e.ProductId)
+              .HasMaxLength(25)
+              .IsUnicode(false)
+              .HasColumnName("product_id");
+        entity.Property(e => e.PiId)
+              .HasMaxLength(25)
+              .IsUnicode(false)
+              .HasColumnName("pi_id");
+        // …
+    });
+
         modelBuilder.Entity<Brand>(entity =>
         {
             entity.HasKey(e => e.BrandId).HasName("PK__brand__5E5A8E27E925AC1C");
@@ -121,7 +157,7 @@ namespace back_end.Models;
                 .HasColumnName("status");
         });
 
-        modelBuilder.Entity<OrderD>().HasKey(od => new { od.OrderId, od.ProductId, od.ProductInventoryId });
+        // modelBuilder.Entity<OrderD>().HasKey(od => new { od.OrderId, od.ProductId, od.ProductInventoryId });
 
         modelBuilder.Entity<Cart>(entity =>
         {

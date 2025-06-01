@@ -33,14 +33,13 @@ namespace back_end.Controllers
                     p.Name,
                     p.Description,
                     p.Price1,
-                    p.Price2, 
+                    p.Price2,
                     BrandName = p.Brand != null ? p.Brand.BrandName : null,
                     p.UrlImage1,
                     p.UrlImage2,
                     p.UrlImage3
                 })
             });
-
         }
 
         // GET: api/product/highlight
@@ -66,12 +65,11 @@ namespace back_end.Controllers
                           p.Price2,
                           p.UrlImage1
                       })
-                .Where(p => p.Price1 != null) // lọc an toàn
+                .Where(p => p.Price1 != null)
                 .ToListAsync();
 
             return Ok(products);
         }
-
 
         [HttpGet("search")]
         public async Task<IActionResult> SearchProducts([FromQuery] string keyword)
@@ -97,7 +95,8 @@ namespace back_end.Controllers
                 return StatusCode(500, "Lỗi khi tìm kiếm: " + ex.Message);
             }
         }
-        // ✅ API lấy 1 sản phẩm theo ID: GET /api/product/{id}
+
+        // GET 1 sản phẩm theo ID: GET /api/product/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(string id)
         {
@@ -121,7 +120,48 @@ namespace back_end.Controllers
                 product.UrlImage3
             });
         }
-        // ✅ GET: api/product/filter?categoryName=...&minPrice=...&maxPrice=...&sort=...
+
+        // ─────────── BẮT ĐẦU ĐOẠN CODE MỚI ───────────
+
+        // GET: api/product/fororder/{id}
+        // – Mục đích: Khi user nhập "Mã sản phẩm" trong OrderForm, 
+        //   front-end sẽ gọi endpoint này để lấy nhanh { name, uom, price } của sản phẩm.
+        [HttpGet("fororder/{id}")]
+        public async Task<IActionResult> GetProductForOrder(string id)
+        {
+            // 1) Tìm product (chỉ load đúng record cần thiết)
+            var product = await _context.Products
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+
+            if (product == null)
+            {
+                return NotFound(new 
+                {
+                    success = false,
+                    message = $"Không tìm thấy sản phẩm với ID = {id}"
+                });
+            }
+
+            // 2) Trả về chỉ các trường React (OrderForm.jsx) cần:
+            var result = new
+            {
+                name  = product.Name ?? string.Empty,
+                uom   = product.Uom  ?? string.Empty,        // trường "Uom" trong entity
+                price = product.Price1.HasValue 
+                        ? product.Price1.Value 
+                        : 0m
+            };
+
+            return Ok(new 
+            { 
+                success = true, 
+                data    = result 
+            });
+        }
+        // ─────────── KẾT THÚC ĐOẠN CODE MỚI ───────────
+
+        // GET: api/product/filter?categoryName=...&minPrice=...&maxPrice=...&sort=...
         [HttpGet("filter")]
         public async Task<IActionResult> GetFilteredProducts(
             [FromQuery] string? categoryName,
@@ -138,7 +178,8 @@ namespace back_end.Controllers
                     .AsQueryable();
 
                 if (!string.IsNullOrEmpty(categoryName))
-                    query = query.Where(p => p.Category != null && p.Category.CategoryName.Contains(categoryName));
+                    query = query.Where(p => p.Category != null 
+                                             && p.Category.CategoryName.Contains(categoryName));
 
                 if (minPrice.HasValue)
                     query = query.Where(p => p.Price1 >= minPrice.Value);
@@ -147,10 +188,10 @@ namespace back_end.Controllers
 
                 query = sort switch
                 {
-                    "price_asc" => query.OrderBy(p => p.Price1),
+                    "price_asc"  => query.OrderBy(p => p.Price1),
                     "price_desc" => query.OrderByDescending(p => p.Price1),
-                    "name_desc" => query.OrderByDescending(p => p.Name),
-                    _ => query.OrderBy(p => p.Name)
+                    "name_desc"  => query.OrderByDescending(p => p.Name),
+                    _            => query.OrderBy(p => p.Name)
                 };
 
                 var count = await query.CountAsync();
