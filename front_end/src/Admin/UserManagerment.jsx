@@ -22,7 +22,7 @@ const UserManagerment = () => {
   const [modalMode, setModalMode] = useState('add');
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [departmentFilter, setDepartmentFilter] = useState('');
+  // const [departmentFilter, setDepartmentFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -385,7 +385,7 @@ const UserManagerment = () => {
                 <table className="w-full min-w-[1100px]">
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
-                      <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Mã nhân viên</th>
+                      <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Mã người dùng</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Tên đăng nhập</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Tên người dùng</th>
                       {/* <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Phòng ban</th> */}
