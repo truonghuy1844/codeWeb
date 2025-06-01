@@ -1,4 +1,6 @@
-﻿using System;
+﻿//orderd
+
+using System;
 using System.Collections.Generic;
 
 namespace back_end.Models.Entity
@@ -26,10 +28,10 @@ namespace back_end.Models.Entity
         public virtual Product Product { get; set; } = null!;
 
         public virtual Tax? TaxNavigation { get; set; }
-        public string? ProductInventoryId { get; set; }
+        // public string? ProductInventoryId { get; set; }
 
         // hoặc nếu là navigation property:
-        public ProductIn? ProductIn { get; set; }
+        // public ProductIn? ProductIn { get; set; }
 }
 
 }

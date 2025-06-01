@@ -1,74 +1,103 @@
+/* src/Modal/ConfirmModal.css */
+
+/* 1. Toàn bộ nền mờ, phủ full màn hình */
 .confirm-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* mờ đen 50% */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 1000;
+    /* đảm bảo nằm trên cùng */
 }
 
-.confirm-modal-box {
-    background: #fff;
-    border-radius: 10px;
-    padding: 24px 32px;
-    width: 400px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.3s ease-out;
+/* 2. Box chính giữa */
+.confirm-modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 320px;
+    /* chiếm khoảng 80% trên mobile, bạn có thể điều chỉnh */
+    max-width: 90%;
+    padding: 20px 24px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
-    font-family: 'Segoe UI', sans-serif;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.confirm-modal-box h3 {
-    margin-bottom: 16px;
-    font-size: 20px;
+/* 3. Tiêu đề */
+.confirm-modal-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 600;
     color: #333;
 }
 
-.confirm-modal-buttons {
-    margin-top: 24px;
+/* Icon ❗ */
+.confirm-modal-icon {
+    margin-right: 8px;
+    font-size: 20px;
+    color: #e74c3c;
+    /* đỏ nổi bật */
+}
+
+/* 4. Nội dung thông báo */
+.confirm-modal-message {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* 5. Container 2 nút */
+.confirm-modal-actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 12px;
 }
 
-.confirm-modal-buttons button {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 6px;
+/* 6. Style chung cho 2 nút */
+.confirm-modal-btn {
+    flex: 1;
+    padding: 8px 0;
+    font-size: 14px;
     font-weight: 500;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
-.confirm-modal-buttons .btn-confirm {
-    background-color: #007bff;
-    color: white;
+/* 7. Nút “Huỷ” */
+.confirm-modal-btn.cancel {
+    background-color: #f0f0f0;
+    color: #333;
 }
 
-.confirm-modal-buttons .btn-confirm:hover {
-    background-color: #0056b3;
+.confirm-modal-btn.cancel:hover {
+    background-color: #e0e0e0;
 }
 
-.confirm-modal-buttons .btn-cancel {
-    background-color: #6c757d;
-    color: white;
+/* 8. Nút “Xoá” */
+.confirm-modal-btn.delete {
+    background-color: #e74c3c;
+    color: #fff;
 }
 
-.confirm-modal-buttons .btn-cancel:hover {
-    background-color: #5a6268;
+.confirm-modal-btn.delete:hover {
+    background-color: #c0392b;
+}
+
+/* 9. Đảm bảo checkbox/tab... không can thiệp */
+.confirm-modal-content input,
+.confirm-modal-content button {
+    outline: none;
 }
