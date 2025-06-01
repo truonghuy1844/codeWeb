@@ -625,14 +625,14 @@ const OrderManagement = () => {
                         </div>
 
                         {/* Nút Thêm mới */}
-                        <div className="flex justify-end mb-4">
+                        {/* <div className="flex justify-end mb-4">
                             <button
                                 className="flex items-center gap-2 bg-green-600 text-white rounded px-4 py-2 hover:bg-green-700 transition"
                                 onClick={handleAddClick}
                             >
                                 ➕ Thêm
                             </button>
-                        </div>
+                        </div> */}
 
                         {/* Bảng danh sách orders */}
                         <div className="order-table overflow-x-auto">
