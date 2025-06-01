@@ -94,48 +94,48 @@ namespace back_end.Controllers
 
 
             // GET: api/Products
-            [HttpGet]
-            public async Task<IActionResult> GetProducts()
-            {
-                try
-                {
-                    var products = await _context.Products
-                        .Include(p => p.Category)
-                        .Include(p => p.Brand)
-                        .Select(p => new
-                        {
-                            productId = p.ProductId,
-                            name = p.Name,
-                            name2 = p.Name2,
-                            categoryID = p.CategoryId,
-                            categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
-                            brandID = p.BrandId,
-                            brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
-                            uom = p.Uom,
-                            price1 = p.Price1,
-                            dateApply1 = p.DateApply1,
-                            price2 = p.Price2,       // sửa lại đúng trường
-                            dateApply2 = p.DateApply2,
-                            description = p.Description,
-                            urlImage1 = p.UrlImage1,
-                            urlImage2 = p.UrlImage2,
-                            urlImage3 = p.UrlImage3,
-                            status = p.Status
-                        })
-                        .ToListAsync();
+            // [HttpGet]
+            // public async Task<IActionResult> GetProducts()
+            // {
+            //     try
+            //     {
+            //         var products = await _context.Products
+            //             .Include(p => p.Category)
+            //             .Include(p => p.Brand)
+            //             .Select(p => new
+            //             {
+            //                 productId = p.ProductId,
+            //                 name = p.Name,
+            //                 name2 = p.Name2,
+            //                 categoryID = p.CategoryId,
+            //                 categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
+            //                 brandID = p.BrandId,
+            //                 brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
+            //                 uom = p.Uom,
+            //                 price1 = p.Price1,
+            //                 dateApply1 = p.DateApply1,
+            //                 price2 = p.Price2,       // sửa lại đúng trường
+            //                 dateApply2 = p.DateApply2,
+            //                 description = p.Description,
+            //                 urlImage1 = p.UrlImage1,
+            //                 urlImage2 = p.UrlImage2,
+            //                 urlImage3 = p.UrlImage3,
+            //                 status = p.Status
+            //             })
+            //             .ToListAsync();
 
-                    return Ok(new { success = true, data = products });
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
-                    {
-                        success = false,
-                        message = "Lỗi khi tải sản phẩm",
-                        error = ex.Message
-                    });
-                }
-            }
+            //         return Ok(new { success = true, data = products });
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         return StatusCode(500, new
+            //         {
+            //             success = false,
+            //             message = "Lỗi khi tải sản phẩm",
+            //             error = ex.Message
+            //         });
+            //     }
+            // }
         }
         // [Route("api/[controller]")]
         // [ApiController]
