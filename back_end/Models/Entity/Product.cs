@@ -19,13 +19,13 @@ public partial class Product
 
     public string CategoryId { get; set; } = null!;
 
-    public string? GroupTb1 { get; set; }
+    //public string? GroupTb1 { get; set; }
 
-    public string? GroupTb2 { get; set; }
+    //public string? GroupTb2 { get; set; }
 
-    public string? GroupTb3 { get; set; }
+    //public string? GroupTb3 { get; set; }
 
-    public string? GroupTb4 { get; set; }
+    //public string? GroupTb4 { get; set; }
 
     public string? Uom { get; set; }
 
@@ -55,13 +55,13 @@ public partial class Product
 
     public virtual ICollection<ClickProduct> ClickProducts { get; set; } = new List<ClickProduct>();
 
-    public virtual GroupTb? GroupTb1Navigation { get; set; }
+    //public virtual GroupTb? GroupTb1Navigation { get; set; }
 
-    public virtual GroupTb? GroupTb2Navigation { get; set; }
+    //public virtual GroupTb? GroupTb2Navigation { get; set; }
 
-    public virtual GroupTb? GroupTb3Navigation { get; set; }
+    //public virtual GroupTb? GroupTb3Navigation { get; set; }
 
-    public virtual GroupTb? GroupTb4Navigation { get; set; }
+    //public virtual GroupTb? GroupTb4Navigation { get; set; }
 
     public virtual ICollection<OrderD> OrderDs { get; set; } = new List<OrderD>();
 
@@ -75,7 +75,7 @@ public partial class Product
 
     public virtual ICollection<Support> Supports { get; set; } = new List<Support>();
 
-    public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
+        public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
 }
 
 }

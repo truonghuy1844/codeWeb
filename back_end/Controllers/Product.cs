@@ -93,20 +93,24 @@ namespace back_end.Controllers
                 Console.WriteLine($"Name: {productDto.Name}");
                 Console.WriteLine($"CategoryId: {productDto.CategoryId}");
                 Console.WriteLine($"UserId: {productDto.UserId}");
-                
+
                 // Validate input
-                if (string.IsNullOrEmpty(productDto.ProductId) || string.IsNullOrEmpty(productDto.Name) || 
-                    string.IsNullOrEmpty(productDto.CategoryId) || string.IsNullOrEmpty(productDto.UserId))
+                if (string.IsNullOrEmpty(productDto.ProductId) ||
+                  string.IsNullOrEmpty(productDto.Name) ||
+                  string.IsNullOrEmpty(productDto.CategoryId) ||
+                  productDto.UserId <= 0) 
                 {
                     Console.WriteLine("Validation failed: Missing required fields");
-                    return BadRequest(new { 
+                    return BadRequest(new
+                    {
                         success = false,
                         message = "Các trường bắt buộc không được để trống",
-                        details = new {
+                        details = new
+                        {
                             productId = string.IsNullOrEmpty(productDto.ProductId),
                             name = string.IsNullOrEmpty(productDto.Name),
                             categoryId = string.IsNullOrEmpty(productDto.CategoryId),
-                            userId = string.IsNullOrEmpty(productDto.UserId)
+                            userId = productDto.UserId <= 0
                         }
                     });
                 }
@@ -136,10 +140,10 @@ namespace back_end.Controllers
                     new SqlParameter("@description", SqlDbType.NVarChar, 1000) { Value = (object)productDto.Description ?? DBNull.Value },
                     new SqlParameter("@brand_id", SqlDbType.VarChar, 25) { Value = (object)productDto.BrandId ?? DBNull.Value },
                     new SqlParameter("@category_id", SqlDbType.VarChar, 25) { Value = productDto.CategoryId },
-                    new SqlParameter("@group_tb_1", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb1 ?? DBNull.Value },
-                    new SqlParameter("@group_tb_2", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb2 ?? DBNull.Value },
-                    new SqlParameter("@group_tb_3", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb3 ?? DBNull.Value },
-                    new SqlParameter("@group_tb_4", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb4 ?? DBNull.Value },
+                    //new SqlParameter("@group_tb_1", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb1 ?? DBNull.Value },
+                    //new SqlParameter("@group_tb_2", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb2 ?? DBNull.Value },
+                    //new SqlParameter("@group_tb_3", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb3 ?? DBNull.Value },
+                    //new SqlParameter("@group_tb_4", SqlDbType.VarChar, 25) { Value = (object)productDto.GroupTb4 ?? DBNull.Value },
                     new SqlParameter("@uom", SqlDbType.NVarChar, 20) { Value = (object)productDto.Uom ?? DBNull.Value },
                     new SqlParameter("@price1", SqlDbType.Money) { Value = (object)productDto.Price1 ?? DBNull.Value },
                     new SqlParameter("@date_apply1", SqlDbType.DateTime) { Value = (object)productDto.DateApply1 ?? DBNull.Value },
@@ -148,7 +152,7 @@ namespace back_end.Controllers
                     new SqlParameter("@url_image1", SqlDbType.VarChar, 300) { Value = (object)productDto.UrlImage1 ?? DBNull.Value },
                     new SqlParameter("@url_image2", SqlDbType.VarChar, 300) { Value = (object)productDto.UrlImage2 ?? DBNull.Value },
                     new SqlParameter("@url_image3", SqlDbType.VarChar, 300) { Value = (object)productDto.UrlImage3 ?? DBNull.Value },
-                    new SqlParameter("@user_id", SqlDbType.VarChar, 25) { Value = productDto.UserId },
+                    new SqlParameter("@user_id", SqlDbType.Int) { Value = productDto.UserId },
                     new SqlParameter("@status", SqlDbType.Bit) { Value = productDto.Status }
                 };
 
@@ -157,7 +161,7 @@ namespace back_end.Controllers
                 // Thực thi stored procedure
                 await _context.Database.ExecuteSqlRawAsync("EXEC upsert_product " +
                     "@product_id, @name, @name2, @description, @brand_id, @category_id, " +
-                    "@group_tb_1, @group_tb_2, @group_tb_3, @group_tb_4, @uom, " +
+                    "/*@group_tb_1, @group_tb_2, @group_tb_3, @group_tb_4,*/ @uom, " +
                     "@price1, @date_apply1, @price2, @date_apply2, " +
                     "@url_image1, @url_image2, @url_image3, @user_id, @status", parameters);
 
@@ -298,10 +302,10 @@ public class ProductUpsertDto
     public string? Description { get; set; }
     public string? BrandId { get; set; }
     public string CategoryId { get; set; } = string.Empty;
-    public string? GroupTb1 { get; set; }
-    public string? GroupTb2 { get; set; }
-    public string? GroupTb3 { get; set; }
-    public string? GroupTb4 { get; set; }
+    //public string? GroupTb1 { get; set; }
+    //public string? GroupTb2 { get; set; }
+    //public string? GroupTb3 { get; set; }
+    //public string? GroupTb4 { get; set; }
     public string? Uom { get; set; }
     public decimal? Price1 { get; set; }
     public DateTime? DateApply1 { get; set; }
@@ -310,7 +314,7 @@ public class ProductUpsertDto
     public string? UrlImage1 { get; set; }
     public string? UrlImage2 { get; set; }
     public string? UrlImage3 { get; set; }
-    public string UserId { get; set; } = string.Empty;
+    public int UserId { get; set; }
     public bool Status { get; set; } = true;
 }
 

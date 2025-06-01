@@ -23,10 +23,21 @@ const Account = () => {
     useEffect(() => {
     if (userId) {
         axios.get(`http://localhost:5166/api/User/${userId}`)
-        .then(res => setUser(res.data))
-        .catch(err => console.error(err));
-    }
+        .then(res => {
+        const data = res.data;
+        setUser({
+          userId: userId,                 
+          name: data.name || '',
+          birthday: data.birthday || '',
+          address: data.address || '',
+          phoneNumber: data.phone || '',  
+          email: data.email || ''
+        });
+      })
+      .catch(err => console.error(err));
+  }
 }, [userId]);
+
 
   const handleChange = (e) => {
   const { name, value } = e.target;

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaStar, FaRegStar, FaPlus } from 'react-icons/fa';
 import axios from 'axios';
+import Header from './Header';
+import Footer from './Footer';
 import AccountSidebar from './AccountSidebar';
 import AddressForm from './AddressForm';
 import './Address.css';
@@ -11,6 +13,7 @@ const Address = () => {
   const [editingAddress, setEditingAddress] = useState(null);
 
   const fetchAddresses = async () => {
+    console.log("userId in Address.jsx:", userId);
     const res = await axios.get(`/api/Address/user/${userId}`);
     setAddresses(res.data);
   };
@@ -87,6 +90,7 @@ const handleSelectAddress = (addr) => {
 
   return (
   <div className="address-page">
+    <Header />
     <h1 className="order-title-large">Địa chỉ</h1>
     <div className="address-wrapper">
       <div className="sidebar">
@@ -151,6 +155,8 @@ const handleSelectAddress = (addr) => {
         />
       </div>
     </div>
+
+    <Footer />
   </div>
 );
 

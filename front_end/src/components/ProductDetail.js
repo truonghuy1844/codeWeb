@@ -12,13 +12,16 @@ const ProductDetail = ({ onAddToCartPopup }) => {
   const [mainImage, setMainImage] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:5166/api/product/${id}`)
-      .then(res => {
-        setProduct(res.data);
-        setMainImage(res.data.urlImage1);
-      })
-      .catch(err => console.error("API Error:", err));
-  }, [id]);
+  axios.get(`http://localhost:5166/api/Products/${id}`)
+    .then(res => {
+      setProduct(res.data.data);
+      setMainImage(res.data.data.urlImage1);
+    })
+    .catch(err => {
+      console.error("API Error:", err);
+      toast.error("Lỗi khi tải thông tin sản phẩm.");
+    });
+}, [id]);
 
   const getFinalPrice = () => {
     return product?.price2 && product.price2 < product.price1

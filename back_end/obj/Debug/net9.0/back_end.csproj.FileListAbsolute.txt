@@ -654,3 +654,4 @@ C:\Users\ADMIN\codeWeb\back_end\obj\Debug\net9.0\refint\back_end.dll
 C:\Users\ADMIN\codeWeb\back_end\obj\Debug\net9.0\back_end.pdb
 C:\Users\ADMIN\codeWeb\back_end\obj\Debug\net9.0\back_end.genruntimeconfig.cache
 C:\Users\ADMIN\codeWeb\back_end\obj\Debug\net9.0\ref\back_end.dll
+D:\Personel\DH48\Web_Code\Final_prj_web\codeWeb\back_end\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
