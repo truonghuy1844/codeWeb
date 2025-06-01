@@ -10,9 +10,13 @@ namespace back_end.Controllers
     public class ProductController : ControllerBase
     {
         private readonly WebCodeContext _context;
+        public ProductController(WebCodeContext context)
+    {
+        _context = context; // Gán qua constructor
+    }
 
         //  API lấy toàn bộ sản phẩm: GET /api/product
-        [HttpGet]
+        [HttpGet("all_product")]
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _context.Products
@@ -91,52 +95,110 @@ namespace back_end.Controllers
             }
         }
 
+// ✅ GET: api/product/filter.
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetFilteredProducts(
+            [FromQuery] string? categoryName,
+            [FromQuery] decimal? minPrice,
+            [FromQuery] decimal? maxPrice,
+            [FromQuery] string? sort = "name_asc"
+        )
+        {
+            try
+            {
+                var query = _context.Products
+                    .Include(p => p.Category)
+                    .Where(p => p.Status == true)
+                    .AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(categoryName))
+                    query = query.Where(p => p.Category != null && 
+                             !string.IsNullOrEmpty(p.Category.CategoryName) && 
+                             p.Category.CategoryName.Contains(categoryName));
+
+                if (minPrice.HasValue)
+                    query = query.Where(p => p.Price1 >= minPrice.Value);
+                if (maxPrice.HasValue)
+                    query = query.Where(p => p.Price1 <= maxPrice.Value);
+
+                query = sort switch
+                {
+                    "price_asc" => query.OrderBy(p => p.Price1),
+                    "price_desc" => query.OrderByDescending(p => p.Price1),
+                    "name_desc" => query.OrderByDescending(p => p.Name),
+                    _ => query.OrderBy(p => p.Name)
+                };
+
+                var count = await query.CountAsync();
+
+                var products = await query
+                    .Select(p => new
+                    {
+                        p.ProductId,
+                        p.Name,
+                        p.Price1,
+                        p.Price2,
+                        p.UrlImage1,
+                        CategoryName = p.Category != null ? p.Category.CategoryName : null
+                    })
+                    .ToListAsync();
+
+                return Ok(new { count, data = products });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("💥 Lỗi khi lọc sản phẩm:");
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Lỗi API lọc sản phẩm: " + ex.Message);
+            }
+        }
 
 
             // GET: api/Products
-            // [HttpGet]
-            // public async Task<IActionResult> GetProducts()
-            // {
-            //     try
-            //     {
-            //         var products = await _context.Products
-            //             .Include(p => p.Category)
-            //             .Include(p => p.Brand)
-            //             .Select(p => new
-            //             {
-            //                 productId = p.ProductId,
-            //                 name = p.Name,
-            //                 name2 = p.Name2,
-            //                 categoryID = p.CategoryId,
-            //                 categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
-            //                 brandID = p.BrandId,
-            //                 brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
-            //                 uom = p.Uom,
-            //                 price1 = p.Price1,
-            //                 dateApply1 = p.DateApply1,
-            //                 price2 = p.Price2,       // sửa lại đúng trường
-            //                 dateApply2 = p.DateApply2,
-            //                 description = p.Description,
-            //                 urlImage1 = p.UrlImage1,
-            //                 urlImage2 = p.UrlImage2,
-            //                 urlImage3 = p.UrlImage3,
-            //                 status = p.Status
-            //             })
-            //             .ToListAsync();
+            [HttpGet()]
+            public async Task<IActionResult> GetProducts()
+            {
+            try
+            {
+                var products = await _context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Brand)
+                    .Select(p => new
+                    {
+                        productId = p.ProductId,
+                        name = p.Name,
+                        name2 = p.Name2,
+                        categoryID = p.CategoryId,
+                        categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
+                        brandID = p.BrandId,
+                        brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
+                        uom = p.Uom,
+                        price1 = p.Price1,
+                        dateApply1 = p.DateApply1,
+                        price2 = p.Price2,       // sửa lại đúng trường
+                        dateApply2 = p.DateApply2,
+                        description = p.Description,
+                        urlImage1 = p.UrlImage1,
+                        urlImage2 = p.UrlImage2,
+                        urlImage3 = p.UrlImage3,
+                        status = p.Status
+                    })
+                    .ToListAsync();
+            }
 
             //         return Ok(new { success = true, data = products });
-            //     }
-            //     catch (Exception ex)
-            //     {
-            //         return StatusCode(500, new
-            //         {
-            //             success = false,
-            //             message = "Lỗi khi tải sản phẩm",
-            //             error = ex.Message
-            //         });
-            //     }
-            // }
-        }
+                //     }
+                //     catch (Exception ex)
+                //     {
+                //         return StatusCode(500, new
+                //         {
+                //             success = false,
+                //             message = "Lỗi khi tải sản phẩm",
+                //             error = ex.Message
+                //         });
+                //     }
+                // }
+            }
         // [Route("api/[controller]")]
         // [ApiController]
         // public class ProductsController : ControllerBase

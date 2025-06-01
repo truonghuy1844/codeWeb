@@ -24,7 +24,7 @@ namespace back_end.Controllers
         {
             int totalProducts = await _context.Products.CountAsync();
             int totalOrders = await _context.OrderTbs.CountAsync();
-            int totalEmployees = await _context.Users.Where(u => u.IsSeller).CountAsync();
+            int totalEmployees = await _context.Users.Where(u => u.IsSeller && u.IsAdmin).CountAsync();
 
             int ordersPending = await _context.OrderTbs.Where(o => o.Status == 0).CountAsync();
             int ordersInProgress = await _context.OrderTbs.Where(o => o.Status == 1).CountAsync();
