@@ -35,12 +35,12 @@ const UserManagerment = () => {
   });
 
   const [users, setUsers] = useState([]);
-  const [departments, setDepartments] = useState([
-    { value: 'IT', label: 'IT' },
-    { value: 'HR', label: 'HR' },
-    { value: 'Sales', label: 'Sales' },
-    { value: 'Other', label: 'Khác' }
-  ]);
+  // const [departments, setDepartments] = useState([
+  //   { value: 'IT', label: 'IT' },
+  //   { value: 'HR', label: 'HR' },
+  //   { value: 'Sales', label: 'Sales' },
+  //   { value: 'Other', label: 'Khác' }
+  // ]);
 
   const [formData, setFormData] = useState({
     userId: 0,
@@ -50,7 +50,7 @@ const UserManagerment = () => {
     isBuyer: false,
     isSeller: false,
     status: true,
-    department: '',
+    // department: '',
     name: '',
     birthday: '',
     phoneNumber: '',
@@ -92,7 +92,7 @@ const UserManagerment = () => {
     return (
       (u.userName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         u.name?.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (departmentFilter === '' || u.department === departmentFilter) &&
+      // (departmentFilter === '' || u.department === departmentFilter) &&
       (statusFilter === '' || String(u.status) === statusFilter)
     );
   });
@@ -108,7 +108,7 @@ const UserManagerment = () => {
       isBuyer: false,
       isSeller: false,
       status: true,
-      department: '',
+      // department: '',
       name: '',
       birthday: '',
       phoneNumber: '',
@@ -136,7 +136,7 @@ const UserManagerment = () => {
       isBuyer: user.isBuyer || false,
       isSeller: user.isSeller || false,
       status: user.status ?? true,
-      department: user.department || '',
+      // department: user.department || '',
       name: user.name || '',
       birthday: user.birthday ? user.birthday.split('T')[0] : '',
       phoneNumber: user.phoneNumber || '',
@@ -183,7 +183,7 @@ const UserManagerment = () => {
     if (!data.userName?.trim()) errors.userName = 'Tên đăng nhập không được để trống';
     if (modalMode === 'add' && !data.password?.trim()) errors.password = 'Mật khẩu không được để trống';
     if (!data.name?.trim()) errors.name = 'Tên người dùng không được để trống';
-    if (!data.department?.trim()) errors.department = 'Phòng ban không được để trống';
+    // if (!data.department?.trim()) errors.department = 'Phòng ban không được để trống';
     if (!data.role) errors.role = 'Vui lòng chọn quyền truy cập';
     if (data.email && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(data.email)) errors.email = 'Email không hợp lệ';
     return {
@@ -327,7 +327,7 @@ const UserManagerment = () => {
                   </div>
                 </div>
 
-                {/* Department Filter */}
+                {/* Department Filter
                 <select
                   value={departmentFilter}
                   onChange={(e) => setDepartmentFilter(e.target.value)}
@@ -337,7 +337,7 @@ const UserManagerment = () => {
                   {departments.map(dep => (
                     <option key={dep.value} value={dep.value}>{dep.label}</option>
                   ))}
-                </select>
+                </select> */}
 
                 {/* Status Filter */}
                 <select
@@ -388,7 +388,7 @@ const UserManagerment = () => {
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Mã nhân viên</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Tên đăng nhập</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Tên người dùng</th>
-                      <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Phòng ban</th>
+                      {/* <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Phòng ban</th> */}
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Số điện thoại</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Email</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold text-gray-900">Ngày sinh</th>
@@ -404,7 +404,7 @@ const UserManagerment = () => {
                         <td className="px-3 py-3 text-xs font-medium text-gray-900">{user.userId}</td>
                         <td className="px-3 py-3 text-xs text-gray-900">{user.userName}</td>
                         <td className="px-3 py-3 text-xs text-gray-900">{user.name}</td>
-                        <td className="px-3 py-3 text-xs text-gray-900">{user.department}</td>
+                        {/* <td className="px-3 py-3 text-xs text-gray-900">{user.department}</td> */}
                         <td className="px-3 py-3 text-xs text-gray-900">{user.phoneNumber}</td>
                         <td className="px-3 py-3 text-xs text-gray-900">{user.email}</td>
                         <td className="px-3 py-3 text-xs text-gray-900">
@@ -542,7 +542,7 @@ const UserManagerment = () => {
                   )}
                 </div>
                 {/* Phòng ban */}
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">
                     Phòng ban <span className="text-red-500">*</span>
                   </label>
@@ -561,7 +561,7 @@ const UserManagerment = () => {
                   {formErrors.department && (
                     <p className="mt-1 text-sm text-red-600">{formErrors.department}</p>
                   )}
-                </div>
+                </div> */}
                 {/* Ngày sinh */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">
