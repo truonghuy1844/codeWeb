@@ -162,7 +162,7 @@ const Cart = () => {
           </div>
 
           <div className="cart-actions1">
-            <button className="continue-btn" onClick={() => navigate('/products')}>
+            <button className="continue1-btn" onClick={() => navigate('/products')}>
               Tiếp tục mua sắm
             </button>
             <button className="checkout-btn" onClick={handleCheckout}>

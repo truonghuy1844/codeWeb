@@ -44,9 +44,8 @@ const MenuAdmin = ({ activeTab, setActiveTab }) => {
 
   return (
     <div className="w-72 min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-2xl">
-      {/* Header Section */}
+      {/* Header */}
       <div className="p-6 border-b border-slate-700/50">
-        {/* Logo Section */}
         <div className="flex flex-col items-center mb-6">
           <div className="relative group">
             <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
@@ -61,7 +60,7 @@ const MenuAdmin = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
 
-      {/* Navigation Menu */}
+      {/* Menu */}
       <div className="p-6">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
           Menu chính

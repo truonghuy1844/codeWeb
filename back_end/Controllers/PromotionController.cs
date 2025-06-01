@@ -21,7 +21,7 @@ namespace back_end.Controllers
         {
             var result = new List<object>();
 
-            using (var conn = new SqlConnection(_config.GetConnectionString("WebCodeDb")))
+            using (var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 conn.Open();
                 var cmd = new SqlCommand(@"
@@ -74,7 +74,7 @@ namespace back_end.Controllers
         {
             var result = new List<object>();
 
-            using (var conn = new SqlConnection(_config.GetConnectionString("WebCodeDb")))
+            using (var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 conn.Open();
                 var cmd = new SqlCommand(@"
@@ -113,7 +113,7 @@ namespace back_end.Controllers
         {
             var result = new List<object>();
 
-            using (var conn = new SqlConnection(_config.GetConnectionString("WebCodeDb")))
+            using (var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 conn.Open();
                 var cmd = new SqlCommand(@"

@@ -171,52 +171,7 @@ namespace back_end.Controllers
 
             return Ok(new { message = "Cập nhật địa chỉ mặc định thành công." });
         }
-        // GET /api/Address/default/{userId}
-        [HttpGet("default/{userId}")]
-        public IActionResult GetDefaultAddress(int userId)
-        {
-            var addressDto = _context.Addresses
-                .Where(a => a.UserId == userId && a.Status == true)
-                .Select(a => new
-                {
-                    a.AddressId, // ✅ Thêm dòng này
-                    a.Detail,
-                    a.Street,
-                    a.Ward,
-                    a.District,
-                    a.City
-                })
-                .FirstOrDefault();
 
-            var userDto = _context.UserDetails
-                .Where(u => u.UserId == userId)
-                .Select(u => new
-                {
-                    u.Name,
-                    u.PhoneNumber
-                })
-                .FirstOrDefault();
-
-            if (addressDto == null || userDto == null)
-                return NotFound(new { message = "Không tìm thấy thông tin địa chỉ mặc định hoặc người dùng." });
-
-            string fullAddress = string.Join(", ", new[]
-            {
-        addressDto.Detail,
-        addressDto.Street,
-        addressDto.Ward,
-        addressDto.District,
-        addressDto.City
-    }.Where(x => !string.IsNullOrWhiteSpace(x)));
-
-            return Ok(new
-            {
-                Name = userDto.Name ?? "",
-                Phone = userDto.PhoneNumber ?? "",
-                Address = fullAddress,
-                AddressId = addressDto.AddressId 
-            });
-        }
     }
 }
 

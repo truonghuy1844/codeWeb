@@ -20,7 +20,7 @@ namespace back_end.Controllers
         }
 
         // GET: api/Products
-       [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
             try
@@ -28,19 +28,20 @@ namespace back_end.Controllers
                 var products = await _context.Products
                     .Include(p => p.Category)
                     .Include(p => p.Brand)
-                    .Select(p => new 
+                    .Select(p => new
                     {
                         productId = p.ProductId,
                         name = p.Name,
-                        name2= p.Name2,
+                        name2 = p.Name2,
                         categoryID = p.CategoryId,
                         categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
                         brandID = p.BrandId,
                         brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
                         uom = p.Uom,
                         price1 = p.Price1,
+                        price2 = p.Price2,
                         dateApply1 = p.DateApply1,
-                        price2 = p.DateApply2,
+                        dateApply2 = p.DateApply2,
                         description = p.Description,
                         urlImage1 = p.UrlImage1,
                         urlImage2 = p.UrlImage2,
@@ -48,32 +49,70 @@ namespace back_end.Controllers
                         status = p.Status
                     })
                     .ToListAsync();
-                
+
                 return Ok(new { success = true, data = products });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { 
-                    success = false, 
-                    message = "Lỗi khi tải sản phẩm", 
-                    error = ex.Message 
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Lỗi khi tải sản phẩm",
+                    error = ex.Message
                 });
             }
         }
 
         // GET: api/Products/id
+        // GET: api/Products/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(string id)
+        public async Task<IActionResult> GetProduct(string id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            try
             {
-                return NotFound();
+                var product = await _context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Brand)
+                    .Where(p => p.ProductId == id)
+                    .Select(p => new
+                    {
+                        productId = p.ProductId,
+                        name = p.Name,
+                        name2 = p.Name2,
+                        categoryID = p.CategoryId,
+                        categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
+                        brandID = p.BrandId,
+                        brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
+                        uom = p.Uom,
+                        price1 = p.Price1,
+                        dateApply1 = p.DateApply1,
+                        price2 = p.Price2,
+                        dateApply2 = p.DateApply2,
+                        description = p.Description,
+                        urlImage1 = p.UrlImage1,
+                        urlImage2 = p.UrlImage2,
+                        urlImage3 = p.UrlImage3,
+                        status = p.Status
+                    })
+                    .FirstOrDefaultAsync();
+
+                if (product == null)
+                    return NotFound(new { success = false, message = "Sản phẩm không tồn tại" });
+
+                return Ok(new { success = true, data = product });
             }
-            return product;
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Lỗi khi truy vấn sản phẩm",
+                    error = ex.Message
+                });
+            }
         }
 
-        // POST: api/Products - Sử dụng Entity Framework (method cũ)
+        // POST: api/Products
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
@@ -82,6 +121,7 @@ namespace back_end.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
+        // POST: api/Products - Sử dụng Entity Framework (method cũ)
         [HttpPost("upsert")]
         public async Task<IActionResult> UpsertProduct([FromBody] ProductUpsertDto productDto)
         {
@@ -93,16 +133,18 @@ namespace back_end.Controllers
                 Console.WriteLine($"Name: {productDto.Name}");
                 Console.WriteLine($"CategoryId: {productDto.CategoryId}");
                 Console.WriteLine($"UserId: {productDto.UserId}");
-                
+
                 // Validate input
-                if (string.IsNullOrEmpty(productDto.ProductId) || string.IsNullOrEmpty(productDto.Name) || 
+                if (string.IsNullOrEmpty(productDto.ProductId) || string.IsNullOrEmpty(productDto.Name) ||
                     string.IsNullOrEmpty(productDto.CategoryId) || string.IsNullOrEmpty(productDto.UserId))
                 {
                     Console.WriteLine("Validation failed: Missing required fields");
-                    return BadRequest(new { 
+                    return BadRequest(new
+                    {
                         success = false,
                         message = "Các trường bắt buộc không được để trống",
-                        details = new {
+                        details = new
+                        {
                             productId = string.IsNullOrEmpty(productDto.ProductId),
                             name = string.IsNullOrEmpty(productDto.Name),
                             categoryId = string.IsNullOrEmpty(productDto.CategoryId),
@@ -115,13 +157,14 @@ namespace back_end.Controllers
                 var spExists = await _context.Database.SqlQueryRaw<int>(
                     "SELECT COUNT(*) as Value FROM sys.objects WHERE name = 'upsert_product' AND type = 'P'"
                 ).FirstOrDefaultAsync();
-                
+
                 if (spExists == 0)
                 {
                     Console.WriteLine("ERROR: Stored procedure 'upsert_product' not found");
-                    return StatusCode(500, new { 
-                        success = false, 
-                        message = "Stored procedure không tồn tại" 
+                    return StatusCode(500, new
+                    {
+                        success = false,
+                        message = "Stored procedure không tồn tại"
                     });
                 }
 
@@ -163,10 +206,11 @@ namespace back_end.Controllers
 
                 Console.WriteLine("Stored procedure executed successfully");
 
-                return Ok(new { 
-                    success = true, 
+                return Ok(new
+                {
+                    success = true,
                     message = "Xử lý sản phẩm thành công",
-                    productId = productDto.ProductId 
+                    productId = productDto.ProductId
                 });
             }
             catch (SqlException ex)
@@ -179,10 +223,10 @@ namespace back_end.Controllers
                 Console.WriteLine($"Line Number: {ex.LineNumber}");
                 Console.WriteLine($"Message: {ex.Message}");
                 Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-                
+
                 // Xử lý các lỗi SQL cụ thể
                 string errorMessage = "Lỗi cơ sở dữ liệu";
-                
+
                 switch (ex.Number)
                 {
                     case 2: // Could not find stored procedure
@@ -211,9 +255,10 @@ namespace back_end.Controllers
                         }
                         break;
                 }
-                
-                return StatusCode(500, new { 
-                    success = false, 
+
+                return StatusCode(500, new
+                {
+                    success = false,
                     message = errorMessage,
                     sqlError = ex.Number,
                     details = ex.Message
@@ -225,10 +270,11 @@ namespace back_end.Controllers
                 Console.WriteLine($"Type: {ex.GetType().Name}");
                 Console.WriteLine($"Message: {ex.Message}");
                 Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-                
-                return StatusCode(500, new { 
-                    success = false, 
-                    message = "Có lỗi xảy ra", 
+
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Có lỗi xảy ra",
                     error = ex.Message,
                     type = ex.GetType().Name
                 });
@@ -243,28 +289,28 @@ namespace back_end.Controllers
             try
             {
                 Console.WriteLine($"Deleting product ID: {id}");
-                
+
                 if (string.IsNullOrEmpty(id))
                 {
                     return BadRequest(new { success = false, message = "Mã sản phẩm không hợp lệ" });
                 }
-                
+
                 // Kiểm tra sản phẩm có tồn tại không
                 var productExists = await _context.Database
                     .SqlQueryRaw<int>("SELECT COUNT(*) as Value FROM product WHERE product_id = {0}", id)
                     .FirstOrDefaultAsync();
-                
+
                 if (productExists == 0)
                 {
                     return NotFound(new { success = false, message = "Sản phẩm không tồn tại" });
                 }
-                
+
                 // Xóa trực tiếp bằng SQL
                 var rowsAffected = await _context.Database
                     .ExecuteSqlRawAsync("DELETE FROM product WHERE product_id = {0}", id);
-                
+
                 Console.WriteLine($"Rows affected: {rowsAffected}");
-                
+
                 if (rowsAffected > 0)
                 {
                     return Ok(new { success = true, message = "Xóa sản phẩm thành công" });
@@ -278,9 +324,10 @@ namespace back_end.Controllers
             {
                 Console.WriteLine($"Delete error: {ex.Message}");
                 Console.WriteLine($"Inner error: {ex.InnerException?.Message}");
-                
-                return StatusCode(500, new { 
-                    success = false, 
+
+                return StatusCode(500, new
+                {
+                    success = false,
                     message = "Có lỗi xảy ra khi xóa sản phẩm",
                     error = ex.Message
                 });

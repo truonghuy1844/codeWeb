@@ -1,0 +1,31 @@
+.admin-header {
+  background-color: #c41c1c ;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header .left a,
+.admin-header .right a,
+.admin-header .logout-btn {
+  color: #ffcc00;
+  text-decoration: none;
+  margin-left: 12px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-header .logout-btn:hover,
+.admin-header .back-to-user:hover {
+  text-decoration: underline;
+}

@@ -17,7 +17,7 @@ namespace back_end.Controllers
         {
             _context = context;
         }
-
+        //USER
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterDto dto)
         {
@@ -53,6 +53,8 @@ namespace back_end.Controllers
                     Status = true
                 };
                 _context.Addresses.Add(address);
+                string formattedAddress = $"{dto.Detail}, {dto.Street}, {dto.Ward}, {dto.District}, {dto.City}";
+
 
                 var details = new UserDetails
                 {
@@ -95,7 +97,8 @@ namespace back_end.Controllers
                     message = "Đăng nhập thành công",
                     user.UserId,
                     user.UserDetails.Name,
-                    user.UserDetails.Email
+                    user.UserDetails.Email,
+                    isAdmin = user.IsAdmin
                 });
             }
             catch (Exception ex)
@@ -103,7 +106,45 @@ namespace back_end.Controllers
                 return StatusCode(500, new { message = "Lỗi server: " + ex.Message });
             }
         }
+        //Get của user
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _context.Users
+                .Include(u => u.UserDetails)
+                .FirstOrDefaultAsync(u => u.UserId == id);
+            if (user == null) return NotFound();
+
+            return Ok(new
+            {
+                name = user.UserDetails.Name,
+                email = user.UserDetails.Email,
+                phone = user.UserDetails.PhoneNumber,
+                birthday = user.UserDetails.Birthday?.ToString("yyyy-MM-dd"),
+                address = user.UserDetails.Address,
+            });
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] UpdateInfoDto dto)
+        {
+            var user = _context.Users
+                .Include(u => u.UserDetails)
+                .FirstOrDefault(u => u.UserId == id);
+            if (user == null) return NotFound();
+
+            user.UserDetails.Name = dto.Name;
+            user.UserDetails.Birthday = dto.Birthday.HasValue ? DateOnly.FromDateTime(dto.Birthday.Value) : null;
+            user.UserDetails.PhoneNumber = dto.PhoneNumber;
+            user.UserDetails.Address = dto.Address;
+            _context.SaveChanges();
+
+            return Ok(new { message = "Cập nhật thành công" });
+        }
+
+
+        //CỦA ADMIN????
         [HttpGet("get/{userId}")]
         public IActionResult GetUser(int userId)
         {
@@ -226,21 +267,6 @@ namespace back_end.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] UpdateInfoDto dto)
-        {
-            var user = _context.Users.Include(u => u.UserDetails).FirstOrDefault(u => u.UserId == id);
-            if (user == null) return NotFound();
-
-            user.UserDetails.Name = dto.Name;
-            user.UserDetails.Birthday = dto.Birthday.HasValue ? DateOnly.FromDateTime(dto.Birthday.Value) : null;
-            user.UserDetails.PhoneNumber = dto.PhoneNumber;
-            user.UserDetails.Address = dto.Address;
-            _context.SaveChanges();
-
-            return Ok(new { message = "Cập nhật thành công" });
-        }
-
         [HttpDelete("delete/{userId}")]
         public IActionResult DeleteUser(string userId)
         {
@@ -263,21 +289,6 @@ namespace back_end.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
-        {
-            var user = await _context.Users.Include(u => u.UserDetails).FirstOrDefaultAsync(u => u.UserId == id);
-            if (user == null || user.UserDetails == null) return NotFound();
 
-            return Ok(new
-            {
-                name = user.UserDetails.Name,
-                email = user.UserDetails.Email,
-                phone = user.UserDetails.PhoneNumber,
-                birthday = user.UserDetails.Birthday?.ToString("yyyy-MM-dd"),
-                address = user.UserDetails.Address,
-                gender = "Nam"
-            });
-        }
     }
 }

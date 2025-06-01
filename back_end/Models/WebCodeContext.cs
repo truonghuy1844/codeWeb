@@ -25,7 +25,7 @@ namespace back_end.Models;
     public virtual DbSet<ChatMember> ChatMembers { get; set; }
     public virtual DbSet<ChatTab> ChatTabs { get; set; }
     public virtual DbSet<ClickProduct> ClickProducts { get; set; }
-    public virtual DbSet<GroupTb> GroupTbs { get; set; }
+   // public virtual DbSet<GroupTb> GroupTbs { get; set; }
     public virtual DbSet<Invoice> Invoices { get; set; }
     public virtual DbSet<LogHisory> LogHisories { get; set; }
     public virtual DbSet<OrderD> OrderDs { get; set; }
@@ -333,30 +333,30 @@ namespace back_end.Models;
                 .HasConstraintName("FK__click_pro__user___37703C52");
         });
 
-        modelBuilder.Entity<GroupTb>(entity =>
-        {
-            entity.HasKey(e => e.GroupTbId).HasName("PK__group_tb__81C6A4036BC0E1D2");
+        //modelBuilder.Entity<GroupTb>(entity =>
+        //{
+        //    entity.HasKey(e => e.GroupTbId).HasName("PK__group_tb__81C6A4036BC0E1D2");
 
-            entity.ToTable("group_tb");
+        //    entity.ToTable("group_tb");
 
-            entity.Property(e => e.GroupTbId)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("group_tb_id");
-            entity.Property(e => e.Description)
-                .HasMaxLength(1000)
-                .HasColumnName("description");
-            entity.Property(e => e.GroupTbName)
-                .HasMaxLength(75)
-                .HasColumnName("group_tb_name");
-            entity.Property(e => e.GroupTbName2)
-                .HasMaxLength(75)
-                .HasColumnName("group_tb_name2");
-            entity.Property(e => e.Status)
-                .HasDefaultValue(true)
-                .HasColumnName("status");
-            entity.Property(e => e.Type).HasColumnName("type");
-        });
+        //    entity.Property(e => e.GroupTbId)
+        //        .HasMaxLength(25)
+        //        .IsUnicode(false)
+        //        .HasColumnName("group_tb_id");
+        //    entity.Property(e => e.Description)
+        //        .HasMaxLength(1000)
+        //        .HasColumnName("description");
+        //    entity.Property(e => e.GroupTbName)
+        //        .HasMaxLength(75)
+        //        .HasColumnName("group_tb_name");
+        //    entity.Property(e => e.GroupTbName2)
+        //        .HasMaxLength(75)
+        //        .HasColumnName("group_tb_name2");
+        //    entity.Property(e => e.Status)
+        //        .HasDefaultValue(true)
+        //        .HasColumnName("status");
+        //    entity.Property(e => e.Type).HasColumnName("type");
+        //});
 
         modelBuilder.Entity<Invoice>(entity =>
         {
@@ -610,22 +610,22 @@ namespace back_end.Models;
             entity.Property(e => e.Description)
                 .HasMaxLength(1000)
                 .HasColumnName("description");
-            entity.Property(e => e.GroupTb1)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("group_tb_1");
-            entity.Property(e => e.GroupTb2)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("group_tb_2");
-            entity.Property(e => e.GroupTb3)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("group_tb_3");
-            entity.Property(e => e.GroupTb4)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("group_tb_4");
+            //entity.Property(e => e.GroupTb1)
+            //    .HasMaxLength(25)
+            //    .IsUnicode(false)
+            //    .HasColumnName("group_tb_1");
+            //entity.Property(e => e.GroupTb2)
+            //    .HasMaxLength(25)
+            //    .IsUnicode(false)
+            //    .HasColumnName("group_tb_2");
+            //entity.Property(e => e.GroupTb3)
+            //    .HasMaxLength(25)
+            //    .IsUnicode(false)
+            //    .HasColumnName("group_tb_3");
+            //entity.Property(e => e.GroupTb4)
+            //    .HasMaxLength(25)
+            //    .IsUnicode(false)
+            //    .HasColumnName("group_tb_4");
             entity.Property(e => e.Name)
                 .HasMaxLength(75)
                 .HasColumnName("name");
@@ -670,21 +670,21 @@ namespace back_end.Models;
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__product__categor__628FA481");
 
-            entity.HasOne(d => d.GroupTb1Navigation).WithMany(p => p.ProductGroupTb1Navigations)
-                .HasForeignKey(d => d.GroupTb1)
-                .HasConstraintName("FK__product__group_t__6383C8BA");
+            //entity.HasOne(d => d.GroupTb1Navigation).WithMany(p => p.ProductGroupTb1Navigations)
+            //    .HasForeignKey(d => d.GroupTb1)
+            //    .HasConstraintName("FK__product__group_t__6383C8BA");
 
-            entity.HasOne(d => d.GroupTb2Navigation).WithMany(p => p.ProductGroupTb2Navigations)
-                .HasForeignKey(d => d.GroupTb2)
-                .HasConstraintName("FK__product__group_t__6477ECF3");
+            //entity.HasOne(d => d.GroupTb2Navigation).WithMany(p => p.ProductGroupTb2Navigations)
+            //    .HasForeignKey(d => d.GroupTb2)
+            //    .HasConstraintName("FK__product__group_t__6477ECF3");
 
-            entity.HasOne(d => d.GroupTb3Navigation).WithMany(p => p.ProductGroupTb3Navigations)
-                .HasForeignKey(d => d.GroupTb3)
-                .HasConstraintName("FK__product__group_t__656C112C");
+            //entity.HasOne(d => d.GroupTb3Navigation).WithMany(p => p.ProductGroupTb3Navigations)
+            //    .HasForeignKey(d => d.GroupTb3)
+            //    .HasConstraintName("FK__product__group_t__656C112C");
 
-            entity.HasOne(d => d.GroupTb4Navigation).WithMany(p => p.ProductGroupTb4Navigations)
-                .HasForeignKey(d => d.GroupTb4)
-                .HasConstraintName("FK__product__group_t__66603565");
+            //entity.HasOne(d => d.GroupTb4Navigation).WithMany(p => p.ProductGroupTb4Navigations)
+            //    .HasForeignKey(d => d.GroupTb4)
+            //    .HasConstraintName("FK__product__group_t__66603565");
         });
 
         modelBuilder.Entity<ProductIn>(entity =>

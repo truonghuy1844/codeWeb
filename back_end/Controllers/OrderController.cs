@@ -44,6 +44,91 @@ namespace back_end.Controllers
                 })
                 .AsNoTracking()
                 .ToListAsync();
+            var orders = new List<OrderDto>();
+            var orderMap = new Dictionary<string, OrderDto>();
+
+            using (var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            {
+                conn.Open();
+
+                // 1. Lấy danh sách đơn hàng
+                using var orderCmd = new SqlCommand(@"
+            SELECT o.order_id, o.date_created, o.status, i.amount_payable
+            FROM order_tb o
+            LEFT JOIN invoice i ON o.order_id = i.order_id
+            WHERE o.buyer = @buyerId
+            ORDER BY o.date_created DESC
+        ", conn);
+         orderCmd.Parameters.AddWithValue("@buyerId", buyerId);
+
+         using var reader = orderCmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var order = new OrderDto
+                    {
+                        OrderId = reader.GetString(0),
+                        DateCreated = reader.GetDateTime(1),
+                        Status = reader.GetInt32(2),
+                        Products = new List<ProductDto>()
+                    };
+
+                    // Tạm lưu lại total trong invoice (có thể null)
+                    decimal? dbTotal = reader.IsDBNull(3) ? (decimal?)null : reader.GetDecimal(3);
+                    order.TotalPrice = dbTotal ?? 0; // sẽ cập nhật lại sau nếu null
+
+                    orders.Add(order);
+                    orderMap[order.OrderId] = order;
+                }
+
+                reader.Close(); // ✅ RẤT QUAN TRỌNG: đóng reader trước khi dùng reader khác
+
+                // 2. Lấy chi tiết sản phẩm (sau khi reader đã đóng)
+                using var detailCmd = new SqlCommand(@"
+            SELECT od.order_id, p.name, p.url_image1, p.description, od.quantity, od.price
+            FROM order_d od
+            JOIN product p ON od.product_id = p.product_id
+            WHERE od.order_id IN (SELECT order_id FROM order_tb WHERE buyer = @buyerId)
+        ", conn);
+                detailCmd.Parameters.AddWithValue("@buyerId", buyerId);
+
+                using var detailReader = detailCmd.ExecuteReader();
+                while (detailReader.Read())
+                {
+                    var orderId = detailReader.GetString(0);
+                    if (!orderMap.ContainsKey(orderId)) continue;
+
+                    var product = new ProductDto
+                    {
+                        ProductName = detailReader.GetString(1),
+                        Thumbnail = detailReader.GetString(2),
+                        Description = detailReader.IsDBNull(3) ? "" : detailReader.GetString(3),
+                        Quantity = detailReader.GetInt32(4),
+                        Price = detailReader.GetDecimal(5)
+                    };
+
+                    orderMap[orderId].Products.Add(product);
+                }
+
+                detailReader.Close();
+
+                // 3. Cập nhật lại TotalPrice nếu trong DB bị null
+                foreach (var o in orders)
+                {
+                    o.TotalPrice = o.Products.Sum(p => p.Price * p.Quantity);
+                }
+
+                var result = orders.Select(o => new
+                {
+                    o.OrderId,
+                    o.DateCreated,
+                    o.Buyer,
+                    o.Seller,
+                    o.Description,
+                    o.Status
+                })
+                .AsNoTracking()
+                .ToListAsync();
+            
 
             // 1.2. Chuyển đổi DateCreated sang string "yyyy-MM-dd" trên bộ nhớ (client)
             var result = rawList.Select(o => new
@@ -56,6 +141,98 @@ namespace back_end.Controllers
                 o.Seller,
                 o.Description,
                 o.Status
+                 });
+
+            return Ok(result);
+        }
+               
+        }
+        //CHI TIẾT ĐƠN MUA
+
+        [HttpGet("{orderId}")]
+        public IActionResult GetOrderDetails(string orderId)
+        {
+            using var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            conn.Open();
+
+            var order = new OrderDto { OrderId = orderId, Products = new List<ProductDto>() };
+
+            // 1. Thông tin cơ bản đơn hàng
+            using (var cmd = new SqlCommand(@"
+        SELECT 
+            o.status, 
+            o.date_created,
+            s.date_actual_deli,
+            ISNULL(s.name_receive, u.name) AS receiver_name,
+            ISNULL(s.phone_receive, u.phone_number) AS receiver_phone,
+            CONCAT_WS(', ', a.detail, a.street, a.ward, a.district, a.city, a.country) AS full_address,
+            ISNULL(pm.name, '') AS payment_method
+        FROM order_tb o
+        LEFT JOIN shipment s ON o.order_id = s.order_id
+        LEFT JOIN address a ON s.address_id = a.address_id
+        LEFT JOIN invoice i ON o.order_id = i.order_id
+        LEFT JOIN payment_method pm ON i.method = pm.method_id
+        LEFT JOIN user_tb2 u ON o.buyer = u.user_id
+        WHERE o.order_id = @orderId 
+        ", conn))
+            {
+                cmd.Parameters.AddWithValue("@orderId", orderId);
+                using var reader = cmd.ExecuteReader();
+                if (!reader.Read())
+                    return NotFound(new { message = "Không tìm thấy đơn hàng." });
+                int field = 0;
+                order.Status = reader.GetInt32(field++);
+                order.OrderDate = reader.GetDateTime(field++);
+                order.DeliveryDate = reader.IsDBNull(field) ? null : reader.GetDateTime(field); field++;
+                order.ReceiverName = reader.IsDBNull(field) ? "" : reader.GetString(field); field++;
+                order.ReceiverPhone = reader.IsDBNull(field) ? "" : reader.GetString(field); field++;
+                order.DeliveryAddress = reader.IsDBNull(field) ? "" : reader.GetString(field); field++;
+                order.PaymentMethod = reader.IsDBNull(field) ? "" : reader.GetString(field); field++;
+            }
+
+            // 2. Danh sách sản phẩm trong đơn
+            using (var cmd = new SqlCommand(@"
+        SELECT 
+            p.name, p.url_image1, p.description, od.quantity, od.price
+        FROM order_d od
+        JOIN product p ON od.product_id = p.product_id
+        WHERE od.order_id = @orderId
+    ", conn))
+            {
+                cmd.Parameters.AddWithValue("@orderId", orderId);
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var product = new ProductDto
+                    {
+                        ProductName = reader.GetString(0),
+                        Thumbnail = reader.GetString(1),
+                        Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                        Quantity = reader.GetInt32(3),
+                        Price = reader.GetDecimal(4)
+                    };
+                    order.Products.Add(product);
+                }
+            }
+
+            order.TotalPrice = order.Products.Sum(p => p.Price * p.Quantity);
+            var shippingFee = order.TotalPrice >= 500000 ? 0 : 30000;
+            var totalPay = order.TotalPrice + shippingFee;
+
+            return Ok(new
+            {
+                order.OrderId,
+                order.Status,
+                order.OrderDate,
+                order.DeliveryDate,
+                order.ReceiverName,
+                order.ReceiverPhone,
+                order.DeliveryAddress,
+                order.PaymentMethod,
+                order.Products,
+                TotalPrice = order.TotalPrice,
+                ShippingFee = shippingFee,
+                TotalPay = totalPay
             });
 
             return Ok(result);
@@ -108,15 +285,15 @@ namespace back_end.Controllers
         // 3. CREATE: POST /api/Orders/create
         //──────────────────────────────────────────────────────────────
         [HttpPost("create")]
-public async Task<IActionResult> CreateOrder([FromBody] CheckoutDto orderDto){
-
-    if (orderDto == null || orderDto.Items == null || !orderDto.Items.Any())
+    public async Task<IActionResult> CreateOrder([FromBody] CheckoutDto orderDto)
+    {
+        if (orderDto == null || orderDto.Items == null || !orderDto.Items.Any())
         return BadRequest(new { message = "Dữ liệu đơn hàng không hợp lệ." });
 
-    if (orderDto.Buyer <= 0 || orderDto.Seller <= 0)
+        if (orderDto.Buyer <= 0 || orderDto.Seller <= 0)
         return BadRequest(new { message = "Buyer và Seller phải > 0." });
 
-    var newOrderId = !string.IsNullOrWhiteSpace(orderDto.OrderId)
+        var newOrderId = !string.IsNullOrWhiteSpace(orderDto.OrderId)
         ? orderDto.OrderId.Trim()
         : $"od_{Guid.NewGuid():N}".Substring(0, 16);
 
