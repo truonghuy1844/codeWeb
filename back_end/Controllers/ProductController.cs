@@ -10,9 +10,13 @@ namespace back_end.Controllers
     public class ProductController : ControllerBase
     {
         private readonly WebCodeContext _context;
+        public ProductController(WebCodeContext context)
+    {
+        _context = context; // Gán qua constructor
+    }
 
         //  API lấy toàn bộ sản phẩm: GET /api/product
-        [HttpGet]
+        [HttpGet("all_product")]
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _context.Products
@@ -91,10 +95,67 @@ namespace back_end.Controllers
             }
         }
 
+// ✅ GET: api/product/filter.
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetFilteredProducts(
+            [FromQuery] string? categoryName,
+            [FromQuery] decimal? minPrice,
+            [FromQuery] decimal? maxPrice,
+            [FromQuery] string? sort = "name_asc"
+        )
+        {
+            try
+            {
+                var query = _context.Products
+                    .Include(p => p.Category)
+                    .Where(p => p.Status == true)
+                    .AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(categoryName))
+                    query = query.Where(p => p.Category != null && 
+                             !string.IsNullOrEmpty(p.Category.CategoryName) && 
+                             p.Category.CategoryName.Contains(categoryName));
+
+                if (minPrice.HasValue)
+                    query = query.Where(p => p.Price1 >= minPrice.Value);
+                if (maxPrice.HasValue)
+                    query = query.Where(p => p.Price1 <= maxPrice.Value);
+
+                query = sort switch
+                {
+                    "price_asc" => query.OrderBy(p => p.Price1),
+                    "price_desc" => query.OrderByDescending(p => p.Price1),
+                    "name_desc" => query.OrderByDescending(p => p.Name),
+                    _ => query.OrderBy(p => p.Name)
+                };
+
+                var count = await query.CountAsync();
+
+                var products = await query
+                    .Select(p => new
+                    {
+                        p.ProductId,
+                        p.Name,
+                        p.Price1,
+                        p.Price2,
+                        p.UrlImage1,
+                        CategoryName = p.Category != null ? p.Category.CategoryName : null
+                    })
+                    .ToListAsync();
+
+                return Ok(new { count, data = products });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("💥 Lỗi khi lọc sản phẩm:");
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Lỗi API lọc sản phẩm: " + ex.Message);
+            }
+        }
 
 
             // GET: api/Products
-            [HttpGet]
+            [HttpGet()]
             public async Task<IActionResult> GetProducts()
             {
                 try

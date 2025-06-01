@@ -82,7 +82,7 @@ const HomeDashboard = () => {
 
                   {/* NHÂN VIÊN */}
                   <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">TỔNG NHÂN VIÊN</span>
+                    <span className="text-sm font-medium text-gray-500">TỔNG QUẢN TRỊ BÁN HÀNG</span>
                     <span className="mt-2 text-3xl font-bold text-gray-800">
                       {metrics.totalEmployees}
                     </span>
