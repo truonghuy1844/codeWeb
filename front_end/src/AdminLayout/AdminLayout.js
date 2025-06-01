@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './AdminLayout.css';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const AdminLayout = ({ children }) => {
                             <Link to="/">🏠 Trang chủ</Link>
                         </li>
                         <li className={location.pathname === '/nhan-vien' ? 'active' : ''}>
-                            <Link to="/nhan-vien">👩‍💼 Nhân viên</Link>
+                            <Link to="/nhan-vien">👩‍💼 Người dùng</Link>
                         </li>
                         <li className={location.pathname === '/san-pham' ? 'active' : ''}>
                             <Link to="/san-pham">📦 Sản phẩm</Link>

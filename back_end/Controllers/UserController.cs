@@ -121,7 +121,7 @@ namespace back_end.Controllers
                 name = user.UserDetails.Name,
                 email = user.UserDetails.Email,
                 phone = user.UserDetails.PhoneNumber,
-                birthday = user.UserDetails.Birthday?.ToString("yyyy-MM-dd"),
+                birthday = user.UserDetails.Birthday,
                 address = user.UserDetails.Address,
             });
         }

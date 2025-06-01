@@ -21,13 +21,14 @@ namespace back_end.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts() //Admin nha
         {
             try
             {
                 var products = await _context.Products
                     .Include(p => p.Category)
                     .Include(p => p.Brand)
+                    .Include(p => p.ProductIns)
                     .Select(p => new
                     {
                         productId = p.ProductId,
@@ -46,6 +47,7 @@ namespace back_end.Controllers
                         urlImage1 = p.UrlImage1,
                         urlImage2 = p.UrlImage2,
                         urlImage3 = p.UrlImage3,
+                        quantity = p.ProductIns.Sum(pi => pi.Quantity),
                         status = p.Status
                     })
                     .ToListAsync();
@@ -63,8 +65,6 @@ namespace back_end.Controllers
             }
         }
 
-        // GET: api/Products/id
-        // GET: api/Products/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {
@@ -121,8 +121,7 @@ namespace back_end.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
-        // POST: api/Products - Sử dụng Entity Framework (method cũ)
-        [HttpPost("upsert")]
+        [HttpPost("upsert")] //Admin nha
         public async Task<IActionResult> UpsertProduct([FromBody] ProductUpsertDto productDto)
         {
             try
@@ -283,7 +282,7 @@ namespace back_end.Controllers
 
 
         // DELETE: api/Products/id
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //Admin nha
         public async Task<IActionResult> DeleteProduct(string id)
         {
             try
@@ -333,11 +332,99 @@ namespace back_end.Controllers
                 });
             }
         }
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetFilteredProducts(
+           [FromQuery] string? categoryName,
+           [FromQuery] decimal? minPrice,
+           [FromQuery] decimal? maxPrice,
+           [FromQuery] string? sort = "name_asc"
+       )
+        {
+            try
+            {
+                var query = _context.Products
+                    .Include(p => p.Category)
+                    .Where(p => p.Status == true)
+                    .AsQueryable();
+
+                if (!string.IsNullOrEmpty(categoryName))
+                    query = query.Where(p => p.Category != null
+                                             && p.Category.CategoryName.Contains(categoryName));
+
+                if (minPrice.HasValue)
+                    query = query.Where(p => p.Price1 >= minPrice.Value);
+                if (maxPrice.HasValue)
+                    query = query.Where(p => p.Price1 <= maxPrice.Value);
+
+                query = sort switch
+                {
+                    "price_asc" => query.OrderBy(p => p.Price1),
+                    "price_desc" => query.OrderByDescending(p => p.Price1),
+                    "name_desc" => query.OrderByDescending(p => p.Name),
+                    _ => query.OrderBy(p => p.Name)
+                };
+
+                var count = await query.CountAsync();
+
+                var products = await query
+                    .Select(p => new
+                    {
+                        p.ProductId,
+                        p.Name,
+                        p.Price1,
+                        p.Price2,
+                        p.UrlImage1,
+                        CategoryName = p.Category != null ? p.Category.CategoryName : null
+                    })
+                    .ToListAsync();
+
+                return Ok(new { count, data = products });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("💥 Lỗi khi lọc sản phẩm:");
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Lỗi API lọc sản phẩm: " + ex.Message);
+            }
+        }
+        [HttpGet("fororder/{id}")]
+        public async Task<IActionResult> GetProductForOrder(string id)
+        {
+            // 1) Tìm product (chỉ load đúng record cần thiết)
+            var product = await _context.Products
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+
+            if (product == null)
+            {
+                return NotFound(new 
+                {
+                    success = false,
+                    message = $"Không tìm thấy sản phẩm với ID = {id}"
+                });
+            }
+
+            // 2) Trả về chỉ các trường React (OrderForm.jsx) cần:
+            var result = new
+            {
+                name  = product.Name ?? string.Empty,
+                uom   = product.Uom  ?? string.Empty,        // trường "Uom" trong entity
+                price = product.Price1.HasValue 
+                        ? product.Price1.Value 
+                        : 0m
+            };
+
+            return Ok(new 
+            { 
+                success = true, 
+                data    = result 
+            });
+        }
     }
 }
 
 // DTO class để nhận dữ liệu từ frontend
-public class ProductUpsertDto
+public class ProductUpsertDto //Admin nha
 {
     public string ProductId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
@@ -369,3 +456,4 @@ public class ApiResponse
     public object? Data { get; set; }
     public string? Error { get; set; }
 }
+

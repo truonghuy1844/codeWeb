@@ -13,7 +13,7 @@ const ProductHomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('http://localhost:5166/api/product/filter');
+        const res = await axios.get('http://localhost:5166/api/Product/filter');
         setProducts(res.data.data || []);
       } catch (err) {
         console.error('Lỗi khi lấy sản phẩm:', err);
