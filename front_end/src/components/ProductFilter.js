@@ -5,7 +5,7 @@ import axios from 'axios';
 const ProductFilter = ({ onCategoryChange, onPriceChange, onResetAll }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [range, setRange] = useState({ min: 0, max: 2000000 });
+  const [range, setRange] = useState({ min: 0, max: 5000000 });
 
   useEffect(() => {
     axios.get('http://localhost:5166/api/category')
@@ -29,7 +29,7 @@ const ProductFilter = ({ onCategoryChange, onPriceChange, onResetAll }) => {
 
   const resetAll = () => {
     setSelectedCategory('');
-    setRange({ min: 0, max: 2000000 });
+    setRange({ min: 0, max: 5000000 });
 
     onResetAll(); // ✅ gọi hàm reset bên trên
   };
@@ -64,7 +64,7 @@ const ProductFilter = ({ onCategoryChange, onPriceChange, onResetAll }) => {
         <input
           type="range"
           min="0"
-          max="2000000"
+          max="5000000"
           step="10000"
           value={range.min}
           onChange={(e) => handleRangeChange('min', e.target.value)}
@@ -72,7 +72,7 @@ const ProductFilter = ({ onCategoryChange, onPriceChange, onResetAll }) => {
         <input
           type="range"
           min="0"
-          max="2000000"
+          max="5000000"
           step="10000"
           value={range.max}
           onChange={(e) => handleRangeChange('max', e.target.value)}
