@@ -21,11 +21,18 @@ const LoginForm = () => {
   e.preventDefault();
   try {
     const response = await axios.post('http://localhost:5166/api/User/login', formData);
-    localStorage.setItem("user", JSON.stringify(response.data));
-    localStorage.setItem("userId", response.data.userId);
-    navigate('/'); // ✅ Chuyển về trang chủ
+    const user = response.data;
+
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("userId", user.userId);
+    window.dispatchEvent(new Event("userLogin"));
+    
+    if (user.isAdmin === 1 || user.isAdmin === true) {
+      navigate('/admin');
+    } else {
+      navigate('/');
+    }
     window.location.reload();
-    window.scrollTo(0, 0);
   } catch (error) {
     const message = error?.response?.data?.message || 'Đăng nhập thất bại!';
     alert(message);

@@ -1,8 +1,6 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import AppUser from './AppUser';
 import AppAdmin from './AppAdmin';
-
+import AppUser from './AppUser';
 
 function App() {
   return (
@@ -12,5 +10,4 @@ function App() {
     </Routes>
   );
 }
-
-export default App;
+export default App; 

@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import MiniCartPopup from './MiniCartPopup';
 import './Header.css';
+import { FaUserShield } from 'react-icons/fa';
 
 const Header = ({ onUpdateQty }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [showCart, setShowCart] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [user, setUser] = useState(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (!location.pathname.startsWith('/admin')) {
+      document.body.classList.add('user-body');
+    }
+    return () => {
+      document.body.classList.remove('user-body');
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleUserLogin = () => {
@@ -25,19 +35,18 @@ const Header = ({ onUpdateQty }) => {
         setUser(null);
       }
     };
-
-    handleUserLogin(); // Khi component mount
+    handleUserLogin();
     window.addEventListener("userLogin", handleUserLogin);
-
     return () => window.removeEventListener("userLogin", handleUserLogin);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('userId');
+    localStorage.removeItem('isAdmin');
     setUser(null);
     navigate('/login');
-    window.location.reload(); // Reload để reset UI
+    window.location.reload();
   };
 
   const handleSearch = (e) => {
@@ -45,27 +54,23 @@ const Header = ({ onUpdateQty }) => {
       navigate(`/products?keyword=${encodeURIComponent(keyword.trim())}`);
     }
   };
-  
+
+  const isAdmin = user?.isAdmin === 1 || user?.isAdmin === true;
+
   return (
     <header className="header">
       <div className="top-bar">
         <span>🚚 Miễn phí giao hàng từ đơn 500k</span>
-        <div className="top-links">
+        <div className="top-links user-info">
           {user ? (
             <>
+              {isAdmin && (
+                <button className="admin-switch-button" onClick={() => navigate('/admin')}>
+                  <FaUserShield /> Trang quản trị
+                </button>
+              )}
               <span>👤 Xin chào, <strong>{user.name || user.email}</strong></span>
-              <button
-                onClick={handleLogout}
-                style={{
-                  marginLeft: '10px',
-                  background: 'none',
-                  border: 'none',
-                  color: '#ffcc00',
-                  cursor: 'pointer',
-                }}
-              >
-                <div className="logout"> Đăng xuất </div>
-              </button>
+              <span onClick={handleLogout} className="logout">Đăng xuất</span>
             </>
           ) : (
             <>
@@ -97,7 +102,6 @@ const Header = ({ onUpdateQty }) => {
             onKeyDown={handleSearch}
             className="search-input"
           />
-
           <div
             className="cart-hover-area"
             onMouseEnter={() => setShowCart(true)}

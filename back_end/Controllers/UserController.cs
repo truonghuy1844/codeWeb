@@ -97,7 +97,8 @@ namespace back_end.Controllers
                     message = "Đăng nhập thành công",
                     user.UserId,
                     user.UserDetails.Name,
-                    user.UserDetails.Email
+                    user.UserDetails.Email,
+                    isAdmin = user.IsAdmin
                 });
             }
             catch (Exception ex)
