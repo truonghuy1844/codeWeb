@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Search, Plus, Edit, Trash2, X, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
 import MenuAdmin from './MenuAdmin';
 import AdminHeader from '../AdminLayout/AdminHeader';
+
 const ProductManagement = () => {
   const [activeTab, setActiveTab] = useState('products');
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +30,7 @@ const ProductManagement = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-
+  const currentUserId = localStorage.getItem("userId");
   const [formData, setFormData] = useState({
     productId: '',
     name: '',
@@ -45,7 +46,7 @@ const ProductManagement = () => {
     urlImage1: '',
     urlImage2: '',
     urlImage3: '',
-    userId:'',
+    userId: '',
     status: true
   });
 
@@ -174,7 +175,10 @@ const fetchProducts = async () => {
     } catch (err) {
       console.error('Error fetching categories:', err);
       setBrands([
-        { brandId: '1', brandName: 'Lego' },
+        { categoryId: 'C001', categoryName: 'Xe điều khiển' },
+        { categoryId: 'C002', categoryName: 'Robot' },
+        { categoryId: 'C003', categoryName: 'Máy bay' },
+        { categoryId: 'C004', categoryName: 'Tàu thủy' }
       ]);
     }
   };
@@ -267,7 +271,6 @@ const filteredProducts = products.filter(product => {
       urlImage1: product.urlImage1 || '',
       urlImage2: product.urlImage2 || '',
       urlImage3: product.urlImage3 || '',
-      userId: '5',
       status: product.status
     });
     setFormErrors({});
@@ -347,7 +350,7 @@ const performDelete = async (productId) => {
         urlImage1: formData.urlImage1 || null,
         urlImage2: formData.urlImage2 || null,
         urlImage3: formData.urlImage3 || null,
-        userId: '5',
+        userId: currentUserId,
         status: formData.status
       };
 
@@ -551,6 +554,7 @@ const performDelete = async (productId) => {
                       <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-900">Thương hiệu</th>
                       <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-900">Giá bán</th>
                       <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-900">Hình ảnh</th>
+                      <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-900">Tồn kho</th>
                       <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-900">Trạng thái</th>
                       <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-900">Hành động</th>
                     </tr>
@@ -581,6 +585,7 @@ const performDelete = async (productId) => {
                             </div>
                           )}
                         </td>
+                        <td className="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-sm text-gray-900">{product.quantity}</td>
                         <td className="px-6 py-4">
                           <span className={`inline-flex px-2 lg:px-3 py-1 text-xs font-medium rounded-full ${
                             product.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
