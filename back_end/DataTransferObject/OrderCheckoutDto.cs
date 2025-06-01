@@ -2,10 +2,12 @@
 {
     public class OrderCheckoutDto
     {
+        public string OrderId { get; set; }
         public int Buyer { get; set; }
         public int Seller { get; set; } = 1; // mặc định là hệ thống
         public string Description { get; set; } = "";
         public string AddressId { get; set; } = "";
+         public int Status { get; set; }
         public List<OrderCheckoutItemDto> Items { get; set; } = new();
     }
 

@@ -6,6 +6,7 @@ import Modal from '../Modal/Modal';    // Modal chung
 import SuccessModal from '../Modal/SuccessModal';
 import ConfirmModal from '../Modal/ConfirmModal';
 import MenuAdmin from './Menu';  // Thanh menu bên trái
+import AdminHeader from '../AdminLayout/AdminHeader';
 
 /**
  * ─────────────────────────────────────────────────────────────────────
@@ -598,6 +599,8 @@ const OrderManagement = () => {
     };
 
     return (
+    <>
+        <AdminHeader />
         <div className="flex min-h-screen bg-gray-100">
             {/* Menu bên trái */}
             <MenuAdmin activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -731,6 +734,7 @@ const OrderManagement = () => {
                 )}
             </div>
         </div>
+        </>
     );
 };
 
