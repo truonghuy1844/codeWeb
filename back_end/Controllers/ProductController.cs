@@ -11,9 +11,9 @@ namespace back_end.Controllers
     {
         private readonly WebCodeContext _context;
         public ProductController(WebCodeContext context)
-    {
-        _context = context; // Gán qua constructor
-    }
+        {
+            _context = context; // Gán qua constructor
+        }
 
         //  API lấy toàn bộ sản phẩm: GET /api/product
         [HttpGet("all_product")]
@@ -95,7 +95,7 @@ namespace back_end.Controllers
             }
         }
 
-// ✅ GET: api/product/filter.
+        // ✅ GET: api/product/filter.
         [HttpGet("filter")]
         public async Task<IActionResult> GetFilteredProducts(
             [FromQuery] string? categoryName,
@@ -112,8 +112,8 @@ namespace back_end.Controllers
                     .AsQueryable();
 
                 if (!string.IsNullOrWhiteSpace(categoryName))
-                    query = query.Where(p => p.Category != null && 
-                             !string.IsNullOrEmpty(p.Category.CategoryName) && 
+                    query = query.Where(p => p.Category != null &&
+                             !string.IsNullOrEmpty(p.Category.CategoryName) &&
                              p.Category.CategoryName.Contains(categoryName));
 
                 if (minPrice.HasValue)
@@ -154,163 +154,171 @@ namespace back_end.Controllers
         }
 
 
-            // GET: api/Products
-            [HttpGet()]
-            public async Task<IActionResult> GetProducts()
+        // GET: api/Products
+        [HttpGet()]
+        public async Task<IActionResult> GetProducts()
+        {
+            try
             {
-                try
-                {
-                    var products = await _context.Products
-                        .Include(p => p.Category)
-                        .Include(p => p.Brand)
-                        .Select(p => new
-                        {
-                            productId = p.ProductId,
-                            name = p.Name,
-                            name2 = p.Name2,
-                            categoryID = p.CategoryId,
-                            categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
-                            brandID = p.BrandId,
-                            brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
-                            uom = p.Uom,
-                            price1 = p.Price1,
-                            dateApply1 = p.DateApply1,
-                            price2 = p.Price2,       // sửa lại đúng trường
-                            dateApply2 = p.DateApply2,
-                            description = p.Description,
-                            urlImage1 = p.UrlImage1,
-                            urlImage2 = p.UrlImage2,
-                            urlImage3 = p.UrlImage3,
-                            status = p.Status
-                        })
-                        .ToListAsync();
-
-                    return Ok(new { success = true, data = products });
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new
+                var products = await _context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Brand)
+                    .Select(p => new
                     {
-                        success = false,
-                        message = "Lỗi khi tải sản phẩm",
-                        error = ex.Message
-                    });
-                }
-            }
+                        productId = p.ProductId,
+                        name = p.Name,
+                        name2 = p.Name2,
+                        categoryID = p.CategoryId,
+                        categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
+                        brandID = p.BrandId,
+                        brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
+                        uom = p.Uom,
+                        price1 = p.Price1,
+                        dateApply1 = p.DateApply1,
+                        price2 = p.Price2,       // sửa lại đúng trường
+                        dateApply2 = p.DateApply2,
+                        description = p.Description,
+                        urlImage1 = p.UrlImage1,
+                        urlImage2 = p.UrlImage2,
+                        urlImage3 = p.UrlImage3,
+                        status = p.Status
+                    })
+                    .ToListAsync();
+                          return Ok(products);
         }
-        // [Route("api/[controller]")]
-        // [ApiController]
-        // public class ProductsController : ControllerBase
-        // {
-      
+        catch (Exception ex)
+        {
+            // Ghi log nếu cần
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
 
-            
-        //     // GET: api/Products
-        //     [HttpGet]
-        //     public async Task<IActionResult> GetProducts()
-        //     {
-        //         try
-        //         {
-        //             var products = await _context.Products
-        //                 .Include(p => p.Category)
-        //                 .Include(p => p.Brand)
-        //                 .Select(p => new
-        //                 {
-        //                     productId = p.ProductId,
-        //                     name = p.Name,
-        //                     name2 = p.Name2,
-        //                     categoryID = p.CategoryId,
-        //                     categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
-        //                     brandID = p.BrandId,
-        //                     brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
-        //                     uom = p.Uom,
-        //                     price1 = p.Price1,
-        //                     dateApply1 = p.DateApply1,
-        //                     price2 = p.Price2,       // sửa lại đúng trường
-        //                     dateApply2 = p.DateApply2,
-        //                     description = p.Description,
-        //                     urlImage1 = p.UrlImage1,
-        //                     urlImage2 = p.UrlImage2,
-        //                     urlImage3 = p.UrlImage3,
-        //                     status = p.Status
-        //                 })
-        //                 .ToListAsync();
-
-        //             return Ok(new { success = true, data = products });
-        //         }
-        //         catch (Exception ex)
-        //         {
-        //             return StatusCode(500, new
-        //             {
-        //                 success = false,
-        //                 message = "Lỗi khi tải sản phẩm",
-        //                 error = ex.Message
-        //             });
-        //         }
+        //         return Ok(new { success = true, data = products });
         //     }
-
-        //     // GET: api/Products/{id}
-        //     [HttpGet("{id}")]
-        //     public async Task<IActionResult> GetProduct(string id)
+        //     catch (Exception ex)
         //     {
-        //         try
+        //         return StatusCode(500, new
         //         {
-        //             var product = await _context.Products
-        //                 .Include(p => p.Category)
-        //                 .Include(p => p.Brand)
-        //                 .Where(p => p.ProductId == id)
-        //                 .Select(p => new
-        //                 {
-        //                     productId = p.ProductId,
-        //                     name = p.Name,
-        //                     name2 = p.Name2,
-        //                     categoryID = p.CategoryId,
-        //                     categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
-        //                     brandID = p.BrandId,
-        //                     brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
-        //                     uom = p.Uom,
-        //                     price1 = p.Price1,
-        //                     dateApply1 = p.DateApply1,
-        //                     price2 = p.Price2,
-        //                     dateApply2 = p.DateApply2,
-        //                     description = p.Description,
-        //                     urlImage1 = p.UrlImage1,
-        //                     urlImage2 = p.UrlImage2,
-        //                     urlImage3 = p.UrlImage3,
-        //                     status = p.Status
-        //                 })
-        //                 .FirstOrDefaultAsync();
-
-        //             if (product == null)
-        //             {
-        //                 return NotFound(new { success = false, message = "Sản phẩm không tồn tại" });
-        //             }
-
-        //             return Ok(new { success = true, data = product });
-        //         }
-        //         catch (Exception ex)
-        //         {
-        //             return StatusCode(500, new
-        //             {
-        //                 success = false,
-        //                 message = "Lỗi khi tải sản phẩm",
-        //                 error = ex.Message
-        //             });
-        //         }
+        //             success = false,
+        //             message = "Lỗi khi tải sản phẩm",
+        //             error = ex.Message
+        //         });
         //     }
-
-        //     // Các API khác như POST, PUT, DELETE... tương tự
         // }
+    }
+    // [Route("api/[controller]")]
+    // [ApiController]
+    // public class ProductsController : ControllerBase
+    // {
 
-        // // ─────────── BẮT ĐẦU ĐOẠN CODE MỚI ───────────
 
-        // // GET: api/product/fororder/{id}
-        // // – Mục đích: Khi user nhập "Mã sản phẩm" trong OrderForm, 
-        // //   front-end sẽ gọi endpoint này để lấy nhanh { name, uom, price } của sản phẩm.
-        
-        // ─────────── KẾT THÚC ĐOẠN CODE MỚI ───────────
 
-        // GET: api/product/filter?categoryName=...&minPrice=...&maxPrice=...&sort=...
-       
+    //     // GET: api/Products
+    //     [HttpGet]
+    //     public async Task<IActionResult> GetProducts()
+    //     {
+    //         try
+    //         {
+    //             var products = await _context.Products
+    //                 .Include(p => p.Category)
+    //                 .Include(p => p.Brand)
+    //                 .Select(p => new
+    //                 {
+    //                     productId = p.ProductId,
+    //                     name = p.Name,
+    //                     name2 = p.Name2,
+    //                     categoryID = p.CategoryId,
+    //                     categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
+    //                     brandID = p.BrandId,
+    //                     brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
+    //                     uom = p.Uom,
+    //                     price1 = p.Price1,
+    //                     dateApply1 = p.DateApply1,
+    //                     price2 = p.Price2,       // sửa lại đúng trường
+    //                     dateApply2 = p.DateApply2,
+    //                     description = p.Description,
+    //                     urlImage1 = p.UrlImage1,
+    //                     urlImage2 = p.UrlImage2,
+    //                     urlImage3 = p.UrlImage3,
+    //                     status = p.Status
+    //                 })
+    //                 .ToListAsync();
+
+    //             return Ok(new { success = true, data = products });
+    //         }
+    //         catch (Exception ex)
+    //         {
+    //             return StatusCode(500, new
+    //             {
+    //                 success = false,
+    //                 message = "Lỗi khi tải sản phẩm",
+    //                 error = ex.Message
+    //             });
+    //         }
+    //     }
+
+    //     // GET: api/Products/{id}
+    //     [HttpGet("{id}")]
+    //     public async Task<IActionResult> GetProduct(string id)
+    //     {
+    //         try
+    //         {
+    //             var product = await _context.Products
+    //                 .Include(p => p.Category)
+    //                 .Include(p => p.Brand)
+    //                 .Where(p => p.ProductId == id)
+    //                 .Select(p => new
+    //                 {
+    //                     productId = p.ProductId,
+    //                     name = p.Name,
+    //                     name2 = p.Name2,
+    //                     categoryID = p.CategoryId,
+    //                     categoryName = p.Category != null ? p.Category.CategoryName : "Unknown",
+    //                     brandID = p.BrandId,
+    //                     brandName = p.Brand != null ? p.Brand.BrandName : "Unknown",
+    //                     uom = p.Uom,
+    //                     price1 = p.Price1,
+    //                     dateApply1 = p.DateApply1,
+    //                     price2 = p.Price2,
+    //                     dateApply2 = p.DateApply2,
+    //                     description = p.Description,
+    //                     urlImage1 = p.UrlImage1,
+    //                     urlImage2 = p.UrlImage2,
+    //                     urlImage3 = p.UrlImage3,
+    //                     status = p.Status
+    //                 })
+    //                 .FirstOrDefaultAsync();
+
+    //             if (product == null)
+    //             {
+    //                 return NotFound(new { success = false, message = "Sản phẩm không tồn tại" });
+    //             }
+
+    //             return Ok(new { success = true, data = product });
+    //         }
+    //         catch (Exception ex)
+    //         {
+    //             return StatusCode(500, new
+    //             {
+    //                 success = false,
+    //                 message = "Lỗi khi tải sản phẩm",
+    //                 error = ex.Message
+    //             });
+    //         }
+    //     }
+
+    //     // Các API khác như POST, PUT, DELETE... tương tự
     // }
-}
+
+    // // ─────────── BẮT ĐẦU ĐOẠN CODE MỚI ───────────
+
+    // // GET: api/product/fororder/{id}
+    // // – Mục đích: Khi user nhập "Mã sản phẩm" trong OrderForm, 
+    // //   front-end sẽ gọi endpoint này để lấy nhanh { name, uom, price } của sản phẩm.
+
+    // ─────────── KẾT THÚC ĐOẠN CODE MỚI ───────────
+
+    // GET: api/product/filter?categoryName=...&minPrice=...&maxPrice=...&sort=...
+
+}   // }
+

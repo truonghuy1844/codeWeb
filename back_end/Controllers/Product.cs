@@ -20,8 +20,9 @@ namespace back_end.Controllers
         }
 
         // GET: api/Products
+           // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts() //Admin nha
+        public async Task<IActionResult> GetProducts()
         {
             try
             {
@@ -64,6 +65,7 @@ namespace back_end.Controllers
                 });
             }
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(string id)

@@ -38,7 +38,9 @@ import './AppUser.css';
             <HighlightSlider onAddToCartPopup={onAddToCartPopup} />
             <div style={{ marginTop: '40px' }}>
               <div style={{ background: '#fff', padding: '40px 20px' }}>
-                <PromotionPage />
+                {window.location.pathname === '/' && (
+                    <PromotionPage />
+                  )}
               </div>
             </div>
           </section>

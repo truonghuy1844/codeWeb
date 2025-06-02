@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header';
-import Footer from './Footer';
 import AccountSidebar from './AccountSidebar';
 import './OrderDetail.css';
 
@@ -12,33 +10,40 @@ const getOrderStatusText = (status) => {
     case 1: return "Chờ lấy hàng";
     case 2: return "Đang giao hàng";
     case 3: return "Hoàn thành";
-    default: return "";
-  }
-};
-
-const getOrderStatusClass = (status) => {
-  switch (status) {
-    case 0: return "waiting";
-    case 1: return "ready";
-    case 2: return "in-progress";
-    case 3: return "completed";
-    default: return "";
+    default: return "Không xác định";
   }
 };
 
 const OrderDetail = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`/api/orders/${orderId}`)
-      .then((res) => setOrder(res.data))
-      .catch((err) => console.error('Lỗi khi tải chi tiết đơn hàng', err));
-  }, [orderId]);
+     axios.get(`http://localhost:5166/api/orders/${orderId}`)
+    .then((res) => {
+      setOrder(res.data);
 
-  if (!order || !Array.isArray(order.products)) {
-    return <div>Đang tải dữ liệu đơn hàng...</div>;
-  }
+      // Sau khi lấy order xong, nếu chưa có deliveryAddress thì lấy mặc định
+      if (!res.data.deliveryAddress) {
+        const userId = localStorage.getItem("userId");
+        axios.get(`http://localhost:5166/api/Address/user/${userId}`)
+          .then(addressRes => {
+            const defaultAddress = addressRes.data.find(a => a.status === 1 || a.status === "1");
+            if (defaultAddress) {
+              setOrder(prev => ({
+                ...prev,
+                deliveryAddress: `${defaultAddress.detail}, ${defaultAddress.street}, ${defaultAddress.ward}, ${defaultAddress.district}, ${defaultAddress.city}`
+              }));
+            }
+          });
+      }
+    })
+    .catch((err) => console.error('Lỗi khi tải chi tiết đơn hàng', err));
+}, [orderId]);
+
+  if (loading) return <div style={{ padding: 20 }}>Đang tải dữ liệu đơn hàng...</div>;
+  if (!order) return <div style={{ padding: 20 }}>Không tìm thấy đơn hàng.</div>;
 
   return (
     <div style={{ background: '#f8f8f8', minHeight: '100vh' }}>
@@ -47,8 +52,7 @@ const OrderDetail = () => {
         <AccountSidebar />
 
         <div className="order-detail">
-
-          {/* Card 1: Thanh trạng thái */}
+          {/* Trạng thái đơn hàng */}
           <div className="order-card-detail">
             <h2 className="order-title">Trạng thái đơn hàng</h2>
             <div className="order-progress-header">
@@ -71,52 +75,50 @@ const OrderDetail = () => {
                   </div>
                 ))}
               </div>
-
               <Link to="/orderHistory" className="back-to-history">Xem lịch sử mua hàng</Link>
             </div>
           </div>
 
-          {/* Card 2: Thông tin giao hàng */}
+          {/* Thông tin giao hàng */}
           <div className="order-card-detail">
-             <h2 className="order-title">Thông tin chi tiết</h2>
+            <h2 className="order-title">Thông tin giao hàng</h2>
             <p>
-                <strong>Ngày nhận hàng dự kiến:</strong>{" "}
-                {order.deliveryDate
+              <strong>Ngày nhận hàng dự kiến:</strong>{" "}
+              {order.deliveryDate
                 ? new Date(order.deliveryDate).toLocaleDateString('vi-VN')
-                : new Date(new Date(order.orderDate).getTime() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('vi-VN')}
+                : new Date(new Date(order.orderDate).getTime() + 3 * 86400000).toLocaleDateString('vi-VN')}
             </p>
-
-            <p><strong>Người nhận:</strong> {order.receiverName} -
-            <strong> SĐT:</strong> {order.receiverPhone}</p>
+            <p><strong>Người nhận:</strong> {order.receiverName}</p>
+            <p><strong>SĐT:</strong> {order.receiverPhone}</p>
             <p><strong>Địa chỉ nhận hàng:</strong> {order.deliveryAddress}</p>
-            <p><strong>Phương thức thanh toán:</strong> {order.paymentMethod}</p>
+            <p><strong>Phương thức thanh toán:</strong> {order.paymentMethod || "Chưa cập nhật"}</p>
           </div>
 
-          {/* Card 3: Danh sách sản phẩm */}
+          {/* Danh sách sản phẩm */}
           <div className="order-card-detail">
             <h2 className="order-title">Danh sách sản phẩm</h2>
-            {order.products.map((product, index) => (
-              <div className="product-item" key={index}>
+            {order.products.map((product, idx) => (
+              <div className="product-item" key={idx}>
                 <img src={product.thumbnail} alt={product.productName} />
                 <div className="product-info">
                   <h4>{product.productName}</h4>
                   <p className="description">{product.description}</p>
                   <div className="product-details">
-                        <p>Số lượng: {product.quantity}</p>
-                        <p>Giá: {product.price.toLocaleString("vi-VN")} đ</p>
-                      </div>  
+                    <p>Số lượng: {product.quantity}</p>
+                    <p>Giá: {product.price.toLocaleString("vi-VN")} đ</p>
+                  </div>
                 </div>
               </div>
             ))}
-            <div className ="fee-shipping">
-              <p>Phí vận chuyển: {order.shippingFee.toLocaleString('vi-VN')} VND</p>
+
+            <div className="fee-shipping">
+              <p>Phí vận chuyển: {order.shippingFee.toLocaleString('vi-VN')} đ</p>
             </div>
-              
+
             <div className="order-total">
-              Tổng đơn hàng: <strong>{order.totalPay.toLocaleString('vi-VN')} VND</strong>
+              Tổng cộng: <strong>{order.totalPay.toLocaleString('vi-VN')} đ</strong>
             </div>
           </div>
-
         </div>
       </div>
     </div>
