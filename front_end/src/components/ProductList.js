@@ -20,7 +20,7 @@ const ProductList = () => {
       try {
         const res = await axios.get(url);
         console.log("✅ Dữ liệu trả về:", res.data);
-        setProducts(res.data.data || res.data);
+        setProducts(Array.isArray(res.data) ? res.data : res.data.data || []);
       } catch (err) {
         console.error("❌ Lỗi khi gọi API:", err);
       }

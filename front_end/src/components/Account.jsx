@@ -36,7 +36,7 @@ const Account = () => {
           name: data.name || '',
           birthday: data.birthday || '',
           address: data.address || '',
-          phoneNumber: data.phone || '',  
+          phone: data.phone || '',  
           email: data.email || ''
         });
       })

@@ -20,26 +20,27 @@ const OrderDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:5166/api/orders/${orderId}`)
-      .then((res) => {
-        const orderData = res.data;
+     axios.get(`http://localhost:5166/api/orders/${orderId}`)
+    .then((res) => {
+      setOrder(res.data);
 
-        const totalPrice = orderData.products.reduce((sum, p) => sum + p.price * p.quantity, 0);
-        const shippingFee = totalPrice >= 500000 ? 0 : 30000;
-        const totalPay = totalPrice + shippingFee;
-
-        setOrder({
-          ...orderData,
-          shippingFee,
-          totalPay,
-        });
-      })
-      .catch((err) => {
-        console.error('Lỗi khi tải chi tiết đơn hàng', err);
-        alert("Không thể tải chi tiết đơn hàng");
-      })
-      .finally(() => setLoading(false));
-  }, [orderId]);
+      // Sau khi lấy order xong, nếu chưa có deliveryAddress thì lấy mặc định
+      if (!res.data.deliveryAddress) {
+        const userId = localStorage.getItem("userId");
+        axios.get(`http://localhost:5166/api/Address/user/${userId}`)
+          .then(addressRes => {
+            const defaultAddress = addressRes.data.find(a => a.status === 1 || a.status === "1");
+            if (defaultAddress) {
+              setOrder(prev => ({
+                ...prev,
+                deliveryAddress: `${defaultAddress.detail}, ${defaultAddress.street}, ${defaultAddress.ward}, ${defaultAddress.district}, ${defaultAddress.city}`
+              }));
+            }
+          });
+      }
+    })
+    .catch((err) => console.error('Lỗi khi tải chi tiết đơn hàng', err));
+}, [orderId]);
 
   if (loading) return <div style={{ padding: 20 }}>Đang tải dữ liệu đơn hàng...</div>;
   if (!order) return <div style={{ padding: 20 }}>Không tìm thấy đơn hàng.</div>;

@@ -26,7 +26,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetOrders(int buyerId)
+        public IActionResult GetOrders([FromQuery] int buyerId)
         {
             var orders = new List<OrderDto>();
             var orderMap = new Dictionary<string, OrderDto>();

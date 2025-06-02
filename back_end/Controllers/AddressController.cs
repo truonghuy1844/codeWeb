@@ -42,7 +42,7 @@ namespace back_end.Controllers
 
         // POST: api/Address
         [HttpPost("user/{userId}")]
-        public IActionResult Create(int userId, [FromBody] AddressDto dto)
+        public IActionResult Create(int userId, [FromBody] CreateAddressDto dto)
         {
             if (dto == null)
             {
@@ -108,7 +108,7 @@ namespace back_end.Controllers
             address.Ward = dto.Ward;
             address.Street = dto.Street;
             address.Detail = dto.Detail;
-
+            address.Status = dto.Status ?? address.Status;
             _context.SaveChanges();
 
             return Ok(new { message = "Cập nhật địa chỉ thành công." });
@@ -127,6 +127,13 @@ namespace back_end.Controllers
             // Không cho xoá nếu là địa chỉ mặc định
             if (address.Status == true)
                 return BadRequest(new { message = "Không thể xoá địa chỉ mặc định." });
+
+            // Kiểm tra nếu có foreign key liên quan
+            var hasOrders = _context.Shipments.Any(o => o.AddressId == addressId); // ví dụ
+
+            if (hasOrders)
+                return BadRequest(new { message = "Địa chỉ này đã được sử dụng trong đơn hàng." });
+
 
             _context.Addresses.Remove(address);
             _context.SaveChanges();
@@ -174,5 +181,4 @@ namespace back_end.Controllers
 
     }
 }
-
 

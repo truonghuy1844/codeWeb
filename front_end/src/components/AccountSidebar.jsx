@@ -22,19 +22,25 @@ const AccountSidebar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/address" className={({ isActive }) => isActive ? 'active' : ''}>
-            <FaMapMarkerAlt className="sidebar-icon" /> Địa chỉ 
-          </NavLink>
+          <NavLink Add commentMore actions
+          to="/address" 
+          state={{
+            name: JSON.parse(localStorage.getItem("user"))?.name || '',
+            phone: JSON.parse(localStorage.getItem("user"))?.phone || ''
+          }} 
+          className={({ isActive }) => isActive ? 'active' : ''}
+        >
+          <FaMapMarkerAlt className="sidebar-icon" /> Địa chỉ 
+        </NavLink>
         </li>
         <li>
           <NavLink to="/orderHistory" className={({ isActive }) => isActive ? 'active' : ''}>
             <FaClipboardList className="sidebar-icon" /> Lịch sử mua hàng
           </NavLink>
         </li>
-        <li onClick={handleLogout}>
-          <span style={{ cursor: 'pointer' }}>
-            <FaSignOutAlt className="sidebar-icon" /> Đăng xuất
-          </span>
+        <li>
+          <div onClick={handleLogout} className="logout-link">
+            <FaSignOutAlt className="sidebar-icon" /> Đăng xuất </div>
         </li>
       </ul>
     </div>

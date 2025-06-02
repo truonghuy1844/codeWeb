@@ -2,7 +2,7 @@ import React from 'react';
 import { getProvinces, getDistrictsByProvinceCode, getWardsByDistrictCode } from 'sub-vn';
 import './AddressSelector.css';
 
-const AddressSelector = ({ province, district, ward, street, onChange }) => {
+const AddressSelector = ({ province, district, ward, street, onChange, disabled }) => {
   const handleChange = (e) => {
     onChange(e);
   };
@@ -11,7 +11,7 @@ const AddressSelector = ({ province, district, ward, street, onChange }) => {
     <div className="address-group">
       <div>
         <label>Tỉnh/ Thành phố</label>
-        <select name="province" value={province} onChange={handleChange}>
+        <select name="province" value={province} onChange={handleChange}  disabled={disabled}>
           <option value="">Chọn tỉnh</option>
           {getProvinces().map((p) => (
             <option key={p.code} value={p.code}>{p.name}</option>
@@ -21,7 +21,7 @@ const AddressSelector = ({ province, district, ward, street, onChange }) => {
 
       <div>
         <label>Quận/ Huyện</label>
-        <select name="district" value={district} onChange={handleChange}>
+        <select name="district" value={district} onChange={handleChange} disabled={disabled}>
           <option value="">Chọn huyện</option>
           {province &&
             getDistrictsByProvinceCode(province).map((d) => (
@@ -32,7 +32,7 @@ const AddressSelector = ({ province, district, ward, street, onChange }) => {
 
       <div>
         <label>Xã/ Phường</label>
-        <select name="ward" value={ward} onChange={handleChange}>
+        <select name="ward" value={ward} onChange={handleChange} disabled={disabled}>
           <option value="">Chọn xã</option>
           {district &&
             getWardsByDistrictCode(district).map((w) => (
@@ -48,6 +48,7 @@ const AddressSelector = ({ province, district, ward, street, onChange }) => {
           name="street"
           value={street}
           onChange={handleChange}
+          disabled={disabled}
         />
       </div>
     </div>
