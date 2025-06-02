@@ -159,7 +159,6 @@ namespace back_end.Controllers
                 IsAdmin = user.IsAdmin,
                 IsBuyer = user.IsBuyer,
                 IsSeller = user.IsSeller,
-                //Department = user.Department,
                 Name = userDetails?.Name ?? string.Empty,
                 Birthday = userDetails?.Birthday?.ToDateTime(TimeOnly.MinValue),
                 Email = userDetails?.Email ?? string.Empty,
@@ -189,7 +188,6 @@ namespace back_end.Controllers
                 IsAdmin = u.IsAdmin,
                 IsBuyer = u.IsBuyer,
                 IsSeller = u.IsSeller,
-                //Department = u.Department,
                 Name = u.UserDetails?.Name ?? string.Empty,
                 Birthday = u.UserDetails?.Birthday?.ToDateTime(TimeOnly.MinValue),
                 Email = u.UserDetails?.Email ?? string.Empty,
@@ -217,7 +215,6 @@ namespace back_end.Controllers
                         IsAdmin = dto.IsAdmin,
                         IsBuyer = dto.IsBuyer,
                         IsSeller = dto.IsSeller,
-                        //Department = dto.Department,
                         DateCreated = DateOnly.FromDateTime(DateTime.Now)
                     };
                     _context.Users.Add(newUser);
@@ -243,7 +240,6 @@ namespace back_end.Controllers
                 user.IsAdmin = dto.IsAdmin;
                 user.IsBuyer = dto.IsBuyer;
                 user.IsSeller = dto.IsSeller;
-                //user.Department = dto.Department;
                 _context.Users.Update(user);
                 _context.SaveChanges();
 
