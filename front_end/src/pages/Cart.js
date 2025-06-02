@@ -11,10 +11,16 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadCart();
-    window.addEventListener("focus", loadCart);
-    return () => window.removeEventListener("focus", loadCart);
-  }, []);
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    navigate('/login');
+    return;
+  }
+
+  loadCart();
+  window.addEventListener("focus", loadCart);
+  return () => window.removeEventListener("focus", loadCart);
+}, []);
 
   const loadCart = async () => {
     let user = null;

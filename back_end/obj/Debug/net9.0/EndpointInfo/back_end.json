@@ -6,6 +6,29 @@
     "version": "v1"
   },
   "paths": {
+    "/api/Address/default/{userId}": {
+      "get": {
+        "tags": [
+          "Address"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Address/user/{userId}": {
       "get": {
         "tags": [
@@ -47,17 +70,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddressDto"
+                "$ref": "#/components/schemas/CreateAddressDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddressDto"
+                "$ref": "#/components/schemas/CreateAddressDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddressDto"
+                "$ref": "#/components/schemas/CreateAddressDto"
               }
             }
           }
@@ -179,19 +202,124 @@
         }
       }
     },
-    "/api/Address/default/{userId}": {
+    "/api/AdminOrder/get-all": {
       "get": {
         "tags": [
-          "Address"
+          "AdminOrder"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdminOrder/{orderId}": {
+      "get": {
+        "tags": [
+          "AdminOrder"
         ],
         "parameters": [
           {
-            "name": "userId",
+            "name": "orderId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdminOrder/create": {
+      "post": {
+        "tags": [
+          "AdminOrder"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCheckoutDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCheckoutDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCheckoutDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdminOrder/update/{orderId}": {
+      "put": {
+        "tags": [
+          "AdminOrder"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCheckoutDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCheckoutDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCheckoutDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdminOrder/delete/{orderId}": {
+      "delete": {
+        "tags": [
+          "AdminOrder"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -373,6 +501,18 @@
         }
       }
     },
+    "/api/Dashboard/metrics": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Orders": {
       "get": {
         "tags": [
@@ -448,7 +588,7 @@
         }
       }
     },
-    "/api/Product": {
+    "/api/Product/all_product": {
       "get": {
         "tags": [
           "Product"
@@ -481,28 +621,6 @@
           {
             "name": "keyword",
             "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Product/{id}": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
             "schema": {
               "type": "string"
             }
@@ -552,6 +670,18 @@
               "default": "name_asc"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Product": {
+      "get": {
+        "tags": [
+          "Product"
         ],
         "responses": {
           "200": {
@@ -635,24 +765,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -701,6 +814,73 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Products/filter": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minPrice",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "name_asc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Products/fororder/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -816,6 +996,69 @@
         }
       }
     },
+    "/api/User/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInfoDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInfoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInfoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/get/{userId}": {
       "get": {
         "tags": [
@@ -894,69 +1137,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/User/{id}": {
-      "put": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateInfoDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateInfoDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateInfoDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1054,26 +1234,6 @@
       "AddressDto": {
         "type": "object",
         "properties": {
-          "addressId": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "phone": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "country": {
-            "type": "string",
-            "nullable": true
-          },
           "city": {
             "type": "string",
             "nullable": true
@@ -1101,6 +1261,10 @@
           },
           "status": {
             "type": "boolean",
+            "nullable": true
+          },
+          "addressId": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -1343,60 +1507,36 @@
         },
         "additionalProperties": false
       },
-      "GroupTb": {
+      "CreateAddressDto": {
         "type": "object",
         "properties": {
-          "groupTbId": {
+          "city": {
             "type": "string",
             "nullable": true
           },
-          "groupTbName": {
+          "district": {
             "type": "string",
             "nullable": true
           },
-          "groupTbName2": {
+          "ward": {
             "type": "string",
             "nullable": true
           },
-          "type": {
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
           "status": {
             "type": "boolean",
-            "nullable": true
-          },
-          "productGroupTb1Navigations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            },
-            "nullable": true
-          },
-          "productGroupTb2Navigations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            },
-            "nullable": true
-          },
-          "productGroupTb3Navigations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            },
-            "nullable": true
-          },
-          "productGroupTb4Navigations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            },
             "nullable": true
           }
         },
@@ -1502,6 +1642,10 @@
       "OrderCheckoutDto": {
         "type": "object",
         "properties": {
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
           "buyer": {
             "type": "integer",
             "format": "int32"
@@ -1517,6 +1661,10 @@
           "addressId": {
             "type": "string",
             "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
           },
           "items": {
             "type": "array",
@@ -1603,13 +1751,6 @@
           },
           "taxNavigation": {
             "$ref": "#/components/schemas/Tax"
-          },
-          "productInventoryId": {
-            "type": "string",
-            "nullable": true
-          },
-          "productIn": {
-            "$ref": "#/components/schemas/ProductIn"
           }
         },
         "additionalProperties": false
@@ -1812,22 +1953,6 @@
             "type": "string",
             "nullable": true
           },
-          "groupTb1": {
-            "type": "string",
-            "nullable": true
-          },
-          "groupTb2": {
-            "type": "string",
-            "nullable": true
-          },
-          "groupTb3": {
-            "type": "string",
-            "nullable": true
-          },
-          "groupTb4": {
-            "type": "string",
-            "nullable": true
-          },
           "uom": {
             "type": "string",
             "nullable": true
@@ -1892,18 +2017,6 @@
               "$ref": "#/components/schemas/ClickProduct"
             },
             "nullable": true
-          },
-          "groupTb1Navigation": {
-            "$ref": "#/components/schemas/GroupTb"
-          },
-          "groupTb2Navigation": {
-            "$ref": "#/components/schemas/GroupTb"
-          },
-          "groupTb3Navigation": {
-            "$ref": "#/components/schemas/GroupTb"
-          },
-          "groupTb4Navigation": {
-            "$ref": "#/components/schemas/GroupTb"
           },
           "orderDs": {
             "type": "array",

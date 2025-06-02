@@ -18,7 +18,28 @@ namespace back_end.Controllers
         {
             _context = context;
         }
+        /* Lấy địa chỉ mặc định cho user */
+        [HttpGet("default/{userId}")]
+        public IActionResult GetDefaultAddress(int userId)
+        {
+            var address = _context.Addresses
+                .FirstOrDefault(a => a.UserId == userId && a.Status == true);
 
+            if (address == null)
+                return NotFound(new { message = "Không có địa chỉ mặc định." });
+
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            var formattedAddress = $"{address.Detail}, {address.Street}, {address.Ward}, {address.District}, {address.City}";
+
+            return Ok(new
+            {
+                addressId = address.AddressId,
+                address = formattedAddress,
+                name = user?.UserDetails?.Name,
+                phone = user?.UserDetails?.PhoneNumber
+            });
+        }
         // GET: api/Address/user/abc123
         [HttpGet("user/{userId}")]
         public IActionResult GetByUser(int userId)

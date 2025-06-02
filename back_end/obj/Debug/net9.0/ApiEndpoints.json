@@ -114,7 +114,86 @@
       },
       {
         "Name": "dto",
-        "Type": "AddressDto",
+        "Type": "CreateAddressDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.AdminOrderController",
+    "Method": "GetOrderById",
+    "RelativePath": "api/AdminOrder/{orderId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.AdminOrderController",
+    "Method": "CreateOrder2",
+    "RelativePath": "api/AdminOrder/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderDto",
+        "Type": "back_end.Models.Entity.OrderCheckoutDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.AdminOrderController",
+    "Method": "DeleteOrder",
+    "RelativePath": "api/AdminOrder/delete/{orderId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.AdminOrderController",
+    "Method": "GetAllOrders",
+    "RelativePath": "api/AdminOrder/get-all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.AdminOrderController",
+    "Method": "UpdateOrder2",
+    "RelativePath": "api/AdminOrder/update/{orderId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "orderDto",
+        "Type": "back_end.Models.Entity.OrderCheckoutDto",
         "IsRequired": true
       }
     ],
@@ -236,6 +315,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "back_end.Controllers.DashboardController",
+    "Method": "GetDashboardMetrics",
+    "RelativePath": "api/Dashboard/metrics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "back_end.Controllers.OrdersController",
     "Method": "GetOrders",
     "RelativePath": "api/Orders",
@@ -285,7 +374,7 @@
   },
   {
     "ContainingType": "back_end.Controllers.ProductController",
-    "Method": "GetAllProducts",
+    "Method": "GetProducts",
     "RelativePath": "api/Product",
     "HttpMethod": "GET",
     "IsController": true,
@@ -295,18 +384,12 @@
   },
   {
     "ContainingType": "back_end.Controllers.ProductController",
-    "Method": "GetProductById",
-    "RelativePath": "api/Product/{id}",
+    "Method": "GetAllProducts",
+    "RelativePath": "api/Product/all_product",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -416,23 +499,60 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "back_end.Models.Entity.Product",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "back_end.Controllers.ProductsController",
     "Method": "DeleteProduct",
     "RelativePath": "api/Products/{id}",
     "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.ProductsController",
+    "Method": "GetFilteredProducts",
+    "RelativePath": "api/Products/filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "minPrice",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "maxPrice",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "sort",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.ProductsController",
+    "Method": "GetProductForOrder",
+    "RelativePath": "api/Products/fororder/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -498,6 +618,22 @@
   },
   {
     "ContainingType": "back_end.Controllers.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "back_end.Controllers.UserController",
     "Method": "UpdateUser",
     "RelativePath": "api/User/{id}",
     "HttpMethod": "PUT",
@@ -511,23 +647,7 @@
       },
       {
         "Name": "dto",
-        "Type": "back_end.Controllers.UpdateInfoDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "back_end.Controllers.UserController",
-    "Method": "GetUserById",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Type": "back_end.DataTransferObject.UpdateInfoDto",
         "IsRequired": true
       }
     ],

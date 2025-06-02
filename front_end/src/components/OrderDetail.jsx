@@ -7,9 +7,8 @@ import './OrderDetail.css';
 const getOrderStatusText = (status) => {
   switch (status) {
     case 0: return "Chờ xác nhận";
-    case 1: return "Chờ lấy hàng";
-    case 2: return "Đang giao hàng";
-    case 3: return "Hoàn thành";
+    case 1: return "Đang giao hàng";
+    case 2: return "Hoàn thành";
     default: return "Không xác định";
   }
 };
@@ -19,12 +18,12 @@ const OrderDetail = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-     axios.get(`http://localhost:5166/api/orders/${orderId}`)
+useEffect(() => {
+  axios.get(`http://localhost:5166/api/orders/${orderId}`)
     .then((res) => {
       setOrder(res.data);
+      setLoading(false);
 
-      // Sau khi lấy order xong, nếu chưa có deliveryAddress thì lấy mặc định
       if (!res.data.deliveryAddress) {
         const userId = localStorage.getItem("userId");
         axios.get(`http://localhost:5166/api/Address/user/${userId}`)
@@ -39,8 +38,12 @@ const OrderDetail = () => {
           });
       }
     })
-    .catch((err) => console.error('Lỗi khi tải chi tiết đơn hàng', err));
+    .catch((err) => {
+      console.error('Lỗi khi tải chi tiết đơn hàng', err);
+      setLoading(false);
+    });
 }, [orderId]);
+
 
   if (loading) return <div style={{ padding: 20 }}>Đang tải dữ liệu đơn hàng...</div>;
   if (!order) return <div style={{ padding: 20 }}>Không tìm thấy đơn hàng.</div>;
@@ -57,20 +60,18 @@ const OrderDetail = () => {
             <h2 className="order-title">Trạng thái đơn hàng</h2>
             <div className="order-progress-header">
               <div className="order-tracking">
-                {[0, 1, 2, 3].map((step) => (
+                {[0, 1, 2].map((step) => (
                   <div className={`track-step ${order.status >= step ? 'active' : ''} ${order.status === step ? 'current' : ''}`} key={step}>
                     <div className="circle" />
                     <div className="icon">
                       {step === 0 && <i className="fa fa-file-text" />}
-                      {step === 1 && <i className="fa fa-cube" />}
-                      {step === 2 && <i className="fa fa-truck" />}
-                      {step === 3 && <i className="fa fa-heart" />}
+                      {step === 1 && <i className="fa fa-truck" />}
+                      {step === 2 && <i className="fa fa-check" />}
                     </div>
                     <div className="label">
                       {step === 0 && "Đang xử lý"}
-                      {step === 1 && "Chờ lấy hàng"}
-                      {step === 2 && "Đang giao hàng"}
-                      {step === 3 && "Đã nhận đơn hàng"}
+                      {step === 1 && "Đang giao hàng"}
+                      {step === 2 && "Đã nhận đơn hàng"}
                     </div>
                   </div>
                 ))}

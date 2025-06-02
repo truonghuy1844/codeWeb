@@ -10,8 +10,9 @@ const Checkout = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [note, setNote] = useState('');
   const [addressId, setAddressId] = useState('');
+  const [note, setNote] = useState('');
+
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
   const isBuyNow = new URLSearchParams(window.location.search).get('mode') === 'buynow';
@@ -19,33 +20,33 @@ const Checkout = () => {
   useEffect(() => {
     if (!user?.userId) return;
 
-    // 🔹 Lấy thông tin người dùng
+    // Lấy thông tin người dùng
     axios.get(`http://localhost:5166/api/User/${user.userId}`)
       .then(res => {
         setName(res.data.name || '');
-        setPhone(res.data.phoneNumber || '');
+        setPhone(res.data.phone || '');
       })
-      .catch(err => console.error("Lỗi lấy thông tin cá nhân:", err));
+      .catch(err => console.error('Lỗi lấy thông tin user:', err));
 
-    // 🔹 Lấy địa chỉ mặc định
+    // Lấy địa chỉ mặc định
     axios.get(`http://localhost:5166/api/Address/default/${user.userId}`)
-  .then(res => {
-    console.log("📦 Địa chỉ mặc định:", res.data);
-    setAddress(res.data.address);     
-    setAddressId(res.data.addressId);  
-  });
+      .then(res => {
+        setAddress(res.data.address || '');
+        setAddressId(res.data.addressId || '');
+      })
+      .catch(err => {
+        console.error('Không tìm thấy địa chỉ mặc định:', err);
+        alert('Không tìm thấy địa chỉ mặc định.');
+      });
 
-    // 🔹 Lấy sản phẩm
+    // Lấy sản phẩm
     if (isBuyNow) {
       const product = JSON.parse(sessionStorage.getItem('buynowProduct'));
-      if (product) {
-        setItems([product]);
-      }
+      if (product) setItems([product]);
     } else {
       axios.get(`http://localhost:5166/api/Cart?userId=${user.userId}`)
-        .then(res => {
-          setItems(res.data);
-        });
+        .then(res => setItems(res.data))
+        .catch(err => console.error('Lỗi lấy giỏ hàng:', err));
     }
   }, []);
 
@@ -68,26 +69,20 @@ const Checkout = () => {
   const finalAmount = total + shippingFee;
 
   const handleConfirm = async () => {
-    if (!user?.userId) {
-      alert('Vui lòng đăng nhập để thanh toán.');
-      return;
-    }
-
-    if (!addressId) {
-      alert('Không tìm thấy địa chỉ giao hàng.');
-      return;
-    }
+    if (!user?.userId) return alert('Vui lòng đăng nhập.');
+    if (!addressId) return alert('Không tìm thấy địa chỉ mặc định.');
 
     const payload = {
+      orderId: `od_${crypto.randomUUID().replace(/-/g, '').substring(0, 16)}`,
       buyer: user.userId,
-      seller: 1,
-      description: note,
-      receiverName: name,       
-      receiverPhone: phone,    
+      seller: 5,
+      description: note || '',
       addressId: addressId,
+      status: 0, 
       items: items.map(item => {
         const price1 = item.price1 || item.price;
         const price2 = item.price2 && item.price2 < price1 ? item.price2 : price1;
+
         return {
           productId: item.productId,
           quantity: item.quantity,
@@ -99,19 +94,15 @@ const Checkout = () => {
       })
     };
 
-    console.log("Payload gửi lên:", payload);
-
     try {
-      const res = await axios.post('http://localhost:5166/api/Orders/create', payload);
+      await axios.post('http://localhost:5166/api/Orders/create', payload);
       alert('Đặt hàng thành công!');
-
       if (!isBuyNow) {
         await axios.delete(`http://localhost:5166/api/Cart/clear?userId=${user.userId}`);
       }
-
       navigate('/');
     } catch (err) {
-      console.error('Lỗi khi gửi đơn hàng:', err.response?.data || err.message);
+      console.error('Lỗi gửi đơn hàng:', err.response?.data || err.message);
       alert('Đặt hàng thất bại!');
     }
   };
@@ -121,10 +112,21 @@ const Checkout = () => {
       <h2>Thanh toán</h2>
       <div className="checkout-container">
         <div className="left">
-          <input placeholder="Họ và tên" value={name} onChange={(e) => setName(e.target.value)} readOnly />
-          <input placeholder="Số điện thoại" value={phone} onChange={(e) => setPhone(e.target.value)} readOnly />
-          <input placeholder="Địa chỉ giao hàng" value={address} onChange={(e) => setAddress(e.target.value)} readOnly />
-          <textarea placeholder="Ghi chú (tuỳ chọn)" value={note} onChange={(e) => setNote(e.target.value)} rows={4} />
+          <div className="address-option">
+            <label style={{ fontSize: '18px', fontWeight: 600 }}>
+              📍 Giao hàng đến địa chỉ mặc định
+            </label>
+          </div>
+
+          <input placeholder="Họ và tên" value={name} readOnly />
+          <input placeholder="Số điện thoại" value={phone} readOnly />
+          <input placeholder="Địa chỉ giao hàng" value={address} readOnly />
+          <textarea
+            placeholder="Ghi chú (tuỳ chọn)"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={4}
+          />
         </div>
 
         <div className="right">

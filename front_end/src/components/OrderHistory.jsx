@@ -12,9 +12,8 @@ const OrderHistory = () => {
   const getStatusLabel = (status) => {
     switch (status) {
       case 0: return 'Chờ xác nhận';
-      case 1: return 'Chờ lấy hàng';
-      case 2: return 'Đang giao hàng';
-      case 3: return 'Hoàn thành';
+      case 1: return 'Đang giao hàng';
+      case 2: return 'Hoàn thành';
       default: return 'Không rõ';
     }
   };
@@ -22,9 +21,8 @@ const OrderHistory = () => {
   const getStatusClass = (status) => {
     switch (status) {
       case 0: return 'waiting';
-      case 1: return 'ready';
-      case 2: return 'in-progress';
-      case 3: return 'completed';
+      case 1: return 'in-progress';
+      case 2: return 'completed';
       default: return 'unknown';
     }
   };

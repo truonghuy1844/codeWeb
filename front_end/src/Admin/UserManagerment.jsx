@@ -47,7 +47,7 @@ const UserManagerment = () => {
     userName: '',
     password: '',
     isAdmin: false,
-    isBuyer: false,
+    isBuyer: true,
     isSeller: false,
     status: true,
     // department: '',

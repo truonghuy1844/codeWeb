@@ -36,6 +36,9 @@ namespace back_end.Controllers
                 {
                     UserName = dto.Name,
                     Password = dto.Password,
+                    IsBuyer = true,   
+                    IsSeller = false,
+                    IsAdmin = false,
                     DateCreated = DateOnly.FromDateTime(DateTime.Now)
                 };
                 _context.Users.Add(user);
