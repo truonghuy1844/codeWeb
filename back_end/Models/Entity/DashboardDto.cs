@@ -9,7 +9,7 @@ namespace back_end.Models.Dto
         public int OrdersInProgress { get; set; }
         public int OrdersCompleted { get; set; }
         public int TotalEmployees { get; set; }
-        // ... (các trường khác nếu cần)
+        public decimal TotalRevenue {get; set;}
     }
 }
 

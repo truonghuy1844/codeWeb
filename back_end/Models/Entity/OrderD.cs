@@ -27,12 +27,7 @@ namespace back_end.Models.Entity
 
         public virtual Product Product { get; set; } = null!;
 
-        public virtual Tax? TaxNavigation { get; set; }
-        // public string? ProductInventoryId { get; set; }
-
-        // hoặc nếu là navigation property:
-        // public ProductIn? ProductIn { get; set; }
-}
-
+        public virtual Tax? TaxNavigation { get; set; }        
+    }
 }
 

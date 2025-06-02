@@ -30,6 +30,9 @@ namespace back_end.Controllers
             int ordersInProgress = await _context.OrderTbs.Where(o => o.Status == 1).CountAsync();
             int ordersCompleted = await _context.OrderTbs.Where(o => o.Status == 2).CountAsync();
 
+            decimal totalRevenue = await _context.OrderDs
+                .SumAsync(od => (od.Price ?? 0m) * (od.Quantity ?? 0));
+
             var dto = new DashboardDto
             {
                 TotalProducts = totalProducts,
@@ -37,7 +40,8 @@ namespace back_end.Controllers
                 OrdersPending = ordersPending,
                 OrdersInProgress = ordersInProgress,
                 OrdersCompleted = ordersCompleted,
-                TotalEmployees = totalEmployees
+                TotalEmployees = totalEmployees,
+                TotalRevenue = totalRevenue
             };
 
             return Ok(dto);

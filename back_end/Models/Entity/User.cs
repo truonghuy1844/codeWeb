@@ -51,7 +51,7 @@ public partial class User
 
     public virtual ICollection<Support> SupportUserAskNavigations { get; set; } = new List<Support>();
 
-    public virtual UserDetails? UserDetails { get; set; }
+    public virtual UserDetails UserDetails { get; set; }
 
     public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
 }

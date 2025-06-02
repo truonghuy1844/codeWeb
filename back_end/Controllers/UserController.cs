@@ -112,17 +112,25 @@ namespace back_end.Controllers
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _context.Users
-                .Include(u => u.UserDetails)
+                .Include(u => u.UserDetails)         // navigation property trên User
                 .FirstOrDefaultAsync(u => u.UserId == id);
-            if (user == null) return NotFound();
 
+            if (user == null)
+                return NotFound(new { message = $"Không tìm thấy user với ID = {id}" });
+
+            // 2) Trả về các trường từ UserDetails và Buyer/Seller flags
             return Ok(new
             {
-                name = user.UserDetails.Name,
-                email = user.UserDetails.Email,
-                phone = user.UserDetails.PhoneNumber,
-                birthday = user.UserDetails.Birthday,
-                address = user.UserDetails.Address,
+                name     = user.UserDetails.Name,
+                email    = user.UserDetails.Email,
+                phone    = user.UserDetails.PhoneNumber,
+                birthday = user.UserDetails.Birthday.HasValue 
+                            ? user.UserDetails.Birthday.Value.ToString("yyyy-MM-dd") 
+                            : null,
+                address  = user.UserDetails.Address,
+
+                buyer    = user.IsBuyer,   // flag Buyer
+                seller   = user.IsSeller   // flag Seller
             });
         }
 

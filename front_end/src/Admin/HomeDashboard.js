@@ -16,7 +16,8 @@ const HomeDashboard = () => {
     ordersPending: 0,
     ordersInProgress: 0,
     ordersCompleted: 0,
-    totalEmployees: 0
+    totalEmployees: 0,
+    totalRevenue: 0
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -47,125 +48,133 @@ const HomeDashboard = () => {
 
   return (
     <>
-    <AdminHeader />
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar/Menu bên trái */}
-      <MenuAdmin activeTab={activeTab} setActiveTab={setActiveTab} />
+      <AdminHeader />
+      <div className="flex min-h-screen bg-gray-100">
+        {/* Sidebar/Menu bên trái */}
+        <MenuAdmin activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Nội dung chính */}
-      <div className="flex-1 p-6">
-        {activeTab === 'dashboard' && (
-          <>
-            {loading ? (
-              <div className="text-center text-gray-500">Đang tải dữ liệu...</div>
-            ) : error ? (
-              <div className="text-center text-red-500">{error}</div>
-            ) : (
-              <>
-                {/* Grid các cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-                  {/* SẢN PHẨM */}
-                  <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">TỔNG SẢN PHẨM</span>
-                    <span className="mt-2 text-3xl font-bold text-gray-800">
-                      {metrics.totalProducts}
-                    </span>
+        {/* Nội dung chính */}
+        <div className="flex-1 p-6">
+          {activeTab === 'dashboard' && (
+            <>
+              {loading ? (
+                <div className="text-center text-gray-500">Đang tải dữ liệu...</div>
+              ) : error ? (
+                <div className="text-center text-red-500">{error}</div>
+              ) : (
+                <>
+                  {/* Grid các cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                    {/* SẢN PHẨM */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500">TỔNG SẢN PHẨM</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.totalProducts}
+                      </span>
+                    </div>
+
+                    {/* ĐƠN HÀNG (tổng) */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500">TỔNG ĐƠN HÀNG</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.totalOrders}
+                      </span>
+                    </div>
+
+                    {/* NHÂN VIÊN */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500">TỔNG QUẢN TRỊ BÁN HÀNG</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.totalEmployees}
+                      </span>
+                    </div>
+
+                    {/* ĐƠN HÀNG CHƯA GIAO */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500"> ĐƠN HÀNG CHƯA GIAO</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.ordersPending}
+                      </span>
+                    </div>
+
+                    {/* ĐANG GIAO */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500">ĐƠN HÀNG ĐANG GIAO</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.ordersInProgress}
+                      </span>
+                    </div>
+
+                    {/* ĐÃ GIAO */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500">ĐƠN HÀNG ĐÃ GIAO</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.ordersCompleted}
+                      </span>
+                    </div>
+
+                    {/* TỔNG DOANH THU */}
+                    <div className="bg-white rounded-lg shadow p-6 flex flex-col">
+                      <span className="text-sm font-medium text-gray-500">TỔNG DOANH THU</span>
+                      <span className="mt-2 text-3xl font-bold text-gray-800">
+                        {metrics.totalRevenue.toLocaleString('vi-VN')} đ
+                      </span>
+                    </div>
+
+
                   </div>
 
-                  {/* ĐƠN HÀNG (tổng) */}
-                  <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">TỔNG ĐƠN HÀNG</span>
-                    <span className="mt-2 text-3xl font-bold text-gray-800">
-                      {metrics.totalOrders}
-                    </span>
+                  {/* Pie Chart: Tỷ lệ trạng thái đơn hàng */}
+                  <div className="bg-white rounded-lg shadow p-6 mb-8 ">
+                    <h4 className="text-lg font-semibold text-gray-700 mb-4">
+                      Tỷ lệ Đơn hàng theo Trạng thái
+                    </h4>
+                    <div className="w-full h-64">
+                      <ResponsiveContainer>
+                        <PieChart>
+                          <Pie
+                            data={statusData}
+                            dataKey="value"
+                            nameKey="name"
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={80}
+                            label={({ name, percent }) =>
+                              `${name}: ${(percent * 100).toFixed(0)}%`
+                            }
+                          >
+                            {statusData.map((entry, index) => (
+                              <Cell
+                                key={`cell-${index}`}
+                                fill={COLORS[index % COLORS.length]}
+                              />
+                            ))}
+                          </Pie>
+                          <Tooltip formatter={(value) => [value, 'Số lượng']} />
+                          <Legend
+                            verticalAlign="bottom"
+                            height={36}
+                            formatter={(value) => <span className="text-sm">{value}</span>}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
 
-                  {/* NHÂN VIÊN */}
-                  <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">TỔNG QUẢN TRỊ BÁN HÀNG</span>
-                    <span className="mt-2 text-3xl font-bold text-gray-800">
-                      {metrics.totalEmployees}
-                    </span>
-                  </div>
+                  {/* (Bạn có thể thêm biểu đồ khác ở đây nếu cần) */}
+                </>
+              )}
+            </>
+          )}
 
-                  {/* ĐƠN HÀNG CHƯA GIAO */}
-                  <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">CHƯA GIAO</span>
-                    <span className="mt-2 text-3xl font-bold text-gray-800">
-                      {metrics.ordersPending}
-                    </span>
-                  </div>
-
-                  {/* ĐANG GIAO */}
-                  <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">ĐANG GIAO</span>
-                    <span className="mt-2 text-3xl font-bold text-gray-800">
-                      {metrics.ordersInProgress}
-                    </span>
-                  </div>
-
-                  {/* ĐÃ GIAO */}
-                  <div className="bg-white rounded-lg shadow p-6 flex flex-col">
-                    <span className="text-sm font-medium text-gray-500">ĐÃ GIAO</span>
-                    <span className="mt-2 text-3xl font-bold text-gray-800">
-                      {metrics.ordersCompleted}
-                    </span>
-                  </div>
-
-
-                </div>
-
-                {/* Pie Chart: Tỷ lệ trạng thái đơn hàng */}
-                <div className="bg-white rounded-lg shadow p-6 mb-8">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-4">
-                    Tỷ lệ Đơn hàng theo Trạng thái
-                  </h4>
-                  <div className="w-full h-64">
-                    <ResponsiveContainer>
-                      <PieChart>
-                        <Pie
-                          data={statusData}
-                          dataKey="value"
-                          nameKey="name"
-                          cx="50%"
-                          cy="50%"
-                          outerRadius={80}
-                          label={({ name, percent }) =>
-                            `${name}: ${(percent * 100).toFixed(0)}%`
-                          }
-                        >
-                          {statusData.map((entry, index) => (
-                            <Cell
-                              key={`cell-${index}`}
-                              fill={COLORS[index % COLORS.length]}
-                            />
-                          ))}
-                        </Pie>
-                        <Tooltip formatter={(value) => [value, 'Số lượng']} />
-                        <Legend
-                          verticalAlign="bottom"
-                          height={36}
-                          formatter={(value) => <span className="text-sm">{value}</span>}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-                {/* (Bạn có thể thêm biểu đồ khác ở đây nếu cần) */}
-              </>
-            )}
-          </>
-        )}
-
-        {activeTab === 'orders' && (
-          <div className="text-center text-gray-500">
-            Trang Đơn hàng (chưa triển khai trong HomeDashboard)
-          </div>
-        )}
+          {activeTab === 'orders' && (
+            <div className="text-center text-gray-500">
+              Trang Đơn hàng (chưa triển khai trong HomeDashboard)
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 
