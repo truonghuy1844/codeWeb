@@ -33,7 +33,7 @@ const AdminHeader = () => {
           <Link to="/" className="back-to-user">← Trang người dùng</Link>
         </div>
 
-        <div className="right">
+       <div className="right" style={{ color: 'white', backgroundColor: 'transparent' }}>
           {user ? (
             <>
               <span>👤 {user.name || user.email}</span>
