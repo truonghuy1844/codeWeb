@@ -92,7 +92,7 @@ useEffect(() => {
             <p><strong>Người nhận:</strong> {order.receiverName}</p>
             <p><strong>SĐT:</strong> {order.receiverPhone}</p>
             <p><strong>Địa chỉ nhận hàng:</strong> {order.deliveryAddress}</p>
-            <p><strong>Phương thức thanh toán:</strong> {order.paymentMethod || "Chưa cập nhật"}</p>
+            <p><strong>Phương thức thanh toán:</strong> {order.paymentMethod || "Thanh toán khi nhận hàng"}</p>
           </div>
 
           {/* Danh sách sản phẩm */}

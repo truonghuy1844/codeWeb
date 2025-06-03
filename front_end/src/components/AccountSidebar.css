@@ -1,6 +1,6 @@
 .profile-sidebar {
   flex-shrink: 0;
-  width: 230px; /* vừa với nội dung */
+  min-width: 230px; 
   height: 280px;
   padding: 1.5rem;
   background: #fff;

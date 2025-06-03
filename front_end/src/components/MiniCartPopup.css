@@ -110,14 +110,15 @@
   color: #333;
 }
 
-.cart-buttons {
+.cart-button3 {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
   gap: 12px;
+  color: #e53935;
 }
 
-.cart-buttons button {
+.cart-button3 button {
   flex: 1;
   padding: 10px;
   font-size: 14px;
@@ -128,22 +129,22 @@
   transition: all 0.2s;
 }
 
-.cart-buttons .view-cart {
+.cart-button3 .view-cart {
   background: #fff;
   border: 2px solid #e53935;
   color: #e53935;
 }
 
-.cart-buttons .view-cart:hover {
+.cart-button3 .view-cart:hover {
   background: #ffecec;
 }
 
-.cart-buttons .checkout {
+.cart-button3 .checkout {
   background: #e53935;
   color: white;
 }
 
-.cart-buttons .checkout:hover {
+.cart-button3 .checkout:hover {
   background: #c62828;
 }
 

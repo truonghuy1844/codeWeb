@@ -138,70 +138,87 @@ namespace back_end.Controllers
         {
             using var conn = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             conn.Open();
+
             var order = new OrderDto { OrderId = orderId, Products = new List<ProductDto>() };
-            using (var cmd = new SqlCommand(@"
-    SELECT 
-        o.status, 
-        o.date_created,
-        s.date_actual_deli,
-        ISNULL(s.name_receive, u.name),
-        ISNULL(s.phone_receive, u.phone_number),
-        ISNULL(CONCAT_WS(', ', a.detail, a.street, a.ward, a.district, a.city, a.country), ''),
-        ISNULL(pm.name, '')
-    FROM order_tb o
-    LEFT JOIN shipment s ON o.order_id = s.order_id
-    LEFT JOIN address a ON s.address_id = a.address_id
-    LEFT JOIN invoice i ON o.order_id = i.order_id
-    LEFT JOIN payment_method pm ON i.method = pm.method_id
-    LEFT JOIN user_tb2 u ON o.buyer = u.user_id
-    WHERE o.order_id = @orderId 
-", conn))
+
+            // 1. Lấy thông tin đơn hàng và địa chỉ nhận hàng
+            string receiverName = "", receiverPhone = "", deliveryAddress = "", paymentMethod = "";
+            DateTime? deliveryDate = null;
+            int status = 0;
+            DateTime orderDate = DateTime.MinValue;
+
+            using (var cmd1 = new SqlCommand(@"
+        SELECT 
+            o.status, 
+            o.date_created,
+            s.date_actual_deli,
+            ISNULL(s.name_receive, u.name),
+            ISNULL(s.phone_receive, u.phone_number),
+            ISNULL(CONCAT_WS(', ', a.detail, a.street, a.ward, a.district, a.city, a.country), ''),
+            ISNULL(pm.name, '')
+        FROM order_tb o
+        LEFT JOIN shipment s ON o.order_id = s.order_id
+        LEFT JOIN address a ON s.address_id = a.address_id
+        LEFT JOIN invoice i ON o.order_id = i.order_id
+        LEFT JOIN payment_method pm ON i.method = pm.method_id
+        LEFT JOIN user_tb2 u ON o.buyer = u.user_id
+        WHERE o.order_id = @orderId
+    ", conn))
             {
-                cmd.Parameters.AddWithValue("@orderId", orderId);
-                using var reader = cmd.ExecuteReader();
-                if (!reader.Read())
+                cmd1.Parameters.AddWithValue("@orderId", orderId);
+                using var reader1 = cmd1.ExecuteReader();
+                if (!reader1.Read())
                     return NotFound(new { message = "Không tìm thấy đơn hàng." });
 
-                int field = 0;
-                order.Status = reader.IsDBNull(field) ? 0 : reader.GetInt32(field++);
-                order.OrderDate = reader.IsDBNull(field) ? DateTime.MinValue : reader.GetDateTime(field++);
-                order.DeliveryDate = reader.IsDBNull(field) ? null : reader.GetDateTime(field++);
-                order.ReceiverName = reader.IsDBNull(field) ? "" : reader.GetString(field++);
-                order.ReceiverPhone = reader.IsDBNull(field) ? "" : reader.GetString(field++);
-                order.DeliveryAddress = reader.IsDBNull(field) ? "" : reader.GetString(field++);
-                order.PaymentMethod = reader.IsDBNull(field) ? "" : reader.GetString(field++);
+                status = reader1.IsDBNull(0) ? 0 : reader1.GetInt32(0);
+                orderDate = reader1.IsDBNull(1) ? DateTime.MinValue : reader1.GetDateTime(1);
+                deliveryDate = reader1.IsDBNull(2) ? null : reader1.GetDateTime(2);
+                receiverName = reader1.IsDBNull(3) ? "" : reader1.GetString(3);
+                receiverPhone = reader1.IsDBNull(4) ? "" : reader1.GetString(4);
+                deliveryAddress = reader1.IsDBNull(5) ? "" : reader1.GetString(5);
+                paymentMethod = reader1.IsDBNull(6) ? "" : reader1.GetString(6);
             }
 
-            using (var cmd = new SqlCommand(@"
-   SELECT p.name, p.url_image1, p.description, od.quantity, 
-          ISNULL(p.price2, p.price1) AS price, p.price1, p.price2
-    FROM order_d od
-    JOIN product p ON od.product_id = p.product_id
-    WHERE od.order_id = @orderId
-", conn))
+            // 2. Lấy danh sách sản phẩm trong đơn
+            using (var cmd2 = new SqlCommand(@"
+        SELECT p.name, p.url_image1, p.description, od.quantity, 
+               ISNULL(p.price2, p.price1) AS price, p.price1, p.price2
+        FROM order_d od
+        JOIN product p ON od.product_id = p.product_id
+        WHERE od.order_id = @orderId
+    ", conn))
             {
-                cmd.Parameters.AddWithValue("@orderId", orderId);
-                using var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                cmd2.Parameters.AddWithValue("@orderId", orderId);
+                using var reader2 = cmd2.ExecuteReader();
+                while (reader2.Read())
                 {
                     var product = new ProductDto
                     {
-                        ProductName = reader.IsDBNull(0) ? "" : reader.GetString(0),
-                        Thumbnail = reader.IsDBNull(1) ? "" : reader.GetString(1),
-                        Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                        Quantity = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
-                        Price = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4),
-                        Price1 = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5),
-                        Price2 = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6)
+                        ProductName = reader2.IsDBNull(0) ? "" : reader2.GetString(0),
+                        Thumbnail = reader2.IsDBNull(1) ? "" : reader2.GetString(1),
+                        Description = reader2.IsDBNull(2) ? "" : reader2.GetString(2),
+                        Quantity = reader2.IsDBNull(3) ? 0 : reader2.GetInt32(3),
+                        Price = reader2.IsDBNull(4) ? 0 : reader2.GetDecimal(4),
+                        Price1 = reader2.IsDBNull(5) ? 0 : reader2.GetDecimal(5),
+                        Price2 = reader2.IsDBNull(6) ? 0 : reader2.GetDecimal(6)
                     };
                     order.Products.Add(product);
                 }
             }
 
+            // 3. Tính tổng tiền
+            order.Status = status;
+            order.OrderDate = orderDate;
+            order.DeliveryDate = deliveryDate;
+            order.ReceiverName = receiverName;
+            order.ReceiverPhone = receiverPhone;
+            order.DeliveryAddress = deliveryAddress;
+            order.PaymentMethod = paymentMethod;
             order.TotalPrice = order.Products.Sum(p => p.Price * p.Quantity);
             var shippingFee = order.TotalPrice >= 500000 ? 0 : 30000;
             var totalPay = order.TotalPrice + shippingFee;
 
+            // 4. Trả về kết quả
             return Ok(new
             {
                 order.OrderId,
@@ -217,8 +234,8 @@ namespace back_end.Controllers
                 ShippingFee = shippingFee,
                 TotalPay = totalPay
             });
-
         }
+
 
         [HttpPost("create")]
         public IActionResult CreateOrder([FromBody] CheckoutDto orderDto)

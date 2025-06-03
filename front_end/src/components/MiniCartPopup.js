@@ -104,7 +104,7 @@ const MiniCartPopup = () => {
             Tổng cộng: <span>{total.toLocaleString('vi-VN')} ₫</span>
           </div>
 
-          <div className="cart-buttons">
+          <div className="cart-button3">
             <button onClick={() => navigate('/cart')}>Xem giỏ hàng</button>
             <button onClick={() => navigate('/checkout')}>Thanh toán ngay</button>
           </div>
