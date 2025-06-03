@@ -12,7 +12,7 @@ namespace back_end.Models.Entity
 
     public string? Name2 { get; set; }
 
-    public DateOnly? Birthday { get; set; }
+    public DateTime? Birthday { get; set; }
 
     public string? PhoneNumber { get; set; }
 

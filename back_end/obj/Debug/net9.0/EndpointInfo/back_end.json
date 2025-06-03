@@ -1059,29 +1059,6 @@
         }
       }
     },
-    "/api/User/get/{userId}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/User/search": {
       "post": {
         "tags": [
@@ -1261,6 +1238,14 @@
           },
           "status": {
             "type": "boolean",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
             "nullable": true
           },
           "addressId": {
@@ -1537,6 +1522,14 @@
           },
           "status": {
             "type": "boolean",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -2737,6 +2730,10 @@
           "address": {
             "type": "string",
             "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2859,7 +2856,7 @@
           },
           "birthday": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "nullable": true
           },
           "phoneNumber": {

@@ -671,22 +671,6 @@
   },
   {
     "ContainingType": "back_end.Controllers.UserController",
-    "Method": "GetUser",
-    "RelativePath": "api/User/get/{userId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "back_end.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "api/User/login",
     "HttpMethod": "POST",
@@ -735,7 +719,7 @@
   },
   {
     "ContainingType": "back_end.Controllers.UserController",
-    "Method": "UpdateUser",
+    "Method": "UpsertUser",
     "RelativePath": "api/User/upsert",
     "HttpMethod": "POST",
     "IsController": true,

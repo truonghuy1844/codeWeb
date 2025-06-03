@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\codeWeb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\models\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\models\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\datatransferobject\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\datatransferobject\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\models\\webcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\models\\webcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\models\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\models\\entity\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,14 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\datatransferobject\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|solutionrelative:back_end\\datatransferobject\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{240C4A15-B205-9F4C-8D6C-B984E5A166A5}|back_end\\back_end.csproj|c:\\users\\admin\\codeweb\\back_end\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,7 +86,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "back_end\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Properties\\launchSettings.json",
+              "RelativeToolTip": "back_end\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-31T07:02:37.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Models\\Entity\\User.cs",
               "RelativeDocumentMoniker": "back_end\\Models\\Entity\\User.cs",
@@ -95,33 +112,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "back_end\\Controllers\\OrderController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\OrderController.cs",
-              "RelativeToolTip": "back_end\\Controllers\\OrderController.cs",
-              "ViewState": "AgIAAMcAAAAAAAAAAAAqwNYAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T17:12:57.526Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "back_end\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\UserController.cs",
-              "RelativeToolTip": "back_end\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAkwHgAAAAuAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\UserController.cs*",
+              "RelativeToolTip": "back_end\\Controllers\\UserController.cs*",
+              "ViewState": "AgIAABUBAAAAAAAAAAAAwB0BAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-30T17:07:08.422Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\appsettings.json",
               "RelativeDocumentMoniker": "back_end\\appsettings.json",
@@ -134,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Program.cs",
               "RelativeDocumentMoniker": "back_end\\Program.cs",
@@ -147,20 +151,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "WebCodeContext.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Models\\WebCodeContext.cs",
               "RelativeDocumentMoniker": "back_end\\Models\\WebCodeContext.cs",
               "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Models\\WebCodeContext.cs",
               "RelativeToolTip": "back_end\\Models\\WebCodeContext.cs",
-              "ViewState": "AgIAAPgDAAAAAAAAAAAowAkEAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-30T17:12:00.146Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "back_end\\Controllers\\ProductController.cs",
@@ -173,7 +177,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\DataTransferObject\\UserDto.cs",
+              "RelativeDocumentMoniker": "back_end\\DataTransferObject\\UserDto.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\DataTransferObject\\UserDto.cs",
+              "RelativeToolTip": "back_end\\DataTransferObject\\UserDto.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAwwBsAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T05:46:05.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "back_end\\Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "back_end\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAqwNYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T17:12:57.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "CartController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "back_end\\Controllers\\CartController.cs",
@@ -186,20 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UserDto.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\DataTransferObject\\UserDto.cs",
-              "RelativeDocumentMoniker": "back_end\\DataTransferObject\\UserDto.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\codeWeb\\back_end\\DataTransferObject\\UserDto.cs",
-              "RelativeToolTip": "back_end\\DataTransferObject\\UserDto.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAqwFUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T05:46:05.815Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "AddressController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\AddressController.cs",
               "RelativeDocumentMoniker": "back_end\\Controllers\\AddressController.cs",
@@ -212,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "UserDetails.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Models\\Entity\\UserDetails.cs",
               "RelativeDocumentMoniker": "back_end\\Models\\Entity\\UserDetails.cs",
@@ -229,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\codeWeb\\back_end\\Controllers\\Product.cs",
               "RelativeDocumentMoniker": "back_end\\Controllers\\Product.cs",

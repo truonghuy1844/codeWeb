@@ -47,7 +47,8 @@ namespace back_end.Controllers
             Console.WriteLine($"Nhận được userId: {userId}");
             var addresses = _context.Addresses
                 .Where(a => a.UserId == userId)
-                .Select(a => new {
+                .Select(a => new
+                {
                     a.AddressId,
                     a.City,
                     a.District,
@@ -97,8 +98,10 @@ namespace back_end.Controllers
                 Ward = dto.Ward,
                 Street = dto.Street,
                 Detail = dto.Detail,
+                Name = dto.Name,          
+                Phone = dto.Phone,
                 UserId = userId,
-                Status = !hasAddress  // Nếu chưa có địa chỉ nào → là mặc định
+                Status = !hasAddress  
             };
 
             _context.Addresses.Add(address);
@@ -129,6 +132,8 @@ namespace back_end.Controllers
             address.Ward = dto.Ward;
             address.Street = dto.Street;
             address.Detail = dto.Detail;
+            address.Name = dto.Name;     
+            address.Phone = dto.Phone;      
             address.Status = dto.Status ?? address.Status;
             _context.SaveChanges();
 
@@ -163,43 +168,28 @@ namespace back_end.Controllers
         }
 
         // PUT /api/Address/set-default/{userId}/{addressId}
-        [HttpPut("set-default/{userId}/{addressId}")]
+        [HttpPut("set-default/{userId:int}/{addressId}")]
         public IActionResult SetDefaultAddress(int userId, string addressId)
         {
-            var address = _context.Addresses
-                .FirstOrDefault(a => a.UserId == userId && a.AddressId == addressId);
-
-            if (address == null)
-                return NotFound(new { message = "Không tìm thấy địa chỉ thuộc user này." });
-
-
-            // Bỏ mặc định ở tất cả địa chỉ của user
-            var all = _context.Addresses.Where(a => a.UserId == userId);
-            foreach (var a in all)
+            try
             {
-                a.Status = false;
+                var addresses = _context.Addresses.Where(a => a.UserId == userId).ToList();
+
+                if (!addresses.Any())
+                    return NotFound(new { message = "Không tìm thấy địa chỉ nào cho người dùng này." });
+
+                foreach (var addr in addresses)
+                    addr.Status = addr.AddressId == addressId;
+
+                _context.SaveChanges();
+
+                return Ok(new { message = "Cập nhật địa chỉ mặc định thành công." });
             }
-
-            // Gán mặc định cho địa chỉ được chọn
-            address.Status = true;
-
-            // Cập nhật cột address trong bảng user_tb2
-            var user = _context.Users
-                .Include(u => u.UserDetails)
-                .FirstOrDefault(u => u.UserId == userId);
-
-            if (user?.UserDetails != null)
+            catch (Exception ex)
             {
-                string formatted = $"{address.Detail}, {address.Street}, {address.Ward}, {address.District}, {address.City}";
-                user.UserDetails.Address = formatted;
-                user.UserDetails.Address = formatted;
+                return StatusCode(500, new { message = "Lỗi server: " + ex.Message });
             }
-
-            _context.SaveChanges();
-
-            return Ok(new { message = "Cập nhật địa chỉ mặc định thành công." });
         }
-
     }
-}
+    }
 
