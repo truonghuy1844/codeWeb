@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\codeWeb\\back_end\\back_end.csproj": {}
+    "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\back_end.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\codeWeb\\back_end\\back_end.csproj": {
+    "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\back_end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\codeWeb\\back_end\\back_end.csproj",
+        "projectUniqueName": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\back_end.csproj",
         "projectName": "back_end",
-        "projectPath": "C:\\Users\\ADMIN\\codeWeb\\back_end\\back_end.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\codeWeb\\back_end\\obj\\",
+        "projectPath": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\back_end.csproj",
+        "packagesPath": "C:\\Users\\Lander\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lander\\source\\repos\\codeWeb\\back_end\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lander\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
